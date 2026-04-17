@@ -1,0 +1,9 @@
+# ECNU LLM 客户端
+openai
+python-dotenv
+
+# HTTP 请求（TTS 用）
+requests
+
+# 音频播放
+pygame
