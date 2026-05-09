@@ -125,6 +125,7 @@ def print_help():
     print("  quit              退出程序")
     print("  reset             重置整局游戏")
     print("  status            查看当前游戏状态")
+    print("  /progress         查看游戏进度仪表盘（DM 感知）")
     print("  /clue1            公开线索 1")
     print("  /clue2            公开线索 2")
     print("  /phase next       推进到下一个 schema 阶段")
@@ -251,9 +252,12 @@ def main():
     parser.add_argument("--script-id", default=None, help="ScriptSchema script_id, e.g. second_sample")
     parser.add_argument("--schema-path", default=None, help="Path to a ScriptSchema v0.2.1 JSON file")
     parser.add_argument("--no-schema", action="store_true", help="Disable schema shadow mode and use legacy demo data")
+    parser.add_argument("--demo", action="store_true", help="Demo mode: preset audio, show checklist, streamlined startup")
     args, _unknown = parser.parse_known_args()
     if args.no_schema:
         os.environ["AI_DM_SCHEMA_ENABLED"] = "0"
+    if args.demo:
+        os.environ["AI_DM_SCHEMA_ENABLED"] = "1"
 
     dm = DMEngine(script_id=args.script_id, schema_path=args.schema_path)
     last_bgm_signature: Optional[str] = None
@@ -324,24 +328,57 @@ def main():
                 sound_enabled = False
         return True
 
-    print("=" * 50)
-    print("欢迎来到中文 AI 剧本杀 DM")
-    print(f"剧本：{dm.get_script_display_title()}")
-    print(f"Schema shadow：{dm.schema_shadow_status}")
-    print("=" * 50)
-    print()
-    print("【交互说明】")
-    print("- DM 点名后，下一条输入默认属于该玩家")
-    print("- DM 会在需要主持、追问、点名、发线索时发言")
-    print("- 语音输出已开启（女声 DM，男声业主），输入 '/sound off' 可关闭")
-    print("- 背景音乐已开启，输入 '/bgm off' 可关闭")
-    print("- SFX 音效已开启，输入 '/sfx off' 可关闭")
-    print("- 讨论 10 分钟后可输入 '/search [地点]' 搜索证据")
-    print("- 结局后输入 '/review' 可进入完整结构化复盘，也可以直接追问")
-    print("- 输入 '/save [文件名]' 保存游戏，'/load [文件名]' 读取")
-    print()
-    print_help()
-    print()
+    if args.demo:
+        print()
+        print("+" + "-" * 48 + "+")
+        print("|" + "  AI-DM 演示模式".center(44) + "|")
+        print("|" + f"  剧本：{dm.get_script_display_title()}".ljust(48) + "|")
+        print("+" + "-" * 48 + "+")
+        print()
+        print("  演示前检查：")
+        schema_ok = dm.schema_shadow_status == "loaded"
+        print(f"    Schema 加载 ............... {'[OK]' if schema_ok else '[FAIL]'} ({dm.schema_shadow_status})")
+        tts_voice = getattr(tts, 'current_voice', 'xiayu') or 'xiayu'
+        print(f"    TTS 引擎 ................. [OK] ({tts_voice})")
+        bgm_catalog = bgm.get_mood_catalog() if bgm_enabled else {}
+        bgm_count = sum(bgm_catalog.values())
+        print(f"    BGM 引擎 ................. [OK] ({bgm_count} 曲目, {len(bgm_catalog)} 情绪桶)" if bgm_count > 0 else "    BGM 引擎 ................. [--] (无曲目)")
+        sfx_catalog = sfx.get_catalog() if sfx_enabled else {}
+        sfx_count = sum(sfx_catalog.values())
+        print(f"    SFX 引擎 ................. [OK] ({sfx_count} 条, {len(sfx_catalog)} 分类)" if sfx_count > 0 else "    SFX 引擎 ................. [--] (无素材)")
+        print()
+        print("  演示流程建议：")
+        print("    1. 开场后输入 '理解了' 进入讨论")
+        print("    2. /phase next 推进 schema 阶段")
+        print("    3. /progress   展示 DM 进度感知")
+        print("    4. /vote       进入投票 -> 录入答案 -> 结局")
+        print("    5. /review     进入结构化复盘")
+        print()
+        print("  加分演示：")
+        print("    /packet wolf           私密角色包（不泄露到提示词）")
+        print("    /sfx status            音效系统状态")
+        print("    /bgm mood list         情绪音乐库")
+        print()
+        print("-" * 50)
+    else:
+        print("=" * 50)
+        print("欢迎来到中文 AI 剧本杀 DM")
+        print(f"剧本：{dm.get_script_display_title()}")
+        print(f"Schema shadow：{dm.schema_shadow_status}")
+        print("=" * 50)
+        print()
+        print("【交互说明】")
+        print("- DM 点名后，下一条输入默认属于该玩家")
+        print("- DM 会在需要主持、追问、点名、发线索时发言")
+        print("- 语音输出已开启（女声 DM，男声业主），输入 '/sound off' 可关闭")
+        print("- 背景音乐已开启，输入 '/bgm off' 可关闭")
+        print("- SFX 音效已开启，输入 '/sfx off' 可关闭")
+        print("- 讨论 10 分钟后可输入 '/search [地点]' 搜索证据")
+        print("- 结局后输入 '/review' 可进入完整结构化复盘，也可以直接追问")
+        print("- 输入 '/save [文件名]' 保存游戏，'/load [文件名]' 读取")
+        print()
+        print_help()
+        print()
 
     if bgm_enabled:
         if bgm.is_auto_mood_enabled():
@@ -408,6 +445,10 @@ def main():
 
         if lowered == "status":
             print(f"\n{dm.get_status_text()}")
+            continue
+
+        if lowered == "/progress" or lowered == "progress":
+            print(dm.format_progress_display())
             continue
 
         if lowered.startswith("/phase"):

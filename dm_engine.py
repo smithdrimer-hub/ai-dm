@@ -484,12 +484,14 @@ class DMEngine:
             title = self.script_schema.get("script_info", {}).get("title", "Monsters Halloween Night") if self._schema_active() else "Monsters Halloween Night"
             reply = (
                 "=================================================\n"
-                f"[欢迎来到《{title}》]\n"
+                f"  欢迎来到《{title}》\n"
                 "=================================================\n\n"
                 f"{materials['opening_script']}\n\n"
-                "【规则说明】\n"
+                "-----------------------------------------\n"
+                "  [1/3] 规则说明\n"
+                "-----------------------------------------\n"
                 f"{materials['rules_text']}\n\n"
-                '以上规则大家理解了吗？如果有疑问现在可以提出，如果没有就回复"理解了"或"继续"开始游戏。'
+                '以上规则大家理解了吗？输入"理解了"继续。'
             )
             self._enter_schema_phase(self._first_schema_phase_id(), emit_text=False, update_legacy_phase=False)
             self.opening_step = 1
@@ -700,6 +702,91 @@ class DMEngine:
             "progress_health": self.progress_health,
             "advice": advice,
         }
+
+    def format_progress_display(self) -> str:
+        """格式化进度仪表盘，供 CLI /progress 命令使用。"""
+        report = self.get_game_progress_report()
+        lines = []
+        lines.append("")
+        lines.append("=" * 44)
+        lines.append("        游戏进度仪表盘".center(40))
+        lines.append("=" * 44)
+
+        schema_phase = getattr(self, 'schema_phase_id', '') or 'N/A'
+        phase_name = {"discussion": "讨论中", "vote": "投票中", "opening": "开场",
+                      "opening_rules": "规则确认", "owner_confrontation": "业主对峙",
+                      "ending": "结局", "postgame_review": "复盘"}.get(self.game_phase, self.game_phase)
+        lines.append(f"  阶段：{phase_name} (schema: {schema_phase})")
+        lines.append(f"  用时：{report['elapsed_minutes']} 分钟 | 轮次：{report['turn_count']}")
+
+        # 推理进度健康度
+        health_labels = {"progressing": "正常推进", "stalled": "可能卡住", "breakthrough": "突破进展"}
+        health = report.get('progress_health', 'progressing')
+        health_text = health_labels.get(health, health)
+        lines.append(f"  推理健康度：{health_text}")
+        lines.append("")
+
+        # 线索/证据进度
+        clue_max = max(report.get('total_questions', 2), 1)
+        evidence_max = 2
+        lines.append(f"  已公开线索：{report['released_clues']}/{clue_max}  {'[OK]' if report['released_clues'] >= clue_max else '[..]'}")
+        lines.append(f"  已发现证据：{report['found_evidence']}/{evidence_max}  {'[OK]' if report['found_evidence'] >= evidence_max else '[..]'}")
+
+        # 问题覆盖
+        cq = report.get('covered_questions', 0)
+        q_status = " | ".join([
+            f"犯人 {'[OK]' if cq >= 1 else '[??]'}",
+            f"碎布 {'[OK]' if cq >= 2 else '[??]'}",
+            f"橱柜 {'[OK]' if cq >= 3 else '[??]'}",
+        ])
+        lines.append(f"  问题覆盖：{q_status}")
+        lines.append("")
+
+        # 仍缺失的关键线索（已公开但玩家尚未讨论的）
+        snapshot = self._build_clue_attention_snapshot()
+        ignored_clues = snapshot.get("ignored_clues", [])
+        if ignored_clues:
+            lines.append("  仍缺失的关键线索：")
+            for cid in ignored_clues:
+                clue = self._get_clue_record(cid)
+                name = clue.get("name", cid) if clue else cid
+                state = self.clue_attention.get(cid, {})
+                mentioned = state.get("mentioned_count", 0)
+                lines.append(f"    [!] {name}（公开后未被讨论）")
+            lines.append("")
+        elif self.released_clues:
+            lines.append("  已公开线索均已被讨论过。")
+            lines.append("")
+
+        # 发言统计
+        lines.append("  发言统计：")
+        max_count = max(self.speaker_turn_count.values()) if self.speaker_turn_count else 1
+        for role in self.role_names:
+            count = self.speaker_turn_count.get(role, 0)
+            bar_len = max(1, int(count / max(1, max_count) * 10))
+            bar = "#" * bar_len + "-" * (10 - bar_len)
+            flag = " (!)" if count == 0 else ""
+            lines.append(f"    {role} {bar} {count} 次{flag}")
+        lines.append("")
+
+        # 是否接近投票/结局
+        if self.game_phase == "discussion":
+            elapsed = report.get('elapsed_minutes', 0)
+            if elapsed >= self.SUGGEST_VOTE_AFTER_MINUTES and report['released_clues'] >= 2:
+                lines.append(f"  [!] 已讨论 {elapsed} 分钟，建议准备 /vote 收束")
+            elif elapsed >= 15 and report['released_clues'] >= 1:
+                lines.append(f"  [~] 讨论进度中等，线索 {report['released_clues']}/2")
+            else:
+                next_clue_time = 10 if report['released_clues'] == 0 else 20
+                remain = max(0, next_clue_time - elapsed)
+                if remain > 0:
+                    lines.append(f"  [>] 预计 {remain} 分钟后公开下一条线索")
+            lines.append("")
+
+        if report.get('advice'):
+            lines.append(f"  DM 建议：{report['advice']}")
+        lines.append("=" * 44)
+        return "\n".join(lines)
 
     def get_progress_snapshot(self):
         """返回所有进度追踪字段的快照。"""
@@ -1106,7 +1193,10 @@ class DMEngine:
                 self.opening_step = 3
                 return "\n━━━ 游戏开始 ━━━\n\n" + drama_text + self._continue_opening_reading()
         drama_reply = (
-            "\n━━━ 游戏开始 ━━━\n\n万圣节之夜，克苏鲁仙境主题乐园的热闹渐渐平息。\n"
+            "\n-----------------------------------------\n"
+            "  [2/3] 故事导入\n"
+            "-----------------------------------------\n\n"
+            "万圣节之夜，克苏鲁仙境主题乐园的热闹渐渐平息。\n"
             "闭园广播响起，游客们陆续离开，只留下你们四位怪物工作人员。\n\n"
             "突然，乐园的灯光闪烁起来。一个沉重的身影出现在黑暗中——\n"
             "是业主。他的声音颤抖着，带着愤怒和悲伤：\n\n"
@@ -1120,7 +1210,7 @@ class DMEngine:
     def _continue_opening_reading(self):
         story_hook = SCRIPT_DATA["public_intro"]["story_hook"]
         background = SCRIPT_DATA["world"]["background"]
-        reading_reply = "\n━━━ 故事背景 ━━━\n\n"
+        reading_reply = "\n  [故事背景]\n\n"
         for line in story_hook: reading_reply += f"• {line}\n"
         reading_reply += f"\n{background}\n"
         self.opening_step = 4
@@ -1130,7 +1220,10 @@ class DMEngine:
         questions = SCRIPT_DATA["final_answer_check"]["public_questions"]
         questions_text = "\n".join([f"{i}. {q['question']}" for i, q in enumerate(questions, 1)])
         tasks_reply = (
-            "\n━━━ 你们的任务 ━━━\n\n通过讨论交换信息，找出以下三道问题的答案：\n\n"
+            "\n-----------------------------------------\n"
+            "  [3/3] 任务陈述\n"
+            "-----------------------------------------\n\n"
+            "通过讨论交换信息，找出以下三道问题的答案：\n\n"
             f"{questions_text}\n\n讨论结束后，所有玩家同时公开写下的答案，然后录入程序。\n"
             "如果'谁是真正的犯人'出现平票，请线下自行决定最终结果。\n\n"
         )
@@ -2035,6 +2128,22 @@ class DMEngine:
         history.append(claim)
         self.player_claims_history[speaker] = history[-5:]
         if len(history) < 2: return None
+        # 比较最新陈述与历史陈述，检测时间/地点/行为矛盾
+        latest = history[-1]
+        for prev in history[-4:-1]:
+            if not prev: continue
+            # 时间矛盾：提到不同时间点
+            time_words = ["18点", "19点", "20点", "22点", "六点", "七点", "八点", "十点"]
+            latest_times = [t for t in time_words if t in latest]
+            prev_times = [t for t in time_words if t in prev]
+            if latest_times and prev_times and set(latest_times) != set(prev_times):
+                return f"{speaker}的陈述似乎前后时间不一致（之前提到{','.join(prev_times)}，现在提到{','.join(latest_times)}），大家可以注意一下。"
+            # 地点矛盾
+            loc_words = ["等候室", "补给橱柜", "垃圾桶", "画框", "休息室"]
+            latest_locs = [l for l in loc_words if l in latest]
+            prev_locs = [l for l in loc_words if l in prev]
+            if latest_locs and prev_locs and set(latest_locs) != set(prev_locs):
+                return f"{speaker}说的地点好像和之前不太一样（之前提到{','.join(prev_locs)}，现在提到{','.join(latest_locs)}），大家可以追问一下。"
         return None
 
     def _check_participation(self):
