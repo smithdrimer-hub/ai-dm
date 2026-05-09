@@ -1,0 +1,144 @@
+{
+  "name": "tiny DetectiveGameEngine replay",
+  "schema_path": "scripts/schema_examples/tiny_detective_case_v0_1.json",
+  "steps": [
+    {
+      "name": "initial status",
+      "command": "/status",
+      "expect_code": "status_ok",
+      "expect_ok": true,
+      "expect_phase": "phase_intro",
+      "expect_snapshot": {
+        "game_over": false,
+        "won": false
+      },
+      "expect_snapshot_contains": {
+        "unlocked_scene_ids": [
+          "scene_archive",
+          "scene_lobby"
+        ]
+      }
+    },
+    {
+      "name": "search archive",
+      "command": "/search scene_archive",
+      "expect_code": "search_found_evidence",
+      "expect_ok": true,
+      "expect_phase": "phase_investigation",
+      "expect_new_evidence_ids": [
+        "evidence_contract"
+      ],
+      "expect_snapshot_contains": {
+        "searched_scene_ids": [
+          "scene_archive"
+        ],
+        "discovered_evidence_ids": [
+          "evidence_contract"
+        ]
+      }
+    },
+    {
+      "name": "search lobby",
+      "command": "/search scene_lobby",
+      "expect_code": "search_found_evidence",
+      "expect_ok": true,
+      "expect_phase": "phase_investigation",
+      "expect_new_evidence_ids": [
+        "evidence_visit_log"
+      ],
+      "expect_snapshot_contains": {
+        "searched_scene_ids": [
+          "scene_lobby"
+        ],
+        "discovered_evidence_ids": [
+          "evidence_visit_log"
+        ]
+      }
+    },
+    {
+      "name": "show visit log",
+      "command": "/show evidence_visit_log",
+      "expect_code": "show_ok",
+      "expect_ok": true,
+      "expect_phase": "phase_investigation",
+      "expect_snapshot_contains": {
+        "shown_evidence_ids": [
+          "evidence_visit_log"
+        ]
+      }
+    },
+    {
+      "name": "confront qin with visit log",
+      "command": "/confront qin_yu evidence_visit_log",
+      "expect_code": "confront_lie_broken",
+      "expect_ok": true,
+      "expect_phase": "phase_confrontation",
+      "expect_new_broken_lie_ids": [
+        "lie_qin_no_gap"
+      ],
+      "expect_snapshot_contains": {
+        "broken_lie_ids": [
+          "lie_qin_no_gap"
+        ],
+        "unlocked_scene_ids": [
+          "scene_office"
+        ]
+      }
+    },
+    {
+      "name": "search office",
+      "command": "/search scene_office",
+      "expect_code": "search_found_evidence",
+      "expect_ok": true,
+      "expect_phase": "phase_confrontation",
+      "expect_new_evidence_ids": [
+        "evidence_security_log",
+        "evidence_tea_cup"
+      ],
+      "expect_snapshot_contains": {
+        "discovered_evidence_ids": [
+          "evidence_security_log",
+          "evidence_tea_cup"
+        ]
+      }
+    },
+    {
+      "name": "confront lin with security log",
+      "command": "/confront lin_wei evidence_security_log",
+      "expect_code": "confront_lie_broken",
+      "expect_ok": true,
+      "expect_phase": "phase_confrontation",
+      "expect_new_broken_lie_ids": [
+        "lie_lin_archive_alibi"
+      ],
+      "expect_snapshot_contains": {
+        "broken_lie_ids": [
+          "lie_lin_archive_alibi"
+        ]
+      }
+    },
+    {
+      "name": "accuse culprit",
+      "command": "/accuse lin_wei motive=truth_motive_contract method=truth_poison_tea evidence=evidence_contract,evidence_security_log,evidence_tea_cup lies=lie_lin_archive_alibi",
+      "expect_code": "accuse_correct",
+      "expect_ok": true,
+      "expect_phase": "phase_recap",
+      "expect_snapshot": {
+        "game_over": true,
+        "won": true,
+        "wrong_accusations": 0
+      }
+    },
+    {
+      "name": "blocked after ending",
+      "command": "/search scene_archive",
+      "expect_code": "game_already_over",
+      "expect_ok": false,
+      "expect_phase": "phase_recap",
+      "expect_snapshot": {
+        "game_over": true,
+        "won": true
+      }
+    }
+  ]
+}

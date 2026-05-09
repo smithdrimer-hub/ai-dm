@@ -1,0 +1,327 @@
+{
+  "name": "schema runtime replay suite",
+  "sessions": [
+    {
+      "name": "monsters_phase_and_clue_replay",
+      "script_id": "monsters_halloween_night_cn",
+      "schema_enabled": true,
+      "steps": [
+        {
+          "name": "start demo",
+          "op": "start_game",
+          "assert": {
+            "active_script_id": "monsters_halloween_night_cn",
+            "schema_phase": "intro",
+            "game_phase": "opening_rules",
+            "released_clues_exact": [],
+            "prompt_not_contains": [
+              "撬坏橱柜",
+              "撕碎衣物"
+            ],
+            "public_knowledge_not_contains": [
+              "撬坏橱柜",
+              "撕碎衣物"
+            ]
+          }
+        },
+        {
+          "name": "host can inspect private packet",
+          "command": "/packet wolf",
+          "assert": {
+            "schema_phase": "intro",
+            "output_contains": [
+              "wolf_intro_private",
+              "撬坏橱柜"
+            ],
+            "prompt_not_contains": [
+              "撬坏橱柜",
+              "撕碎衣物"
+            ],
+            "public_knowledge_not_contains": [
+              "撬坏橱柜",
+              "撕碎衣物"
+            ]
+          }
+        },
+        {
+          "name": "advance to discussion",
+          "command": "/phase next",
+          "assert": {
+            "schema_phase": "discussion",
+            "released_clues_exact": []
+          }
+        },
+        {
+          "name": "advance to clue one",
+          "command": "/phase next",
+          "assert": {
+            "schema_phase": "clue_1_release",
+            "released_clues_contains": [
+              "clue_1"
+            ],
+            "released_clues_not_contains": [
+              "clue_2"
+            ],
+            "public_knowledge_contains": [
+              "clue_1"
+            ],
+            "prompt_not_contains": [
+              "撕碎衣物"
+            ]
+          }
+        },
+        {
+          "name": "advance through search",
+          "command": "/phase next",
+          "assert": {
+            "schema_phase": "search",
+            "released_clues_contains": [
+              "clue_1"
+            ]
+          }
+        },
+        {
+          "name": "advance to clue two",
+          "command": "/phase next",
+          "assert": {
+            "schema_phase": "clue_2_release",
+            "released_clues_contains": [
+              "clue_1",
+              "clue_2"
+            ],
+            "public_knowledge_contains": [
+              "clue_2"
+            ],
+            "prompt_not_contains": [
+              "撕碎衣物"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "emergent_action_replay",
+      "schema_path": "scripts/schema_examples/emergent_resolution_minimal.json",
+      "schema_enabled": true,
+      "steps": [
+        {
+          "name": "start emergent",
+          "op": "start_game",
+          "assert": {
+            "active_script_id": "emergent_resolution_minimal",
+            "schema_phase": "round_1",
+            "released_clues_exact": [],
+            "prompt_not_contains": [
+              "Private round instruction."
+            ],
+            "public_knowledge_not_contains": [
+              "Private round instruction."
+            ]
+          }
+        },
+        {
+          "name": "host can inspect private action packet",
+          "command": "/packet Andre",
+          "assert": {
+            "output_contains": [
+              "Private round instruction."
+            ],
+            "prompt_not_contains": [
+              "Private round instruction."
+            ],
+            "public_knowledge_not_contains": [
+              "Private round instruction."
+            ]
+          }
+        },
+        {
+          "name": "player discussion utterance",
+          "input": "Andre builds a timeline: I entered at 20 and saw Beatrice near the room.",
+          "assert": {
+            "schema_phase": "round_1",
+            "prompt_not_contains": [
+              "Private round instruction."
+            ],
+            "public_knowledge_not_contains": [
+              "Private round instruction."
+            ]
+          }
+        },
+        {
+          "name": "submit murder action",
+          "command": "/schema submit actor=Beatrice form=action_card action=MURDER target=Andre",
+          "assert": {
+            "schema_phase": "round_1",
+            "output_contains": [
+              "Schema form submitted",
+              "MURDER"
+            ]
+          }
+        },
+        {
+          "name": "resolve action and route phase",
+          "command": "/schema resolve",
+          "assert": {
+            "schema_phase": "accusation",
+            "output_contains": [
+              "Schema actions resolved",
+              "Next schema phase: accusation"
+            ],
+            "action_results_include": [
+              {
+                "action_type": "MURDER",
+                "status": "resolved",
+                "reason": "murder_success"
+              }
+            ],
+            "public_knowledge_contains": [
+              "murder_success"
+            ],
+            "prompt_not_contains": [
+              "Private round instruction."
+            ]
+          }
+        },
+        {
+          "name": "manual phase next after accusation",
+          "command": "/phase next",
+          "assert": {
+            "schema_phase": "recap",
+            "action_results_include": [
+              {
+                "action_type": "MURDER",
+                "status": "resolved",
+                "reason": "murder_success"
+              }
+            ],
+            "prompt_not_contains": [
+              "Private round instruction."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "fixed_truth_final_reveal_replay",
+      "schema_path": "scripts/schema_examples/fixed_truth_minimal.json",
+      "schema_enabled": true,
+      "steps": [
+        {
+          "name": "start fixed truth",
+          "op": "start_game",
+          "assert": {
+            "active_script_id": "fixed_truth_minimal",
+            "schema_phase": "intro",
+            "final_reveal_steps_exact": [],
+            "prompt_not_contains": [
+              "A fixed truth fact.",
+              "A second fixed reveal fact unlocked by code word."
+            ],
+            "public_knowledge_not_contains": [
+              "A fixed truth fact.",
+              "A second fixed reveal fact unlocked by code word."
+            ]
+          }
+        },
+        {
+          "name": "reveal blocked before terminal phase",
+          "command": "/schema reveal",
+          "assert": {
+            "schema_phase": "intro",
+            "final_reveal_steps_exact": [],
+            "output_contains": [
+              "Final reveal is only available"
+            ],
+            "public_knowledge_not_contains": [
+              "A fixed truth fact.",
+              "A second fixed reveal fact unlocked by code word."
+            ],
+            "prompt_not_contains": [
+              "A fixed truth fact.",
+              "A second fixed reveal fact unlocked by code word."
+            ]
+          }
+        },
+        {
+          "name": "advance to accusation",
+          "command": "/phase next",
+          "assert": {
+            "schema_phase": "accuse",
+            "final_reveal_steps_exact": [],
+            "prompt_not_contains": [
+              "A fixed truth fact.",
+              "A second fixed reveal fact unlocked by code word."
+            ]
+          }
+        },
+        {
+          "name": "reveal step one",
+          "command": "/schema reveal",
+          "assert": {
+            "schema_phase": "accuse",
+            "final_reveal_steps_exact": [
+              1
+            ],
+            "output_contains": [
+              "[Final Reveal Step 1]",
+              "A fixed truth fact.",
+              "Next step condition: await code word OPEN"
+            ],
+            "public_knowledge_contains": [
+              "A fixed truth fact."
+            ],
+            "prompt_contains": [
+              "A fixed truth fact."
+            ],
+            "prompt_not_contains": [
+              "A second fixed reveal fact unlocked by code word."
+            ]
+          }
+        },
+        {
+          "name": "wrong code word does not reveal step two",
+          "command": "/schema reveal code_word=WRONG",
+          "assert": {
+            "schema_phase": "accuse",
+            "final_reveal_steps_exact": [
+              1
+            ],
+            "output_contains": [
+              "requires code_word: OPEN"
+            ],
+            "public_knowledge_not_contains": [
+              "A second fixed reveal fact unlocked by code word."
+            ],
+            "prompt_not_contains": [
+              "A second fixed reveal fact unlocked by code word."
+            ]
+          }
+        },
+        {
+          "name": "right code word reveals step two",
+          "command": "/schema reveal code_word=OPEN",
+          "assert": {
+            "schema_phase": "accuse",
+            "final_reveal_steps_exact": [
+              1,
+              2
+            ],
+            "output_contains": [
+              "[Final Reveal Step 2]",
+              "A second fixed reveal fact unlocked by code word.",
+              "Speaker: Character B"
+            ],
+            "public_knowledge_contains": [
+              "A fixed truth fact.",
+              "A second fixed reveal fact unlocked by code word."
+            ],
+            "prompt_contains": [
+              "A fixed truth fact.",
+              "A second fixed reveal fact unlocked by code word."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

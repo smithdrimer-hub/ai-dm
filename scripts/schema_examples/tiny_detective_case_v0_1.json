@@ -1,0 +1,584 @@
+{
+  "schema_version": "game_schema_v0.1",
+  "game_info": {
+    "id": "tiny_detective_case_v0_1",
+    "title": "午夜档案室",
+    "language": "zh-CN",
+    "mode": "single_player_detective",
+    "player_role": "detective"
+  },
+  "source_info": {
+    "source_type": "manual",
+    "input_format": "json",
+    "license_status": "internal mock only",
+    "notes": "用于 GameSchema v0.1 校验和运行时设计的最小单人案件样例。"
+  },
+  "review": {
+    "status": "confirmed",
+    "missing_fields": [],
+    "logic_warnings": [],
+    "spoiler_risks": [
+      "林唯的办公室出现记录在未解锁前不能进入 NPC prompt。",
+      "毒茶杯和合同动机必须在玩家搜证或对质后逐步释放。"
+    ],
+    "manual_checklist": [
+      "确认真凶、动机、手法和三条关键证据链一致。",
+      "确认 NPC 初始知识不会提前泄露凶手。"
+    ],
+    "source_traces": [
+      {
+        "field": "truth_model.culprit_character_id",
+        "source": "manual fixture",
+        "confidence": 1.0
+      }
+    ]
+  },
+  "public_case": {
+    "setting": "旧城区图书馆在闭馆后发生命案，馆长沈河被发现死在办公室。",
+    "opening_text": "你被请到现场时，雨还没有停。图书馆只剩三名相关人员留在馆内。",
+    "detective_briefing": "找出真凶、动机、作案手法，并用证据链说明推理过程。",
+    "case_objectives": [
+      "搜索场景，发现关键证据。",
+      "询问嫌疑人，找出前后矛盾。",
+      "出示证据击破谎言。",
+      "提交最终指认。"
+    ],
+    "initial_available_scene_ids": [
+      "scene_lobby",
+      "scene_archive"
+    ],
+    "content_warnings": [
+      "虚构命案",
+      "投毒情节"
+    ]
+  },
+  "npc_characters": [
+    {
+      "character_id": "lin_wei",
+      "display_name": "林唯",
+      "public_profile": "图书馆资料管理员，负责档案室钥匙和馆内借阅记录。",
+      "private_profile": "担心馆长公开她私自售卖古籍合同的证据，因此提前准备毒药。",
+      "known_truth_ids": [
+        "truth_motive_contract",
+        "truth_poison_tea",
+        "truth_lin_in_office"
+      ],
+      "initial_attitude": "冷静、防御，刻意强调自己整晚都在档案室。",
+      "conversation_rules": {
+        "can_lie": true,
+        "lie_ids": [
+          "lie_lin_archive_alibi"
+        ],
+        "forbidden_truth_ids": [
+          "truth_culprit_lin"
+        ],
+        "fallback_style": "如果问题接近真相但证据不足，转移到档案室盘点工作。"
+      }
+    },
+    {
+      "character_id": "xu_mo",
+      "display_name": "许默",
+      "public_profile": "馆长助理，负责闭馆清场和访客登记。",
+      "private_profile": "曾和馆长争执，但争执原因只是加班安排。",
+      "known_truth_ids": [
+        "truth_victim_died_2005"
+      ],
+      "initial_attitude": "紧张、配合，害怕自己和馆长争执被误会。",
+      "conversation_rules": {
+        "can_lie": false,
+        "lie_ids": [],
+        "forbidden_truth_ids": [
+          "truth_culprit_lin",
+          "truth_poison_tea"
+        ],
+        "fallback_style": "如实回答自己知道的时间点，不猜测未知真相。"
+      }
+    },
+    {
+      "character_id": "qin_yu",
+      "display_name": "秦雨",
+      "public_profile": "夜班保安，负责监控和门禁系统。",
+      "private_profile": "曾短暂离岗买药，导致监控室无人值守十分钟。",
+      "known_truth_ids": [
+        "truth_security_gap"
+      ],
+      "initial_attitude": "急于证明自己没有失职，起初会淡化离岗时间。",
+      "conversation_rules": {
+        "can_lie": true,
+        "lie_ids": [
+          "lie_qin_no_gap"
+        ],
+        "forbidden_truth_ids": [
+          "truth_culprit_lin"
+        ],
+        "fallback_style": "如果玩家没有门禁记录，就坚持监控没有问题。"
+      }
+    }
+  ],
+  "scenes": [
+    {
+      "scene_id": "scene_lobby",
+      "title": "图书馆大厅",
+      "description": "大厅灯光昏黄，访客登记册还摊在前台。",
+      "initially_unlocked": true,
+      "unlock_condition": "available at start",
+      "evidence_ids": [
+        "evidence_visit_log"
+      ],
+      "npc_ids": [
+        "xu_mo",
+        "qin_yu"
+      ]
+    },
+    {
+      "scene_id": "scene_archive",
+      "title": "档案室",
+      "description": "档案室有被翻动过的旧合同盒，空气里有淡淡潮味。",
+      "initially_unlocked": true,
+      "unlock_condition": "available at start",
+      "evidence_ids": [
+        "evidence_contract"
+      ],
+      "npc_ids": [
+        "lin_wei"
+      ]
+    },
+    {
+      "scene_id": "scene_office",
+      "title": "馆长办公室",
+      "description": "办公室茶几上摆着半杯冷茶，门禁终端还亮着。",
+      "initially_unlocked": false,
+      "unlock_condition": "unlock after lie_qin_no_gap is broken or phase_confrontation begins",
+      "evidence_ids": [
+        "evidence_security_log",
+        "evidence_tea_cup"
+      ],
+      "npc_ids": []
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "evidence_visit_log",
+      "title": "访客登记册",
+      "evidence_type": "document",
+      "content": "登记册显示 20:00 后没有外来访客进入图书馆。",
+      "scene_id": "scene_lobby",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_lobby",
+      "related_truth_ids": [
+        "truth_no_outside_visitor"
+      ],
+      "can_confront_lie_ids": []
+    },
+    {
+      "evidence_id": "evidence_contract",
+      "title": "被撕开的古籍转让合同",
+      "evidence_type": "document",
+      "content": "合同上有林唯的签名，馆长沈河在旁边写着“明早报警”。",
+      "scene_id": "scene_archive",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_archive",
+      "related_truth_ids": [
+        "truth_motive_contract"
+      ],
+      "can_confront_lie_ids": [
+        "lie_lin_archive_alibi"
+      ]
+    },
+    {
+      "evidence_id": "evidence_security_log",
+      "title": "办公室门禁记录",
+      "evidence_type": "digital",
+      "content": "20:02，林唯的门禁卡打开过馆长办公室。",
+      "scene_id": "scene_office",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_office",
+      "related_truth_ids": [
+        "truth_lin_in_office"
+      ],
+      "can_confront_lie_ids": [
+        "lie_lin_archive_alibi"
+      ]
+    },
+    {
+      "evidence_id": "evidence_tea_cup",
+      "title": "冷掉的茶杯",
+      "evidence_type": "physical",
+      "content": "茶杯内壁残留苦杏仁味，杯沿没有挣扎痕迹。",
+      "scene_id": "scene_office",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_office",
+      "related_truth_ids": [
+        "truth_poison_tea"
+      ],
+      "can_confront_lie_ids": []
+    }
+  ],
+  "lies": [
+    {
+      "lie_id": "lie_lin_archive_alibi",
+      "character_id": "lin_wei",
+      "claim": "林唯声称 20:00 到 20:20 一直在档案室，没有去过馆长办公室。",
+      "truth_id": "truth_lin_in_office",
+      "required_evidence_ids": [
+        "evidence_security_log"
+      ],
+      "break_result": {
+        "unlocked_truth_ids": [
+          "truth_lin_in_office"
+        ],
+        "phase_unlock_ids": [
+          "phase_confrontation"
+        ],
+        "attitude_shift": "林唯开始慌乱，承认进过办公室，但仍否认投毒。",
+        "response_guidance": "承认门禁记录无法解释，但把进入办公室说成是找馆长签字。"
+      }
+    },
+    {
+      "lie_id": "lie_qin_no_gap",
+      "character_id": "qin_yu",
+      "claim": "秦雨声称自己整晚都在监控室，没有离岗。",
+      "truth_id": "truth_security_gap",
+      "required_evidence_ids": [
+        "evidence_visit_log"
+      ],
+      "break_result": {
+        "unlocked_truth_ids": [
+          "truth_security_gap"
+        ],
+        "phase_unlock_ids": [
+          "phase_confrontation"
+        ],
+        "attitude_shift": "秦雨承认短暂离岗，并愿意开放办公室门禁记录。",
+        "response_guidance": "承认自己离岗买药，但强调没有伤害馆长。"
+      }
+    }
+  ],
+  "truth_model": {
+    "culprit_character_id": "lin_wei",
+    "motive_truth_id": "truth_motive_contract",
+    "method_truth_id": "truth_poison_tea",
+    "truth_nodes": [
+      {
+        "truth_id": "truth_no_outside_visitor",
+        "truth_type": "fact",
+        "content": "20:00 后没有外来访客进入图书馆，凶手来自馆内人员。",
+        "revealed_by_default": false,
+        "related_character_ids": [],
+        "related_evidence_ids": [
+          "evidence_visit_log"
+        ]
+      },
+      {
+        "truth_id": "truth_security_gap",
+        "truth_type": "timeline",
+        "content": "秦雨在 19:58 到 20:08 离开监控室，办公室门禁记录没有被及时注意。",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "qin_yu"
+        ],
+        "related_evidence_ids": [
+          "evidence_visit_log"
+        ]
+      },
+      {
+        "truth_id": "truth_lin_in_office",
+        "truth_type": "timeline",
+        "content": "林唯在 20:02 进入馆长办公室，打破了她一直在档案室的说法。",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "lin_wei"
+        ],
+        "related_evidence_ids": [
+          "evidence_security_log"
+        ]
+      },
+      {
+        "truth_id": "truth_motive_contract",
+        "truth_type": "motive",
+        "content": "馆长发现林唯私自售卖古籍合同，准备报警。",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "lin_wei"
+        ],
+        "related_evidence_ids": [
+          "evidence_contract"
+        ]
+      },
+      {
+        "truth_id": "truth_poison_tea",
+        "truth_type": "method",
+        "content": "沈河喝下被下毒的茶后死亡，毒物残留在茶杯内壁。",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "lin_wei"
+        ],
+        "related_evidence_ids": [
+          "evidence_tea_cup"
+        ]
+      },
+      {
+        "truth_id": "truth_victim_died_2005",
+        "truth_type": "timeline",
+        "content": "沈河约在 20:05 前后死亡。",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "xu_mo"
+        ],
+        "related_evidence_ids": [
+          "evidence_tea_cup"
+        ]
+      },
+      {
+        "truth_id": "truth_culprit_lin",
+        "truth_type": "fact",
+        "content": "林唯是真凶。",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "lin_wei"
+        ],
+        "related_evidence_ids": [
+          "evidence_contract",
+          "evidence_security_log",
+          "evidence_tea_cup"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "time_label": "19:55",
+        "event": "馆长沈河准备整理古籍售卖合同，并写下明早报警的备注。",
+        "truth_ids": [
+          "truth_motive_contract"
+        ]
+      },
+      {
+        "time_label": "19:58",
+        "event": "秦雨短暂离开监控室。",
+        "truth_ids": [
+          "truth_security_gap"
+        ]
+      },
+      {
+        "time_label": "20:02",
+        "event": "林唯刷卡进入馆长办公室。",
+        "truth_ids": [
+          "truth_lin_in_office"
+        ]
+      },
+      {
+        "time_label": "20:05",
+        "event": "沈河喝下有毒的茶后死亡。",
+        "truth_ids": [
+          "truth_poison_tea",
+          "truth_victim_died_2005"
+        ]
+      }
+    ],
+    "evidence_links": [
+      {
+        "link_id": "link_contract_motive",
+        "truth_id": "truth_motive_contract",
+        "evidence_id": "evidence_contract",
+        "strength": "proves",
+        "explanation": "合同和报警备注直接证明林唯有灭口动机。"
+      },
+      {
+        "link_id": "link_security_alibi",
+        "truth_id": "truth_lin_in_office",
+        "evidence_id": "evidence_security_log",
+        "strength": "proves",
+        "explanation": "门禁记录直接击破林唯的档案室不在场证明。"
+      },
+      {
+        "link_id": "link_tea_method",
+        "truth_id": "truth_poison_tea",
+        "evidence_id": "evidence_tea_cup",
+        "strength": "proves",
+        "explanation": "茶杯残留说明手法是投毒。"
+      }
+    ]
+  },
+  "phases": [
+    {
+      "phase_id": "phase_intro",
+      "title": "接案",
+      "phase_type": "intro",
+      "order": 1,
+      "unlock_condition": "start",
+      "unlocked_scene_ids": [
+        "scene_lobby",
+        "scene_archive"
+      ],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "search",
+        "ask",
+        "status",
+        "hint"
+      ]
+    },
+    {
+      "phase_id": "phase_investigation",
+      "title": "初步调查",
+      "phase_type": "investigation",
+      "order": 2,
+      "unlock_condition": "after first search or first ask",
+      "unlocked_scene_ids": [
+        "scene_lobby",
+        "scene_archive"
+      ],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "search",
+        "ask",
+        "inspect",
+        "show_evidence",
+        "status",
+        "hint"
+      ]
+    },
+    {
+      "phase_id": "phase_confrontation",
+      "title": "对质",
+      "phase_type": "confrontation",
+      "order": 3,
+      "unlock_condition": "break lie_qin_no_gap or lie_lin_archive_alibi",
+      "unlocked_scene_ids": [
+        "scene_office"
+      ],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "search",
+        "ask",
+        "inspect",
+        "show_evidence",
+        "status",
+        "hint",
+        "accuse"
+      ]
+    },
+    {
+      "phase_id": "phase_accusation",
+      "title": "最终指认",
+      "phase_type": "accusation",
+      "order": 4,
+      "unlock_condition": "player chooses accuse",
+      "unlocked_scene_ids": [],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "accuse",
+        "status"
+      ]
+    },
+    {
+      "phase_id": "phase_recap",
+      "title": "复盘",
+      "phase_type": "recap",
+      "order": 5,
+      "unlock_condition": "after accusation scoring",
+      "unlocked_scene_ids": [],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "review",
+        "status"
+      ]
+    }
+  ],
+  "mechanics": {
+    "starting_phase_id": "phase_intro",
+    "max_hint_level": 3,
+    "commands": {
+      "ask": "/ask [npc] [question]",
+      "search": "/search [scene]",
+      "inspect": "/inspect [evidence]",
+      "show_evidence": "/show [npc] [evidence]",
+      "accuse": "/accuse culprit=<npc> motive=<text> method=<text> evidence=<id,id,id>",
+      "status": "/status",
+      "hint": "/hint"
+    }
+  },
+  "accusation_rules": {
+    "required_fields": [
+      "culprit",
+      "motive",
+      "method",
+      "evidence_chain"
+    ],
+    "score_thresholds": {
+      "perfect": 10,
+      "pass": 7
+    },
+    "scoring_items": [
+      {
+        "score_id": "score_culprit",
+        "field_id": "culprit",
+        "prompt": "是否指认林唯为真凶。",
+        "expected_character_id": "lin_wei",
+        "expected_truth_ids": [
+          "truth_culprit_lin"
+        ],
+        "expected_evidence_ids": [],
+        "expected_lie_ids": [],
+        "points": 3
+      },
+      {
+        "score_id": "score_motive",
+        "field_id": "motive",
+        "prompt": "是否说明古籍转让合同和报警威胁构成动机。",
+        "expected_character_id": null,
+        "expected_truth_ids": [
+          "truth_motive_contract"
+        ],
+        "expected_evidence_ids": [
+          "evidence_contract"
+        ],
+        "expected_lie_ids": [],
+        "points": 2
+      },
+      {
+        "score_id": "score_method",
+        "field_id": "method",
+        "prompt": "是否说明作案手法为在茶中下毒。",
+        "expected_character_id": null,
+        "expected_truth_ids": [
+          "truth_poison_tea"
+        ],
+        "expected_evidence_ids": [
+          "evidence_tea_cup"
+        ],
+        "expected_lie_ids": [],
+        "points": 2
+      },
+      {
+        "score_id": "score_chain",
+        "field_id": "evidence_chain",
+        "prompt": "证据链是否包含动机、进入办公室、投毒手法。",
+        "expected_character_id": null,
+        "expected_truth_ids": [
+          "truth_motive_contract",
+          "truth_lin_in_office",
+          "truth_poison_tea"
+        ],
+        "expected_evidence_ids": [
+          "evidence_contract",
+          "evidence_security_log",
+          "evidence_tea_cup"
+        ],
+        "expected_lie_ids": [
+          "lie_lin_archive_alibi"
+        ],
+        "points": 3
+      }
+    ]
+  },
+  "recap": {
+    "truth_summary": "林唯因馆长准备报警揭发古籍合同而灭口。她趁秦雨离岗进入办公室，在茶中下毒，随后谎称自己一直在档案室。",
+    "timeline_summary": "19:55 馆长发现合同；19:58 秦雨离岗；20:02 林唯进入办公室；20:05 馆长喝下毒茶死亡。",
+    "missed_content_templates": [
+      "你没有发现 {evidence_title}，因此遗漏了对应的真相节点。",
+      "你没有击破 {lie_claim}，所以 NPC 的关键谎言仍然成立。",
+      "你的证据链缺少 {truth_content}。"
+    ]
+  }
+}

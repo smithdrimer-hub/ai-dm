@@ -1,0 +1,372 @@
+{
+  "schema_version": "0.2.1",
+  "script_info": {
+    "id": "emergent_resolution_minimal",
+    "title": "Emergent Resolution Minimal",
+    "author": null,
+    "game_mode": "emergent_resolution",
+    "player_count": {
+      "min": 3,
+      "max": 3,
+      "recommended": 3
+    },
+    "language": "zh-CN"
+  },
+  "license_info": {
+    "source": "internal mock",
+    "license_type": "mock",
+    "commercial_allowed": false,
+    "redistribution_allowed": false,
+    "attribution_required": false,
+    "notes": "Schema example only."
+  },
+  "public_materials": {
+    "setting": "A public political dinner setting.",
+    "public_intro": "Players will act, vote, and declare.",
+    "rules_text": "Actions resolve before voting.",
+    "cast_public_list": [
+      {
+        "character_id": "andre",
+        "display_name": "Andre",
+        "public_profile": "A public candidate."
+      },
+      {
+        "character_id": "beatrice",
+        "display_name": "Beatrice",
+        "public_profile": "A public rival."
+      },
+      {
+        "character_id": "claude",
+        "display_name": "Claude",
+        "public_profile": "A public guard figure."
+      }
+    ],
+    "opening_script": "DM explains actions and declarations.",
+    "player_guidance": "Choose actions secretly, then resolve in order.",
+    "content_notes": "No content notes."
+  },
+  "player_config": {
+    "mode": "role_players_plus_detectives",
+    "role_player_slots": [
+      {
+        "slot_id": "slot_andre",
+        "character_id": "andre",
+        "required": true
+      },
+      {
+        "slot_id": "slot_beatrice",
+        "character_id": "beatrice",
+        "required": true
+      },
+      {
+        "slot_id": "slot_claude",
+        "character_id": "claude",
+        "required": true
+      }
+    ],
+    "observer_slots": [
+      {
+        "slot_id": "detective_1",
+        "display_name": "Detective",
+        "player_type": "detective",
+        "permissions": {
+          "can_speak": true,
+          "can_vote": false,
+          "can_accuse": true,
+          "can_receive_private_packets": false
+        }
+      }
+    ]
+  },
+  "cast": [
+    {
+      "character_id": "andre",
+      "display_name": "Andre",
+      "public_profile": "A public candidate.",
+      "goals": [
+        {
+          "goal_id": "survive",
+          "description": "Remain alive and eligible.",
+          "visibility": "private"
+        }
+      ],
+      "relationships": [],
+      "secrets": []
+    },
+    {
+      "character_id": "beatrice",
+      "display_name": "Beatrice",
+      "public_profile": "A public rival.",
+      "goals": [],
+      "relationships": [],
+      "secrets": []
+    },
+    {
+      "character_id": "claude",
+      "display_name": "Claude",
+      "public_profile": "A public guard figure.",
+      "goals": [],
+      "relationships": [],
+      "secrets": []
+    }
+  ],
+  "phases": [
+    {
+      "phase_id": "round_1",
+      "title": "Round 1",
+      "phase_type": "free_discussion",
+      "order": 1,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Begin discussion and private actions.",
+        "pace_notes": "Collect actions before votes.",
+        "transition_condition": "action_resolved"
+      }
+    },
+    {
+      "phase_id": "resolution",
+      "title": "Resolution",
+      "phase_type": "resolution",
+      "order": 2,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Resolve actions, then votes.",
+        "pace_notes": "Announce public outcomes only.",
+        "transition_condition": "form_submitted"
+      }
+    },
+    {
+      "phase_id": "accusation",
+      "title": "Accusation",
+      "phase_type": "accusation",
+      "order": 3,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "A successful murder has changed the table. Collect accusations before final resolution.",
+        "pace_notes": "Do not judge scoring here; only move the players into accusation.",
+        "transition_condition": "murder_resolved"
+      }
+    },
+    {
+      "phase_id": "recap",
+      "title": "Recap",
+      "phase_type": "recap",
+      "order": 4,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "No murder resolved. Move to a short recap or manual resolution.",
+        "pace_notes": "Keep this deterministic; do not infer endings.",
+        "transition_condition": "no_murder"
+      }
+    }
+  ],
+  "role_packets": [
+    {
+      "packet_id": "andre_round_1",
+      "character_id": "andre",
+      "phase_id": "round_1",
+      "content": "Private round instruction.",
+      "content_ref": null,
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    }
+  ],
+  "clues": [],
+  "assets": [],
+  "reveal_rules": [],
+  "truth_model": {
+    "truth_type": "emergent",
+    "case_questions": [
+      {
+        "question_id": "who_survived",
+        "prompt": "Who survived the action round?",
+        "expected_answer_node_ids": [
+          "andre_survival_condition"
+        ]
+      }
+    ],
+    "truth_nodes": [
+      {
+        "node_id": "andre_survival_condition",
+        "node_type": "condition",
+        "content": "Andre survives if MURDER is blocked by enough GUARD actions.",
+        "conditions": [
+          {
+            "if": "target=andre receives MURDER and guard_count(target=andre) >= 2",
+            "then": "Andre remains alive and murder fails."
+          }
+        ],
+        "related_characters": [
+          "andre",
+          "claude"
+        ],
+        "related_clues": []
+      }
+    ],
+    "evidence_links": []
+  },
+  "forbidden_spoilers": [
+    {
+      "spoiler_id": "spoiler_action_plan",
+      "spoiler_type": "action_result",
+      "content": "Private actions before resolution.",
+      "aliases": [
+        "secret actions"
+      ],
+      "forbidden_until_phase": "resolution",
+      "allowed_after_phase": "resolution",
+      "allowed_after_reveal_rule": null,
+      "allowed_after_condition": "actions resolved"
+    }
+  ],
+  "action_rules": {
+    "enabled": true,
+    "action_types": [
+      {
+        "action_type": "GUARD",
+        "actor_scope": "role_player",
+        "target_scope": "character",
+        "input_form_id": "action_card",
+        "changes_character_state": false,
+        "changes_voting_eligibility": false,
+        "changes_candidate_eligibility": false
+      },
+      {
+        "action_type": "MURDER",
+        "actor_scope": "role_player",
+        "target_scope": "character",
+        "input_form_id": "action_card",
+        "changes_character_state": true,
+        "changes_voting_eligibility": true,
+        "changes_candidate_eligibility": true
+      },
+      {
+        "action_type": "VOTE",
+        "actor_scope": "role_player",
+        "target_scope": "character",
+        "input_form_id": "vote_card",
+        "changes_character_state": false,
+        "changes_voting_eligibility": false,
+        "changes_candidate_eligibility": false
+      }
+    ],
+    "resolution_order": [
+      "GUARD",
+      "MURDER",
+      "VOTE"
+    ],
+    "blocking_rules": [
+      {
+        "rule_id": "double_guard_blocks_murder",
+        "blocked_action_type": "MURDER",
+        "blocked_when": "same target receives at least two GUARD actions before MURDER resolves",
+        "blocked_by_action_type": "GUARD",
+        "minimum_block_count": 2,
+        "same_target_required": true,
+        "result": "target_protected"
+      }
+    ],
+    "outcomes": [
+      {
+        "outcome_id": "murder_success_changes_status",
+        "trigger_condition": "MURDER resolves and is not blocked",
+        "result_type": "character_state_change",
+        "result_payload": {
+          "state": "dead",
+          "voting_eligible": false,
+          "candidate_eligible": false
+        }
+      }
+    ]
+  },
+  "forms": [
+    {
+      "form_id": "action_card",
+      "title": "Action Card",
+      "form_type": "action_card",
+      "per_player_or_global": "per_player",
+      "read_aloud_after_submit": false,
+      "used_for_resolution": true,
+      "fields": [
+        {
+          "field_id": "decisive_action",
+          "label": "Action",
+          "field_type": "action_type",
+          "required": true
+        },
+        {
+          "field_id": "target",
+          "label": "Target",
+          "field_type": "character_ref",
+          "required": true
+        }
+      ],
+      "submit_phase": "round_1"
+    },
+    {
+      "form_id": "vote_card",
+      "title": "Vote Card",
+      "form_type": "vote_card",
+      "per_player_or_global": "per_player",
+      "read_aloud_after_submit": true,
+      "used_for_resolution": true,
+      "fields": [
+        {
+          "field_id": "vote",
+          "label": "Vote",
+          "field_type": "character_ref",
+          "required": true
+        }
+      ],
+      "submit_phase": "resolution"
+    }
+  ],
+  "ending_rules": {
+    "ending_type": "action_based",
+    "conditions": [
+      {
+        "ending_id": "ending_action_result",
+        "priority": 1,
+        "when": "actions and votes resolved",
+        "ending_title": "Action Result",
+        "ending_text_ref": "ending_text_action"
+      }
+    ],
+    "final_reveal_sequence": [
+      {
+        "step": 1,
+        "trigger": "action_result",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "andre_survival_condition",
+        "next_step_condition": null
+      }
+    ]
+  },
+  "scoring_rules": {
+    "enabled": false,
+    "goal_checks": []
+  },
+  "hint_rules": [
+    {
+      "hint_id": "hint_action_order",
+      "level": "L1",
+      "phase_id": "round_1",
+      "allowed_when": "players ask how actions resolve",
+      "allowed_clue_ids": [],
+      "allowed_truth_nodes": [],
+      "forbidden_truth_nodes": [
+        "andre_survival_condition"
+      ],
+      "template": "Remember that actions resolve in the listed order.",
+      "cooldown_turns": 3,
+      "spoiler_check_mode": "strict"
+    }
+  ]
+}

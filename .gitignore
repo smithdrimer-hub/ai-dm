@@ -49,3 +49,9 @@ savegame.json
 
 # Claude
 .claude/
+
+# Detective auto evaluation outputs
+scripts/eval_outputs/
+
+# Local open-source reference checkouts
+external_references/

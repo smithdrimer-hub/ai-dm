@@ -1,0 +1,1483 @@
+Introduction to the Host:
+
+
+A Birthday Surprise is the complete text of a
+murder mystery which was written by Gordon
+Dean, and first produced by Kenneth Brown
+and Gordon Dean in 1986.  The final version
+was produced the following year.
+
+This introduction is intended to be a short
+technical introduction to the work, which will
+give you all the information you need to know
+to successfully entertain a group of your
+friends (or enemies) for an entire evening.
+
+In general, it will help if you already know
+something about Live Action
+Roleplaying (LARP) or Interactive Drama,
+which is what a live play without a script of
+this sort is.  But don't despair if you haven't
+ever heard either of those terms.  Birthday
+Surprise is a fairly simple event, and
+everything you need to know is supplied
+below.
+
+I. General
+
+
+In this text you will be referred to as the
+"host" of this Interactive event, even though
+you may be putting it on at a location owned
+by someone else.  This term was picked
+deliberately to avoid the use of the LARP term
+"gamemaster" which implies something
+altogether different.
+
+You will probably be assuming the character of
+Grant Cochran, and his brother Thomas, after
+Grant's mid-evening demise.  You may also
+choose some other role, and leave the role of
+Grant to someone you trust.  More about this
+later, under Casting.  Grant Cochran is too
+pervasive a figure to render versions in two
+genders, so Grant is written as a male.  Aside
+from being an ex-lover of Margot Matthews
+nothing major predicates that Grant be played
+by a male, however you may also want to
+consider playing Margot Matthews, who is
+equally important as a host.
+
+
+
+What you will need:
+
+Photocopying:  You may elect to hand out
+the character sheets included with the game
+copy, or you may choose to copy them and
+keep the originals.  Express permission is
+given by the author to copy any material
+included, so long as you do not violate the
+amateur provision in the licensing agreement. 
+You will be making a copy of the
+Introduction, Rule Book, and Last Words for
+every player.  That is 8 pages per player,
+which should cost $0.66 per player, or a
+total of just under $10.00 inclusive.  In
+addition, you may want to run a few copies
+of the Item and Location Cards.  Even if you
+use high priced "chain" photocopy services,
+your entire production cost for the game
+should not exceed $15.00.
+
+Venues: (pronounced to rhyme, not
+surprisingly, with "zoos") are, in Interactive
+Literature parlance, "Where events are run." 
+Your venue will probably be a private house,
+though you could run the game in a
+condominium party room, or some other
+location.  The larger and more diverse the
+space, the more interesting the game will
+prove.
+
+Properties:  these are dealt with more
+extensively later on.  For now, let it suffice
+that you do not have to purchase any
+properties for the game, though there are a
+few that can be useful.   
+
+Dinner: the murder is structured for a
+dinner, but in reality, it could be run at an
+afternoon barbecue, or as a party, with light
+refreshments, as your budget dictates.  We
+have found that a charge of $10.00 per guest
+allowed for ample purchase of food and
+properties.
+
+II.  Setup
+
+
+Invitation:  Birthday Surprise is limited to
+fifteen players, though you may be able to
+expand it just a bit, if you really need to.  For
+this reason, you should carefully consider who
+you are going to invite, beforehand.  You may
+wish to send out formal invitations, or you
+may want to advertise your event in some
+other way.  Formal invitations were not
+included in this kit, because they may vary so
+wildly depending on whether or not you are
+holding a dinner, and whether or not you are
+charging money.  A sample invitation may be
+suitable to your needs, if you "white out" any
+irrelevant information.  Most greeting card
+stores sell small boxes of invitations quite
+inexpensively, and these can be hand written in
+any manner you desire.  Be sure to include the
+following:
+
+1.   Date
+2.   Time
+3.   Place
+4.   Whether or not there will be Dinner
+5.   Exactly who is invited (IE: Mr. and
+     Mrs.)
+6.   Whether or not you would allow
+     "guests" as observers (this is not
+     recommended, but may be necessary
+     under some circumstances.)
+7.   RSVP Address and Phone for
+     directions
+8.   Any contribution required
+9.   Anything your guest is expected to
+     bring
+10.  Attire expected
+
+How Many Guests:  Birthday Surprise can
+accommodate up to fifteen guests, including
+yourself, but that doesn't mean you will want
+to actually invite that many.   Eleven,
+including yourself, is a nearly ideal number. 
+The mix below is reflective of the usual break
+up of sexes attending, and is biased to roughly
+2/3 males.  In several runs of the game, this
+has not yet been a problem, but you may
+substitute Linda Kane for Matthew Allen
+Carter and Leda Deerden for Avery Carson if
+you need an even count of guys and gals.  In
+addition, both Jeffrey Saxon and Oliver
+Stewart could be played as Jehanna Saxon and
+Olivia Stewart.  In addition, they could be put
+together as a male-female couple.  There is
+some intimation in the existing game that
+Stewart and Saxon are gay lovers, but it is not
+written anywhere, and should be suggested
+only if the players are very comfortable with
+the idea.
+
+Very Important
+Grant/Thomas Cochran
+Gary Morant
+Margot Matthews
+Mike Ballistis
+Craig Webber
+Emily Breezewood
+Margot Matthews
+
+Important
+Avery Carson
+Toni Randall-Smith
+Mort Nicholson
+Matthew Allen Carter
+
+Secondary
+Leda Deerden                              
+Linda Kane                                
+Dr. Roger Pierce                                  
+
+Tertiary
+Jonathan Drake                                    
+Sarah Lamont                              
+Jeffrey Saxon                             
+Oliver Stewart                                    
+
+Dinner: it is not in the scope of this guide to
+provide you with complete details on how to
+hold a dinner party.  Many excellent books are
+available on the subject from many sources
+including the library.  We do not recommend
+taking this occasion to prepare a very
+complicated meal, unless you will have plenty
+of help.  It is perfectly possible for almost any
+of the characters to help prepare food on the
+pretext that they were requested to by Ms.
+Matthews (who is throwing the party for
+Grant.)
+
+
+Cost: you may or may not want to charge for
+the event, or solicit donations.  You should
+decide this in advance, and specify
+
+Casting: is a theatre term which means, in
+simplest terms, "to cast players into roles."  In
+other words, this refers to which character you
+give to which person. once you have
+confirmed your guest's attendance, you may
+wish to mail them a copy of the rules and their
+character in advance.  You should not mail
+your only copy of the characters, as someone
+will forget it, and leave a gaping hole in the
+event.  If you are putting on the mystery with
+a regular group of friends, you may wish to
+get together the week before in order to pass
+out character sheets.
+
+Casting any Interactive event is very
+important.  I have cast quite a few events, and
+there are always mistakes.  A player that
+seems "perfectly cast" miscarries, while a
+character who was a desperation casting
+performs flawlessly.
+
+There are three rules that you should follow if
+you want to have a game that is successful for
+everyone.  This is one of the only points in
+this guide where I will tell you that you
+absolutely should do something, or in this
+case, refrain form doing something.  
+
+Uncle Gordon's absolute advice on casting:
+
+1.   Don't cast based on friendship.  Tell
+     all of your friends that you will try
+     and cast them in the best role possible. 
+     Most of the roles in Birthday Surprise
+     are potential "starring roles."  Some
+     require more force of personality than
+     others.  If you go out of your way to
+     cast your friends "just right" making
+     special provisions, leaking them
+     information, or God forbid, LETTING
+     THEM READ THE CHARACTERS
+     AND PICK!, you will have a game
+     that they will enjoy...
+ 
+     ...And everyone else will hate you for
+     it, will feel they are second class, will
+     play accordingly, and your game will
+     go badly.  There are easier, and less
+     expensive ways to make enemies.
+
+2.                                   Don't cast to screw someone over. 
+                                     Birthday Surprise is a small game.  It
+                                     should not be too hard to screen
+                                     applicants you don't feel like playing
+                                     with.  But the time eventually comes
+                                     when you are left with someone in the
+                                     game that you had rather not run it
+                                     for.  When this happens, the worst
+                                     thing to do is to go out and antagonize
+                                     them.  A brilliant casting mistake is to
+                                     take a character who is in a weak
+                                     position, and thus requires superior
+                                     playing (Matthew Allen Carter, Gary
+                                     Morant) and give them to a weak
+                                     player you don't like, insuring that
+                                     they will fail.  
+
+                                     They will whine, snivel, waste your
+                                     time during the game, and afterwards. 
+                                     If you feel a player is no good, cast
+                                     them as one of the neutrals, which
+                                     have the option to become involved,
+                                     but will not damage the game if they
+                                     don't. If you don't like a player for
+                                     personal reasons, don't antagonize
+                                     them.  Try and keep clear, and deal
+                                     with them as little as possible, while
+                                     giving them little to complain about.
+
+                                     A subclause of this is: "don't
+                                     typecast."  Don't try to cast someone
+                                     as the character you think they are
+                                     most like.  The idea here is
+                                     "roleplaying."  If you cast someone as
+                                     a snivelling wimp, and they are a
+                                     snivelling wimp, you will get a non-
+                                     performance.  If you cast an excellent
+                                     and indomitable actor, who is not
+                                     ashamed of showing weakness, as a
+                                     snivelling wimp, you may get a
+                                     character who truly impacts the other
+                                     characters and the game.  In the
+                                     original run of Birthday Surprise, the
+                                     very "weak" character of Gary Morant
+                                     was excellently portrayed by a very
+                                     strong actor who was not afraid to
+                                     break down and show fear and
+                                     weakness.
+
+3.   Don't cast to play matchmaker. 
+     Sometimes people get together at
+     events, and end up going out.  It isn't
+     the job of a good host to force it. 
+     Think of it as a scale limitation. 
+     Playing matchmaker is manipulating
+     reality.  So is running an Interactive
+     Event.  Don't bite off more than you
+     can chew.  A soured job of this can
+     really screw a game up but good.
+
+How Do I Cast?  The characters in this game
+are uniformly unpleasant people.  They suit
+every requirement for a group of murderers -
+by and large they are venal, self interested,
+and amoral.  The people this game is about are
+a real social strata.  They arrived too late to
+benefit from the moral lessons of the 1960's
+but not to miss out on the sex and drugs. 
+They moved into college in the mid seventies,
+with a disdain for everything, and saw the
+faltering of the Carter presidency in time to be
+the people who put Ronald Reagan into power. 
+Like many of his followers, these young men
+and women did not believe in him, but a
+dichotomy between their practices and their
+preaching is of little consequence. 
+
+We examine them almost ten years later, in
+1987, when the sins of the past are buried
+beneath a facade of morality and decency. 
+They know each other's secrets and are
+comfortable with the hypocrisy, but not with
+the exposure.  They turn on each other,
+seeking to eliminate ties to the past that
+constitute threats.  
+
+They are at the core of the YUPPIE
+movement, without conscience or imagination,
+and they flock to the one person that knows
+them all, and is not a part of them.  They are
+a generation that gave us crew cut movie stars
+whose moral lesson was that winning is right. 
+Whoever they finally reveal as the murderer,
+as Hercule Pirot discovered aboard the Orient
+Express....they all did it.
+
+Everyone has different ideas on how to cast an
+Interactive event.  I would suggest that you use
+common sense and acting ability as a
+guideline, and rule out most personal
+observations, with the exception of
+performances in other dramatic events.  Below
+are some hints about what type of traits each
+character has.  Remember, you are not
+necessarily trying to match real-life traits to
+roleplaying traits, but to find a player who can
+play the traits as written.
+
+Mike Ballistas:  a wealthy international
+consultant with impressive offices downtown. 
+Ballistas has numerous prominent government
+contacts, and is generally known to be an
+influential businessman.  He donated heavily to
+the Reagan Campaign.  Ballistas is a self
+assured and suave arms smuggler, who may
+well take a hard fall at the end of the game. 
+This character should go to someone who can
+handle not "winning" in the end, and who
+has the guts to start a gunfight if necessary,
+but not to anyone who might be trigger-
+happy.
+
+Emily Breezewood: a college friend of Grant
+Cochran, and a prep-school friend of Margot
+Matthews, Emily is the daughter of Senator
+Breezewood of Connecticut, a very powerful
+senior U.S. Legislator.  Emily was married to
+Matthew Allen Carter, and divorced him, in a
+particularly messy case during which Mr.
+Carter was represented by Gary Morant.  They
+are reported to be on barely civil speaking
+terms now.  Emily is living with Mike
+Ballistis.  Emily Breezewood is important to a
+number of plots, but does not require a great
+deal of acting ability.  The character is
+somewhat tormented, and the victim of two
+men, though she also has a great deal of
+information that she could use against them. 
+She should be played either as very
+manipulative or very naive.  
+
+Avery Carson: attended George Washington
+University and has many acquaintances from
+that period, and immediately afterward.  Avery
+met most of Grant's circle of friends in the
+seventies while they were working in
+Washington after graduation.  Mr. Carson
+occupied a position in the staff of the late
+Darrington Ripley, U.S. Ambassador to
+Sweden.  Currently employed by the State
+Department, Avery Carson is rumored to
+actually work for the Company, or No-such-
+agency.  Avery is a skeevy smuggler, but has
+a certain suave character.  He could be
+played very clean-cut, or more in the style of
+"Uncle Duke" in American Samoa.
+
+Matthew Allen Carter:  A well known
+mystic, Carter is associated with decadence,
+drugs, and bizarre mysticism.  It is unclear
+where his money comes from, though he is
+known to be at least moderately wealthy, and
+eccentric.   M.A Carter provides spiritual
+consultation to some of Washington's most
+prominent social figures.  He has appeared on
+several area talk shows, notably Panorama in
+July 1979 where he was involved in an
+altercation, and declined to appear on Good
+Morning America in August of 1982 on the
+topic "Senators who follow the Horoscopes." 
+He has assisted Federal authorities as a
+consultant on "Cult Related Cases", and
+appeared before a Senate Subcommittee Special
+Hearing in 1983 to discuss "Cult Phenomena
+and Crime."  If the person who plays Carter
+is not spooky, this character will come off as
+a meaningless crackpot. 
+
+Grant Cochran:  Grant Cochran is a horror
+writer whose early work brought him wealth
+and recognition.  His first acclaimed work was
+a collection of short stories in 1977 entitled
+Look Ma, No Hands!  Grant achieved a more
+limited success with The Sickness in John
+Harrol, 1977; The Collection, 1979; but his
+mainstream horror novels  Dark Symbols,1980;
+and Trinity, 1982; were extremely successful. 
+His Lovecraftian fantasy-horror The Sightless
+King, 1984 was universally panned.  Grant
+also wrote the screenplay for the 1981 film The
+Blinding. Numerous short stories including The
+Metallic Taste of Blood Omni, Feb 1982.
+
+Grant's work has tended more towards the
+occult and fantasy side than Stephen King, and
+his success has been less marked, but his early
+novels were commercially successful.  Born
+1955 to a wealthy Virginia family, Grant
+graduated from George Washington University
+in DC in 1975, aged twenty.  Writer and
+playboy, known to have inherited some money
+from parent's death in 1974. He is widely
+rumored to have been hospitalized recently for
+rehabilitation.  Grant should be played by
+either the host, or someone you trust utterly. 
+Grant has no character information per se, as
+he is a reflection of the views that others have
+of him.  You should establish what Grant
+knows by thoroughly reading the other
+characters.  Grant, and later Thomas can be
+used to drop "hints" during the evening if the
+participants are stalled.  Grant is obnoxious,
+and torments his friends, but not to the point
+of lunacy.
+
+Thomas Cochran:  Grant's failure of a
+brother.  Thomas dropped out of school, and
+was deeply involved in drugs.  He narrowly
+avoided jail on larceny charges.  He lost his
+share of the family wealth, and is currently
+employed by his brother as a handyman. 
+Thomas is a second character for whoever
+plays Grant, and an important source of
+information for the players, as well as a
+significant red herring. 
+
+Leda Deerden: A New York author, or visual
+artist, guest of Grant's Publisher.  Ms.
+Deerden is known for her terra cotta figures,
+which are widely sold in gift shops in the
+Village, and her work at the 42nd Street
+Gallery, but is a newcomer to the writing field. 
+Her first project is projected to be a
+collaboration with Grant Cochran.  Leda is an
+"all color" character.  Because she is involved
+in nothing underhanded, it is entirely possible
+she could solve one or more of the mysteries
+involved.  She should be played by someone
+who is capable of very good character acting,
+and not afraid to be flamboyant and
+annoying.  This character can be cut without
+damaging the plot, but generally, she is too
+much fun not to cast.
+
+Jonathan Drake: Publisher of Grant Cochran,
+Drake is Editor of Horror at Electra
+publishing, a division of Robert W. Thormond
+and Sons, Inc., one of the nations largest
+publishing houses.  Despite the failure of
+Cochran's latest novel, Drake is reported to be
+successful and on the rise.  He handles many
+other writers including Anthony Blaine, and is
+also in charge of titles under the smaller, but
+profitable Medea imprintaur, for occult
+paperbacks, which includes the works of
+Jeffrey Saxon.  Drake is a highly secondary
+character, whose presence is peripheral, and
+can be cut.  He is probably the least vital
+character.  Because he knows little or nothing
+of the others present, he could be held in
+reserve as a "back up" character for someone
+who is killed unexpectedly during the game.
+
+Linda Kane:  Parapsychological researcher for
+the Institute for Parapsychological Studies,
+1567 23rd St. NW.  Graduate of Columbia
+Prep, and Mary Washington College.  M.A.
+Barnard.  Kane is a literary agent for Matthew
+Allen Carter and is rumored to be his lover. 
+Linda Kane is a fairly stodgy character who
+knows a lot of information, but probably
+doesn't realize how important it is. 
+
+Sarah Lamont: Sarah Lamont is an old Prep-
+school and College friend of Margot
+Matthews, Linda Kane, Emily Breezewood and
+others.  Sarah went to work for Gary Morant
+as a paralegal, and is now his chief secretary. 
+The least important female character, Sarah
+SHOULD be held as a second character for
+someone who is killed off early.
+
+Margot Matthews: Margot was a friend of
+Grant Cochran, and several other attendees in
+college, but went on to become a prominent
+Washington socialite who rose out of the ranks
+of minor political followers due to her
+connections with the late U.S. ambassador to
+Sweden Mr. Darrington Ripley.  Margot is
+giving this party in honor of Grant Cochran's
+birthday.
+
+Margot is currently employed by the
+Department of State, where she is rumored to
+the mistress of a powerful political appointee. 
+She was mentioned in People magazine shortly
+after the inaugural ball, and her fortunes have
+definitely been on the rise with the Reagan
+government.  Margot is the co-host.  She is a
+prima donna, and openly manipulative, but
+she must also be able to put on an appearance
+of being friendly.  Dale Carnegie's "How to
+Win Friends and Influence People" is
+probably Margot's most important reference
+work.  Margot should have good manners.
+
+Gary Morant:  Washington Attorney. 
+Graduated from George Washington University
+in 1974, GW Law in 1978.  Formed Morant
+and Steele with Harlan Steel in 1980.  Known
+for handling some of the messiest and most
+prominent divorce and lawsuit cases in the
+Washington social spectrum.  Morant is a
+rising star in the social constellation of
+Washington, and is Grant Cochran's attorney,
+and is currently representing him in all of his
+sordid legal affairs.  Gary must be played well,
+because he is the murderer.  Gary should be
+a confederate who has the host's confidence,
+because the murder will need lots of
+cooperation and planning to go off as
+scheduled.  In addition, much of the
+responsibility for a good ending relies on Gary
+giving himself away, and you cannot impress
+this too heavily on the player.  
+
+Mort Nicholson: a well known private
+detective.  Nicholson has worked for Gary
+Morant, and was a research reference for the
+character of Detective George Panopalous in
+Grant Cochran's Trinity.  Mort is a colorful,
+interesting character, who should not be
+terribly hard to play.  Make sure the person
+you choose has a very rudimentary
+understanding of the distinction between
+police and private investigators, and has
+heard of citizen's arrest.
+
+Roger Pierce: a Professor/practitioner of
+Psychology at George Washington University. 
+Young but promising, for several years his 400
+level course on Personality Disorders has been
+considered the "most fun" class in the entire
+psych department.  Many of Dr. Pierce's
+associates consider him to be "that strung out
+quack", Dr. Pierce considers himself a
+"perceptually enhanced alternative
+practitioner."  It is obvious that Dr. Pierce
+either has something on the University, or has
+tenure.  "Psychological disorders can be not
+only instructive, but entertaining as well..."
+(American Psychiatric Yearbook, 1980).  Roger
+is a lot of fun, but should be easy to play for
+someone who is inexperienced.  The better the
+player, the more colorful he will be.
+
+
+Tony Randall-Smith:  Olympic Equestrian
+Medalist, winning two Silver and one Bronze
+medal at Los Angeles in 1984.  Native of
+McLean Virginia, the child of a former
+ambassador to England.  Personally acquainted
+with Princess Margaret, has appeared in Sports
+Illustrated, and network television.  Currently
+holds American and European Championships
+in several categories of jumps.  Professional
+status has been called into question, but intends
+to compete in 1988.  Toni is a fairly important
+character, and should be played by someone
+who is at least slightly athletic, though
+roleplaying ability is to be valued over looks. 
+She is independent and headstrong.
+
+Jeffrey Saxon: A noted Parapsychology/Occult
+writer and Astrologer, author of Health Signs,
+Astrology for You, and Psychic Defense, and
+several other successful books published in
+paperback.  Jeffrey is rumored to be
+practically the only person in New York who
+does not suffer from an incapacitating drug
+addiction.   Jeffrey exists solely for the
+entertainment of the masses, though he might
+end up solving one of the mysteries.  He
+should be played by someone who likes to play
+the straight man, and cast in team with Oliver
+Stewart. 
+
+Oliver Stewart:  A comic-book author and
+illustrator for Universal Comics, a major
+competitor of Marvel and D.C. 
+
+Oliver responsible for the satirical Captain
+Flapjack miniseries, but is best known for his
+work with Blood Hound, a revitalized 1960's 
+Superhero, and with Revenant, a dark-horror
+miniseries.  Stewart handled a graphic-novel
+adaptation of Grant Cochran's Sightless King,
+which was somewhat more successful than
+the actual novel.  Oliver is a New Yorker,
+but has maintained a friendship with horror
+writer Grant Cochran, and has come down
+with some of his other New York
+acquaintances to make his birthday an
+interesting affair.  Oliver is the comical side
+of a pair, with Jeffrey Saxon.  Oliver should
+be energetic and entertaining, and will come
+out best if played by a really superb
+roleplayer.  He is a colossal gossip, and
+should be encouraged to ramble on at
+length about anything he hears that is
+potentially embarrassing.
+
+Craig Webber: An acquaintance of Margot
+Matthews, Mr. Webber is a well-to-do local
+business consultant, rumored to have
+connections to smuggling and the
+underworld.  Webber is said to be a business
+partner of Avery Carson.  Webber is
+important, but not a difficult roleplaying
+challenge.  He needs to be able to keep a
+secret, and should be sensitive to the fact
+that he is operating on the fringes of the
+law.
+
+
+III. The Murder 
+
+
+How to make it happen:  Once you decide on
+a location for the murder, and the murder
+weapon, you should pre-write a set of
+Information cards in two separate colors, one
+containing the ballistics information (type of
+gun, rough range of the shot) if a gun was
+used, and one containing the relevant forensics
+information (the angle of shot, range, type of
+wound, rough time of death, etc.)
+
+I found it useful to give players who can look
+at Information Cards (see the rules) a card of
+the color that they can look at with the words
+"you can look at _______ colored cards)
+printed on it.  
+
+Other than that, It will take Ballistas and Toni
+putting two and two together about money, or
+someone buying off or badgering Gary's legal
+assistant.  
+
+Gary should break down when confronted with
+reasonable certainty.  
+
+In addition, it is advantageous to set it up so
+that only Gary could have done it physically,
+but that is trickier.  If Grant is murdered in a
+closed room, it could be set up so that only
+Gary had the key to the room, etc.  In the first
+murder, characters were given complex
+instructions to go to see Grant at a certain
+time, so that they all missed each other, but
+that two people saw the body, and hurried
+away rather than risk being found with it. 
+Despite the fact that from location, footsteps
+and times it should have been possible to
+establish who the killer was, no one had the
+slightest idea.  This leads me to believe that
+most murder mysteries bases on exact
+timetables are bullshit, but you can try the
+idea.  
+
+In the first run, only eight players were
+involved and it was possible for each player to
+be assigned a bedroom.  This allowed a
+complex series of confrontations as three
+players discovered the corpse before anyone
+actually raised an alarm.  In addition, the
+power was out for the entire evening, so the
+entire game was played by flashlight and
+candle-light.
+
+In the second version, there were not enough
+rooms to assign one to each player, and the
+murder took place during a brief period when
+the lights were out.  The corpse had been
+secreted in a closet and was allowed to fall out
+onto the floor while the living player stepped
+into the closet.  Again, the places where
+people were standing when they heard the
+body fall should have made it possible to
+determine who the murderer was, but 
+
+In the third murder, Grant was shot in the
+basement, where he had slipped away to get a
+drink.  The murderer used a silencer, and
+while it should have made some noise, we
+skipped the noise in order to make sure that he
+didn't get caught.  Remember, it is very
+important for Morant not to get caught
+committing the murder, as it ends the event
+rather early.  
+
+Clues:  The critical difference between this
+murder and the standard box game set is that
+while it has a number of clues, it is virtually
+(but not entirely) impossible to solve the
+murder in a logical fashion and demonstrate
+"proof."  The game is a psychodrama, and
+revolves around the proposition that the player
+who is Gary Morant will, when confronted by
+reasonably maintained suspicion, eventually
+burst and either attempt to shoot his way out,
+or have a breakdown.  This provides a
+satisfying dramatic conclusion.  To this extent
+it is vital to brief the Morant character in
+advance as to the expected behavior.  
+
+In general, there are not a distinct set of clues
+that lead to the murderer, other than that if
+Morant uses a gun, Weber can tell that it has
+been fired recently, and probably identify it as
+the murder weapon from the exit wound. 
+(Morant's gun is described as small, and
+should be a 22 or 32.)  He can definitely
+establish it was not either of the arms dealers
+guns, which should be 9mm.  Dr. Pierce can
+discern the relevant forensics information to
+tell where the shot entered and where it came
+from, though he is no forensics specialist.  
+
+Birthday Surprise is a roleplaying game, not
+Clue.  People should ferret.  In real life
+detectives have to largely ignore motive, and
+concentrate on opportunity.  In mysteries,
+detectives often concentrate on motive, then
+manage to construct some chain of reasoning
+for the opportunity.  Morant's nervousness is
+included to allow the game a logical conclusion
+once motives have all been sorted out.  Only
+Gary has a really good reason to want to kill
+Grant rather than just hate him.  Once the
+players realize that, they should begin to crank
+up the pressure, and Gary should crack.  
+
+There is some information on how to distribute
+various clues under Properties.
+
+
+Timetable:  In an ideal situation, the murder
+tends to run pretty close to this schedule. 
+Don't succumb to the temptation to have the
+murder right away, or right after dinner.  It
+may unsettle the stomachs of your guests.
+
+6:00      arrivals
+8:00      dinner
+9-10      conversation, by now players
+          are off guard, may even have
+          forgotten they are in a murder
+          mystery.
+9:45      murder
+10:00     discovery of body
+12:00     resolution
+
+The Body:  In all of these games, Ken Brown
+and I made a rather complex papier-mache
+corpse, with a sophisticated head filled with
+soft pulpy "brain" and corn-syrup blood.  The
+body could just as well be a traditional
+"Halloween-style" dummy made of cloth or
+scrap stuffed into old clothes.
+
+Many professional films, and forensics
+departments, use Karo and Red food coloring
+for blood.  It has almost the same viscosity as
+natural blood, and it looks rather realistic. 
+Alas it does not dry brown.  Red food coloring
+will stain a lot of things, though if you use
+cold (never hot) water it will clean off of many
+things as well.  Test for colorfastness
+overnight if in doubt, not just for a few
+minutes.
+
+In the first game I achieved a particularly
+stunning effect by having the corpse have been
+shot in the back of the head with an exit
+wound in the front of the head which had
+dumped the brains into the keyboard of a
+typewriter (which didn't work very well to
+begin with.)  
+
+The use of a can of Campbell's condensed
+tomato soup and Welsh's grape jelly for grey-
+matter and packing material produced an
+interesting moist-warm  sensation in the room,
+similar to that when a corpse has cooled.  In
+addition, I found that plastering a few bits of
+hair on the wall along with blood-spackling
+made for a corpse that brought the concept of
+murder home quite viscerally to our guests.  
+
+In the third running, Ken constructed a really
+superior corpse, and I went all out.  I got a
+roll of white banner paper, and covered a wall
+with it, then rehanged the pictures over it, so
+that it was barely noticeable.  Then I took an
+old carpet, which I had vacuumed to the point
+of being remotely clean, and put it down on
+the floor.  (A throw rug would do just as
+well).  Carpet is porous, so plastic garbage
+bags underneath were a real necessity.  A
+head, similar to our first two, was constructed
+by molding flesh colored clay over a plastic
+model of a human skull.  For eyes, I took
+shiny white plastic spoons, and cut out life size
+retinas from a cigarette ad in a color magazine. 
+I used clear fingernail polish to shellac the
+retinas to the spoons, then placed them over
+the eye-sockets, and molded clay over them. 
+The result was admirable.  A suit of salvation
+army clothes (similar in color to my own suit,
+but polyester, not wool) completed the setting. 
+Inside the skull, I packed raw pork brains
+(wash your hands before preparing food or
+touching your mouth, to avoid trichinosis) 
+The brains spattered out of the brain cavity 
+when the head hit the floor.  I slopped a little
+on the wall, as well, more for atmosphere
+than authenticity.  Several of the guests were
+truly disturbed.
+
+On the simplistic side, a dummy with a
+paper-bag head and some red construction
+paper cut in the shape of a pool of blood is
+good enough for most people, and does not
+require all the special handling to avoid
+damaging furniture or carpet.
+
+There is no major reason that the murdered
+player could not be represented by the body
+of the actual player provided they could hold
+still for some time, but it could be rather
+boring. 
+
+IV. Gamemaster Functions
+
+
+Adjudicating Combat:  At some point during
+the game, you may be called on to adjudicate
+combat between the participants.  I suggest
+keeping two principles clearly in mind:
+fairness, and drama.
+
+The combat system as generally described
+simply allows for players to point toy pistols at
+one another, and open fire.  This requires a
+decision from you on who hit first, etc.  In
+most cases, it should be assumed that anyone
+who took reasonable aim and fired at another
+person, hit them.  You may rule them to be
+dead, or assess them to be wounded.  The
+wounded should be made to lie down, and if
+they decide to go strolling around, told that
+they have fainted.  This is not a tabletop
+Fantasy game, and participants should not
+expect gunshot wounds to be a minimal
+inconvenience.
+
+In general, if someone is killed by a fairly
+well-planned shot, you should probably rule
+them dead, especially if you have one of the
+prepared characters still available for them to
+pick up.
+
+In cases where you did not see who shot first,
+you may wish to carry a die, and roll, or have
+the opponents roll to see who took the first
+shot.  I would not recommend carrying the
+system beyond that point, as it would tend to
+interfere with the drama of the game.  
+
+
+Try not to play favorites, but if someone is
+doing a particularly good job of portraying a
+character, or was shot by someone for a stupid
+reason, (particularly if they were shot by a
+player who was "bored") consider minimizing
+the injury.  Remember, your word is Law. 
+Do not accept argument from players.
+
+Most of all, avoid "re-running" events.  There
+is nothing more frustrating than to corner
+someone, shoot them, then be called back
+because they forgot they had a gun and could
+defend themselves.  If players forget some skill
+or ability, or property, just let it pass.  If you
+make a bad ruling,
+stick with it, and give the person who you
+disadvantaged an advantage later to make up
+for it.  But a game where events are constantly
+being recalled can quickly become a travesty
+of rules hounding that is antithetical to the
+atmosphere of A Birthday Surprise.
+
+Gamemastering:
+
+From time to time during the evening, you will
+be called on to act in capacity as a
+"gamemaster" who must interpret things in the
+universe for the players.  Usually this will
+pertain to either a character's past, or the
+environment. 
+
+Example of an environment situation:  The
+back door was originally marked with a
+location card saying "This is a blank wall."  In
+the course of the evening it has fallen down
+and vanished.  A player notices, and wonders
+if
+this means there might have been a secret door
+that is now visible.  He or she asks you:
+
+"Is there actually a door here?"
+
+You quietly reply:
+
+"No something must have happened to the
+card."
+
+This sort of question is called a metagame
+question, because it is a question that pertains
+to the mechanics surrounding the game, rather
+than something within the game.
+
+In another situation, perhaps Dr. Pierce has
+begun to suspect that Gary Morant has been
+replaced by someone who is only pretending to
+be Gary Morant.  He asks you:
+
+"Does Gary still look like he did when he was
+in school.  Is it possible he could be a different
+person?"
+
+You think about it, and recall that Dr. Pierce
+has met Gary several times since then.  You
+nod negatively:
+
+"You know Gary pretty well.  You've seen
+him a few times since school, and he hasn't
+changed that much.  He doesn't look the same,
+but it would take really drastic plastic surgery
+for anyone else to look this much like him. 
+You are pretty sure that it is the same Gary
+you have always known."
+
+This hopefully should give you a fair idea of
+what you will be doing.
+
+V. Mechanical Systems - Cards
+
+
+Location Cards:  These cards are used to
+modify the playing space into a useable area. 
+For example, when the murder was run in a
+private home, there were two persons watching
+television upstairs who were not playing, and
+a downstairs office that contained private
+papers that was off-limits to participants.  A
+location card posted on the stairwell read:
+
+                                     This area is a small upstairs
+                                     which contains two bedrooms,
+                                     one belonging to Grant and
+                                     one belonging to Tommy.  A
+                                     search of each room reveals
+                                     nothing of any interest.
+
+Downstairs, a card on the office door read:
+
+                                     There is no door here.  This is a blank
+                                     wall.
+
+Use these cards to protect your bedroom,
+store-room, crematorium, or any other place
+you do not want the participants wandering at
+large.  
+
+Information Cards:  These cards, described in
+the Rules, are a device for giving your
+participants knowledge that their character
+would have, but that they may not be able to
+discern for themselves.
+
+It is recommended that Knowledge cards be
+printed in two colors.  One color will represent
+ballistics information, and one color will
+represent forensics information.  You may
+want to write up a card that says "You can
+read Green Cards" etc. for every player who
+can read a particular color of card.
+
+Each gun should have an item card (more
+about that in a moment), and a ballistics card
+stapled snugly behind it.  The ballistics card
+can be read by anyone who examines the gun
+for a few moments.  The card should have the
+exact caliber of the gun written on it, and does
+not need to have any other information unless
+the gun is broken, or otherwise damaged, or
+unusual.  The murder site should have a
+colored card on which the caliber of the bullet
+used is printed (if a bullet was used).  This
+will help in narrowing the potential suspects
+and identifying the murder weapon.
+
+The murder site should also have a forensics
+card, which describes roughly how the corpse
+was killed.  Dr. Pierce is not a forensics
+expert, but has some basic knowledge of
+medicine which will give him a fair idea of the
+situation.  If Grant was killed with a bullet, the
+direction and range should be indicated (IE:
+"from the doorway, shot through the right
+temple") and if he was killed by stabbing or
+bludgeoning the rough height and strength of
+the killer should be established.  Obviously, it
+is a good idea not to cast Gary Morant as a
+person who is four feet tall when all the other
+players are 5'11", and then ask him to stab
+Grant.  
+
+You could invent new types of knowledge if
+you wanted.  For example, you could print
+yellow cards which represent "Psychic"
+knowledge and give the ability to look at them
+to M. A. Carter, Linda Kane, and Jeffrey
+Saxon.  Such a card might be affixed to the
+murder weapon and say "This weapon was
+used to take a human life" or to a doorway "a
+man passed through here with murderous
+intent."  The possible uses for knowledge cards
+is nearly limitless.   Wine tasting.  Drug
+Quality.  etc.  
+
+Special Cards:  There is no use for these
+cards.  They are included in case you decide
+to invent some system that is not covered by
+the other cards, and are intentionally generic. 
+For example, you might wish to give some
+player an unusual ability.  You could write
+on the card "the person holding this card is
+able to make small objects levitate for a
+period of thirty seconds.  Non-transferrable" 
+This would allow M. A. Carter (presuming
+the participant does not have the actual
+ability to levitate small objects) to
+demonstrate his magical prowess.  
+
+Craig Webber might have a card reading "the
+person holding this card can demonstrate the
+trick behind simple illusions such as making
+small objects levitate, and thus debunk those
+who appear to be able to perform such
+miracles.  Non-transferrable."
+
+Use these cards for whatever seems useful.
+
+VI Properties:  
+
+
+Properties can be a major stumbling block to
+productions, if they are too expensive, or
+difficult to obtain.  Interactive events often
+overcome this problem by using Item Cards. 
+These cards represent an item, but no attempt
+is made to make them look like the item.  In
+many cases, this is not a problem.  These
+cards are the cheap solution to trying to buy
+the requisite props for the game.  Below, we
+suggest how you can fabricate the various
+props required.
+
+Guns should always have an Item Card, even
+if they are represented by a real gun, unless it
+is possible to exactly match the caliber of the
+toy weapon to the caliber of gun the character
+is supposed to have.  The Item card should say
+"large gun" or "small gun," and a ballistics
+card should be stapled to the back giving the
+exact caliber.
+
+Properties List: 
+
+Hidden: 10 kg of "coke" (Table sugar is fine,
+fructose from a health food store is better.) 
+Given to Grant by Randall, hidden in the
+house.
+
+Hidden: Blackmail evidence - photocopies,
+and originals of embassy documents forged by
+Avery Carter.  Given to a Grand Jury, they
+would at least be enough to bring him to trial. 
+ If Drake is being played as a main character,
+it is suggested that you put these in a sealed
+envelope, with "Hold, do not open" written on
+the outside.  This could have been mailed to
+Drake by Grant for safekeeping.  
+
+Hidden - copy of Grant's will favoring
+Tommy 
+
+Hidden - Grant's financial papers
+
+On or near Grant's desk -  Typed note:  Be
+careful.  You may die soon!
+
+Avery - from Avery to Randall.  $2,000
+
+Sarah Lamont - copies of Gary's financial
+records
+
+Gary - blank copy of Grant's will
+
+Guns: 
+
+Ballistas                                 9mm silenced automatic
+Carson                               9mm automatic
+Deerden                                   32 caliber revolver
+Morant                                    22 caliber pistol
+Nicholson                                 38 police positive
+Randall                                   Interarms Semi-automatic (non
+functional)
+                                          This starts the game hidden in
+                                          the bushes outside.  Tony
+                                          should be shown where to find
+                                          it.  In the absence of bushes
+                                          (or an outside) substitute some
+                                          similar place, and inform Tony
+                                          of the change.
+Webber                                    38 Colt revolver
+Hiding things:
+
+There are several clues in the game (the
+blackmail evidence, Grant's financial records,
+etc.), which are hidden.  In all cases, make
+sure the hiding place is big enough to
+reasonably conceal the actual items, not just an
+item card representing them.
+
+Hidden: 10 kg of "coke"
+
+This should be hidden someplace fairly safe. 
+Grant should fend off inquiries from Tony
+Randall-Smith until after he is dead.  In a "best
+case" circumstance, he should drop a "hint" as
+to where they were.  At one murder, where we
+were lucky enough to have a grand piano, the
+drugs were hidden in the piano, and Grant told
+Tony that they were hidden "in the best
+Casablanca fashion."  Grant enjoys tormenting
+people with what he considers to be his
+superior intellect.  There should not be any
+sophisticated puzzle telling where the drugs
+are, however, as Grant would not have had
+occasion, or reason, to make one up.  Grant
+knows a bit about smuggling, and may have
+laid the drugs in the bottom of a can of coffee,
+a method often favored by drug smugglers.
+
+
+Hidden: Blackmail evidence - photocopies,
+and originals of embassy documents forged by
+Avery Carter. 
+
+This evidence need not be very large.  A
+simple manila envelope will do quite nicely. 
+The evidence sheet provided should have an
+item card affixed to it to indicate that it is a
+game item, and should have several blank
+sheets stapled behind it to give some bulk.
+
+Grant has had plenty of time to work on hiding
+this, and has good reason to leave a clue to
+Margot about where it is, but not the actual
+information.  In one run of the game, all of the
+secret documents were in a vault (simulated by
+a combination locking briefcase) which had the
+combination "666".  Something more
+sophisticated may be in order if you intend to
+slow down the players much.  It is
+recommended that this evidence be hidden
+separately from anything else, and that Grant
+have prepared a clue for it.  For example,
+Grant could have shoved it into the bottom of
+the freezer, and then tell Margot "I'm keeping
+it on ice for you."
+etc.
+
+Hidden - copy of Grant's will favoring
+Tommy 
+This should be loosely concealed around the
+room, probably simply in a desk drawer.  It is
+vital that there be an item card stapled to the
+evidence sheet, since this is the only way
+players will be able to differentiate it from
+other documents.  It is recommended that this
+take the form of a concealed envelope, and that
+the envelope also hold the clue to the location
+of the financial documents, and a sealed letter
+to Margot with a hint as to the location of her
+evidence.  Grant is both macabre and a
+Scorpio, and hiding things, and typing up
+messages to give to people after his death are
+just the sort of tasks he would enjoy.  Grant
+might tell Matthew Allen Carter or Linda in
+the course of the evening that he fears that
+something will happen to him, and has left
+some important information for Margot and
+Tommy.
+
+Hidden - Grant's financial papers
+This should essentially tip the balance in favor
+of incriminating Gary Morant.  The papers are
+primarily made of check stubs which show
+large unrecorded payments to Gary Morant
+from Grant.  Obviously, if an investigation
+were opened, the police could audit Gary's
+records, and the whole house of cards would
+fall down.  Tommy, who is no idiot, can point
+this out if the players fail to realize the
+obvious.  Gary should be primed to break at
+this discovery.
+
+The best suggestion to how to handle this is to
+have a hidden vault on the wall behind some
+picture in the house.  The Vault can be "built"
+in the following manner.  
+
+1. Tape a manilla envelope to the wall.  Put
+the information inside it, and seal it.   
+
+2. Tape an item card to the envelope which has
+these words "Wall safe.  To open write
+combination on the envelope, and report this to
+the host."  
+
+3. When the correct combination has been
+written, the host should open the envelope, and
+leave the participants to remove the contents. 
+
+
+The reason for writing the combination tried is
+to avoid misunderstandings, or conflicting
+directions, or the confusion of twenty
+combinations being shouted at once.  Only one
+person can write on the envelope, just as only
+one person can try to open the safe, at one
+time.  
+
+The combination is up to you.  As a default,
+use the numbers 10-23-54 (which any player
+can deduce was Grant's birthday, though they
+may have to fish a bit for the right year.)  6-6-
+6, or any other bizarre occult combination that
+seems reasonable (and guessable by your
+participants) can be used.  In extremis, if the
+event is going down the tubes, the psychics
+could try and get Grant to transmit the
+combination by "rapping" on the table.  
+
+It would not be past Grant to draw up a
+puzzle, magic square, or occult riddle that
+held the combination.  Just make sure not to
+frustrate the participants beyond measure
+with an obtuse puzzle.
+
+VII.                                 Other Considerations
+
+
+Adding characters:  You may add characters
+to the game in order to enlarge it.  Two
+characters are "foils" mentioned in the text,
+but not actually written.
+
+Extras:  Sarah Lamont and Jonathan Drake
+exist as pre-written backup characters.
+
+The characters of Anthony Blaine and Karyn
+Seidmann are written as short replacement
+characters.
+
+Anthony Blaine:  A New York writer
+considered a protege of Grant Cochran, Blaine
+is handled by Jonathan Drake, the same
+publisher as Cochran.  It was rumored that
+Blaine and Cochran had a very serious
+argument while appearing together at a
+promotional convention after the publication of
+Sightless King.  Blaine is best known for his
+Fantasy-Horror novel Wunderking, and his
+most recent work The Dinner Guest.  If you
+get a last minute unexpected player, or have
+a casualty in a game that was already full,
+Blaine is provided as a back up character. 
+He is expected but has not arrived.  His sheet
+is purposefully very short, so that it can be
+absorbed in only a few minutes.  He could be
+developed into a full character with some
+work and cross referencing.
+
+Karyn Seidmann:  A New-York literary
+agent, Seidmann is not well known in literary
+circles, though there are some dark rumors
+about her past, including a lawsuit.  Seidmann
+handles small time occult authors, and until
+recently her biggest literary success was
+Jeffrey Saxon, the popular occultist and
+astrologer.  Karyn is a con artist, who was
+posing as a literary agent and actually ended
+up signing a contract.  She is provided as a
+female back up character, and is also very
+short, but she could be amusing to expand to
+a full length character.
+
+Beyond this, you must either write original
+characters yourself, or accommodate extra
+guests in the following manner.  Tell them to
+make up a name, and inform them that they
+are a friend of some specific person.  Then
+show them the general, but not any specific
+information, on that person.  In this manner
+they will be able to portray an affiliated
+"innocent."  Obviously this is not desirable,
+but is preferential to having them be entirely
+out of place.
+
+The Occult:  The occult is heavily referenced
+in the game, but nowhere does it actually
+specifically exist.  The "reality" of occult
+affairs is up to the host, though I recommend
+against allowing "magic" of any practical sort. 
+Spiritualism is certainly a possibility, and a
+seance can be a way to get slow or misled
+players back on track.  The host could work
+with Linda Kane or M. A. Carter as a
+confederate, and work out a code to "send"
+them information (one tap for yes, two for no,
+etc.) manipulate a Ouija Board, or whatever
+seems apropos.  This method should not be the
+main method of choice to get information into
+the event, but serves as a fine "control
+mechanism" to get a stalled event back on
+track.  
+
+Unless you have particularly brilliant plans for
+laying a rigged seance, I would recommend
+leaving the question of whether or not to
+include the occult for the actual run of the
+game.
+
+Isolation:  Obviously, nowadays, people aren't
+left to their own devices to solve murders. 
+Some considerable thought was put into
+creating an "isolation scenario," that is a
+situation where the authorities do not
+immediately take charge.  Two things need to
+be done to complete this scenario.  
+
+1)   Prior to the murder, place "Location"
+or "Special" cards on the telephones which say
+"No Dialtone"
+
+2)   When Thomas returns, he should
+inform the group that the bridge is out, and
+that he has just spent several hours walking up
+from the river.  He will suggest that it is futile
+to attempt to cross on foot again before it is
+light.  Grant's house backs up to a mountain,
+and the nearest residence is on the other side,
+a several hour trek even in good weather.
+
+Changing things around:  There is no
+prohibition whatsoever against changing the
+text or nature of this work, aside from those
+guidelines in the license statement.  It is
+recommended that you take some care in the
+matter of adding material, unless you are
+familiar with the process of writing Interactive
+Events.  The following two points should be
+kept strongly in line:
+
+Consistency:  Any changes in the game must
+be consistent with material already written, or
+else the existing material should be changed.  
+
+Cross referencing: Any changes must be
+referenced to everyone who is affected by
+them.  Thus if you write in Tony Randall-
+Smith's sheet that "you once had an affair with
+Matthew Allen Carter," you must see to it that
+he is aware of this fact as well.
+
+Use care, and read everything in detail, before
+making changes.
+
+
+
+Be careful!  You may die soon!
+
+
+State Department Documents
+
+Photocopies, and originals of embassy documents from the United States Embassy
+in Sweden, signed by Ambassador Darrington Ripley.  Most of the documents seem
+to be State Department Certification for arms imports/exports between the U.S. and
+various European states.  
+
+Last Will and Testament of Grant Cochran:
+
+While there are several minor bequests to Margot Matthews, Gary Morant, and
+others, the text of this will makes it quite plain that all of Grants real property,
+wealth, and copyrights will be inherited by his brother Thomas Cochran. 
+
+Financial Papers
+
+These scanty papers are disorganized and difficult to interpret.  They include a set
+of checkbook stubs for a Money Market Checking Account with a major D.C. area
+bank.  The most recent account balance is less than $2000.00 dollars, and there seem
+to be numerous large checks which were written to "Gary - inves." or "Amer.
+Mutual Inves."  The amount of the checks, over two years, amount to about
+$500,000.
+
+

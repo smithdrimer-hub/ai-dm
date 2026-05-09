@@ -1,0 +1,910 @@
+{
+  "schema_version": "0.2.1",
+  "script_info": {
+    "id": "second_sample",
+    "title": "The Business of Murder",
+    "author": null,
+    "game_mode": "fixed_truth",
+    "player_count": {
+      "min": 7,
+      "max": 7,
+      "recommended": 7
+    },
+    "language": "en-US"
+  },
+  "license_info": {
+    "source": "Local public/free text package under stories/business",
+    "license_type": "public/free local sample, exact license not specified",
+    "commercial_allowed": null,
+    "redistribution_allowed": null,
+    "attribution_required": false,
+    "notes": "Phase 4 sample schema built from locally downloaded plain-text files. No PDF parsing was used."
+  },
+  "public_materials": {
+    "setting": "The players are gathered in Rick Martin's apartment after what was supposed to be a casual party. Rick has been found dead in the bathroom, and everyone present has reason to explain where they were and what they know.",
+    "public_intro": "This is a social murder mystery set around a University of Chicago business-school circle. The players act as guests and colleagues who discover that Rick Martin has been murdered during the evening.",
+    "rules_text": "Stay in character. Share only what your character could know. Private character packets should not be shown to other players. Clues may be opened in sequence when the group needs more information.",
+    "cast_public_list": [
+      {
+        "character_id": "louis",
+        "display_name": "Louis Cagliostro",
+        "public_profile": "An MBA student rumored to be wealthy, well connected, and possibly tied to organized crime."
+      },
+      {
+        "character_id": "harold",
+        "display_name": "Harold Chun",
+        "public_profile": "An assistant professor in Finance, friendly and bright, but under pressure after several quiet years."
+      },
+      {
+        "character_id": "margaret",
+        "display_name": "Margaret Chun",
+        "public_profile": "Harold's wife, emotional and visibly dissatisfied with parts of her life."
+      },
+      {
+        "character_id": "bobby",
+        "display_name": "Robert Herrera",
+        "public_profile": "Fiona's boyfriend, though their relationship has become uncertain."
+      },
+      {
+        "character_id": "tim",
+        "display_name": "Timothy Kane",
+        "public_profile": "An impulsive Finance PhD student who works for Harold and shares an office with Rick."
+      },
+      {
+        "character_id": "fiona",
+        "display_name": "Fiona McAllister",
+        "public_profile": "Rick's old girlfriend, apparently becoming close to him again."
+      },
+      {
+        "character_id": "pauline",
+        "display_name": "Pauline Thompson",
+        "public_profile": "A mysterious businesslike stranger who came to talk to Rick."
+      },
+      {
+        "character_id": "rick",
+        "display_name": "Rick Martin",
+        "public_profile": "The murder victim. No player is assigned to this role."
+      }
+    ],
+    "opening_script": "Welcome to The Business of Murder. You are in Rick Martin's apartment, where a casual gathering has turned into an investigation.",
+    "player_guidance": "Begin by establishing who came to the apartment, who knew Rick, and what each person noticed before the body was found.",
+    "content_notes": "This sample is for schema/runtime switching only. It does not implement the full original solution or action/ending logic."
+  },
+  "player_config": {
+    "mode": "all_role_players",
+    "role_player_slots": [
+      {
+        "slot_id": "slot_louis",
+        "character_id": "louis",
+        "required": true
+      },
+      {
+        "slot_id": "slot_harold",
+        "character_id": "harold",
+        "required": true
+      },
+      {
+        "slot_id": "slot_margaret",
+        "character_id": "margaret",
+        "required": true
+      },
+      {
+        "slot_id": "slot_bobby",
+        "character_id": "bobby",
+        "required": true
+      },
+      {
+        "slot_id": "slot_tim",
+        "character_id": "tim",
+        "required": true
+      },
+      {
+        "slot_id": "slot_fiona",
+        "character_id": "fiona",
+        "required": true
+      },
+      {
+        "slot_id": "slot_pauline",
+        "character_id": "pauline",
+        "required": true
+      }
+    ],
+    "observer_slots": []
+  },
+  "cast": [
+    {
+      "character_id": "louis",
+      "display_name": "Louis Cagliostro",
+      "public_profile": "An MBA student rumored to be wealthy and connected.",
+      "goals": [],
+      "relationships": [
+        {
+          "target_id": "rick",
+          "relation_type": "financial_connection",
+          "public_description": "Louis and Rick know each other through school.",
+          "private_description": "Rick appears to have received large checks from Louis."
+        }
+      ],
+      "secrets": []
+    },
+    {
+      "character_id": "harold",
+      "display_name": "Harold Chun",
+      "public_profile": "An assistant professor in Finance.",
+      "goals": [],
+      "relationships": [
+        {
+          "target_id": "margaret",
+          "relation_type": "spouse",
+          "public_description": "Harold and Margaret are married.",
+          "private_description": "Their relationship has been strained."
+        },
+        {
+          "target_id": "rick",
+          "relation_type": "advisor",
+          "public_description": "Harold supervises Rick's academic work.",
+          "private_description": "Rick's slow thesis progress has become a problem for Harold."
+        }
+      ],
+      "secrets": []
+    },
+    {
+      "character_id": "margaret",
+      "display_name": "Margaret Chun",
+      "public_profile": "Harold's wife.",
+      "goals": [],
+      "relationships": [
+        {
+          "target_id": "harold",
+          "relation_type": "spouse",
+          "public_description": "Margaret is married to Harold.",
+          "private_description": "She and Harold have been growing apart."
+        }
+      ],
+      "secrets": []
+    },
+    {
+      "character_id": "bobby",
+      "display_name": "Robert Herrera",
+      "public_profile": "Fiona's boyfriend.",
+      "goals": [],
+      "relationships": [
+        {
+          "target_id": "fiona",
+          "relation_type": "romantic_partner",
+          "public_description": "Bobby is Fiona's boyfriend.",
+          "private_description": "Their relationship is uncertain because Fiona has been close to Rick."
+        }
+      ],
+      "secrets": []
+    },
+    {
+      "character_id": "tim",
+      "display_name": "Timothy Kane",
+      "public_profile": "An impulsive Finance PhD student.",
+      "goals": [],
+      "relationships": [
+        {
+          "target_id": "rick",
+          "relation_type": "office_mate",
+          "public_description": "Tim shares an office with Rick.",
+          "private_description": "Tim's academic position depends on work around Harold and Rick."
+        }
+      ],
+      "secrets": []
+    },
+    {
+      "character_id": "fiona",
+      "display_name": "Fiona McAllister",
+      "public_profile": "Rick's old girlfriend.",
+      "goals": [],
+      "relationships": [
+        {
+          "target_id": "rick",
+          "relation_type": "former_partner",
+          "public_description": "Fiona and Rick have a romantic history.",
+          "private_description": "They may have been getting close again."
+        },
+        {
+          "target_id": "bobby",
+          "relation_type": "romantic_partner",
+          "public_description": "Fiona is involved with Bobby.",
+          "private_description": "The relationship is under strain."
+        }
+      ],
+      "secrets": []
+    },
+    {
+      "character_id": "pauline",
+      "display_name": "Pauline Thompson",
+      "public_profile": "A businesslike stranger at the party.",
+      "goals": [],
+      "relationships": [
+        {
+          "target_id": "rick",
+          "relation_type": "old_friend",
+          "public_description": "Pauline says she knows Rick from earlier in life.",
+          "private_description": "Pauline has business reasons to seek Rick out."
+        }
+      ],
+      "secrets": []
+    },
+    {
+      "character_id": "rick",
+      "display_name": "Rick Martin",
+      "public_profile": "The victim.",
+      "goals": [],
+      "relationships": [],
+      "secrets": []
+    }
+  ],
+  "phases": [
+    {
+      "phase_id": "intro",
+      "title": "Opening",
+      "phase_type": "intro",
+      "order": 1,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Welcome players and establish the apartment scene.",
+        "pace_notes": "Keep the opening concise and social.",
+        "transition_condition": "players_confirm_rules"
+      }
+    },
+    {
+      "phase_id": "discussion",
+      "title": "Initial Discussion",
+      "phase_type": "free_discussion",
+      "order": 2,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Ask players to build the party timeline.",
+        "pace_notes": "Let players talk unless they stall.",
+        "transition_condition": "dm_or_player_opens_clue"
+      }
+    },
+    {
+      "phase_id": "clue_1_release",
+      "title": "Clue 1",
+      "phase_type": "discovery",
+      "order": 3,
+      "materials_to_release": [
+        "asset_clue_1"
+      ],
+      "clues_to_reveal": [
+        "clue_1"
+      ],
+      "dm_instructions": {
+        "opening_text": "Reveal the condition of the body.",
+        "pace_notes": "Do not identify the killer.",
+        "transition_condition": "clue_revealed"
+      }
+    },
+    {
+      "phase_id": "clue_2_release",
+      "title": "Clue 2",
+      "phase_type": "discovery",
+      "order": 4,
+      "materials_to_release": [
+        "asset_clue_2"
+      ],
+      "clues_to_reveal": [
+        "clue_2"
+      ],
+      "dm_instructions": {
+        "opening_text": "Reveal the likely murder weapon.",
+        "pace_notes": "Keep the focus on who could access it.",
+        "transition_condition": "clue_revealed"
+      }
+    },
+    {
+      "phase_id": "clue_3_release",
+      "title": "Clue 3",
+      "phase_type": "discovery",
+      "order": 5,
+      "materials_to_release": [
+        "asset_clue_3"
+      ],
+      "clues_to_reveal": [
+        "clue_3"
+      ],
+      "dm_instructions": {
+        "opening_text": "Reveal the threatening note.",
+        "pace_notes": "Frame it as evidence, not an answer.",
+        "transition_condition": "clue_revealed"
+      }
+    },
+    {
+      "phase_id": "clue_4_release",
+      "title": "Clue 4",
+      "phase_type": "discovery",
+      "order": 6,
+      "materials_to_release": [
+        "asset_clue_4"
+      ],
+      "clues_to_reveal": [
+        "clue_4"
+      ],
+      "dm_instructions": {
+        "opening_text": "Reveal the apartment exit clue.",
+        "pace_notes": "Ask players to revisit movement through the apartment.",
+        "transition_condition": "clue_revealed"
+      }
+    },
+    {
+      "phase_id": "accusation",
+      "title": "Accusation",
+      "phase_type": "accusation",
+      "order": 7,
+      "materials_to_release": [
+        "accusation_sheet"
+      ],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Ask players to state who they suspect and why.",
+        "pace_notes": "Phase 4 does not resolve this automatically.",
+        "transition_condition": "manual"
+      }
+    },
+    {
+      "phase_id": "recap",
+      "title": "Recap",
+      "phase_type": "recap",
+      "order": 8,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Recap is not connected in Phase 4.",
+        "pace_notes": "Manual only.",
+        "transition_condition": "manual"
+      }
+    }
+  ],
+  "role_packets": [
+    {
+      "packet_id": "louis_intro_private",
+      "character_id": "louis",
+      "phase_id": "intro",
+      "content": null,
+      "content_ref": "stories/business/louis.start.txt",
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    },
+    {
+      "packet_id": "harold_intro_private",
+      "character_id": "harold",
+      "phase_id": "intro",
+      "content": null,
+      "content_ref": "stories/business/harold.start.txt",
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    },
+    {
+      "packet_id": "margaret_intro_private",
+      "character_id": "margaret",
+      "phase_id": "intro",
+      "content": null,
+      "content_ref": "stories/business/margaret.start.txt",
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    },
+    {
+      "packet_id": "bobby_intro_private",
+      "character_id": "bobby",
+      "phase_id": "intro",
+      "content": null,
+      "content_ref": "stories/business/bobby.start.txt",
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    },
+    {
+      "packet_id": "tim_intro_private",
+      "character_id": "tim",
+      "phase_id": "intro",
+      "content": null,
+      "content_ref": "stories/business/tim.start.txt",
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    },
+    {
+      "packet_id": "fiona_intro_private",
+      "character_id": "fiona",
+      "phase_id": "intro",
+      "content": null,
+      "content_ref": "stories/business/fiona.start.txt",
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    },
+    {
+      "packet_id": "pauline_intro_private",
+      "character_id": "pauline",
+      "phase_id": "intro",
+      "content": null,
+      "content_ref": "stories/business/pauline.start.txt",
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    }
+  ],
+  "clues": [
+    {
+      "clue_id": "clue_1",
+      "title": "Clue #1: The Body",
+      "clue_type": "testimony",
+      "content": "Rick was struck hard on the back of the head. The body also has a forehead gash, and a search finds keys, cash, a checkbook, a photo of Fiona, and a silver fountain pen.",
+      "asset_refs": [
+        "asset_clue_1"
+      ],
+      "initial_visibility": "hidden",
+      "reveal_phase": "clue_1_release",
+      "related_characters": [
+        "rick",
+        "fiona",
+        "louis"
+      ]
+    },
+    {
+      "clue_id": "clue_2",
+      "title": "Clue #2: The Murder Weapon",
+      "clue_type": "object",
+      "content": "A blood-marked marble paperweight is found in the bathtub. Several people recognize it as an item from Rick's office.",
+      "asset_refs": [
+        "asset_clue_2"
+      ],
+      "initial_visibility": "hidden",
+      "reveal_phase": "clue_2_release",
+      "related_characters": [
+        "rick",
+        "tim",
+        "harold",
+        "pauline"
+      ]
+    },
+    {
+      "clue_id": "clue_3",
+      "title": "Clue #3: The Note",
+      "clue_type": "letter",
+      "content": "A crumpled note outside the bathroom reads: Pay up or die!",
+      "asset_refs": [
+        "asset_clue_3"
+      ],
+      "initial_visibility": "hidden",
+      "reveal_phase": "clue_3_release",
+      "related_characters": [
+        "rick",
+        "louis"
+      ]
+    },
+    {
+      "clue_id": "clue_4",
+      "title": "Clue #4: The Apartment",
+      "clue_type": "map",
+      "content": "The rest of the apartment search is mostly inconclusive, except that the fire escape exit is unlocked and slightly ajar.",
+      "asset_refs": [
+        "asset_clue_4"
+      ],
+      "initial_visibility": "hidden",
+      "reveal_phase": "clue_4_release",
+      "related_characters": [
+        "rick"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "asset_start",
+      "asset_type": "document",
+      "path": "stories/business/Start.txt",
+      "description": "Starting information source file.",
+      "linked_clue_id": null,
+      "visibility": "public",
+      "source_page": null,
+      "requires_manual_review": true
+    },
+    {
+      "asset_id": "asset_clue_1",
+      "asset_type": "handout",
+      "path": "stories/business/Clue1.txt",
+      "description": "Body clue source file.",
+      "linked_clue_id": "clue_1",
+      "visibility": "hidden",
+      "source_page": null,
+      "requires_manual_review": true
+    },
+    {
+      "asset_id": "asset_clue_2",
+      "asset_type": "handout",
+      "path": "stories/business/Clue2.txt",
+      "description": "Murder weapon clue source file.",
+      "linked_clue_id": "clue_2",
+      "visibility": "hidden",
+      "source_page": null,
+      "requires_manual_review": true
+    },
+    {
+      "asset_id": "asset_clue_3",
+      "asset_type": "handout",
+      "path": "stories/business/Clue3.txt",
+      "description": "Threat note clue source file.",
+      "linked_clue_id": "clue_3",
+      "visibility": "hidden",
+      "source_page": null,
+      "requires_manual_review": true
+    },
+    {
+      "asset_id": "asset_clue_4",
+      "asset_type": "handout",
+      "path": "stories/business/Clue4.txt",
+      "description": "Apartment search clue source file.",
+      "linked_clue_id": "clue_4",
+      "visibility": "hidden",
+      "source_page": null,
+      "requires_manual_review": true
+    }
+  ],
+  "reveal_rules": [
+    {
+      "rule_id": "reveal_clue_1",
+      "target_type": "clue",
+      "target_id": "clue_1",
+      "trigger_type": "dm_manual",
+      "phase_id": "clue_1_release",
+      "recipients": [
+        "ALL"
+      ],
+      "after_reveal_visibility": "public",
+      "announcement_template": "The first investigation packet is opened: the body itself."
+    },
+    {
+      "rule_id": "reveal_clue_2",
+      "target_type": "clue",
+      "target_id": "clue_2",
+      "trigger_type": "dm_manual",
+      "phase_id": "clue_2_release",
+      "recipients": [
+        "ALL"
+      ],
+      "after_reveal_visibility": "public",
+      "announcement_template": "The next packet is opened: the likely murder weapon."
+    },
+    {
+      "rule_id": "reveal_clue_3",
+      "target_type": "clue",
+      "target_id": "clue_3",
+      "trigger_type": "dm_manual",
+      "phase_id": "clue_3_release",
+      "recipients": [
+        "ALL"
+      ],
+      "after_reveal_visibility": "public",
+      "announcement_template": "A written clue is introduced into the discussion."
+    },
+    {
+      "rule_id": "reveal_clue_4",
+      "target_type": "clue",
+      "target_id": "clue_4",
+      "trigger_type": "dm_manual",
+      "phase_id": "clue_4_release",
+      "recipients": [
+        "ALL"
+      ],
+      "after_reveal_visibility": "public",
+      "announcement_template": "The apartment itself yields one more detail."
+    }
+  ],
+  "truth_model": {
+    "truth_type": "fixed",
+    "case_questions": [
+      {
+        "question_id": "victim",
+        "prompt": "What happened to Rick Martin?",
+        "expected_answer_node_ids": [
+          "truth_rick_dead",
+          "truth_blunt_force"
+        ]
+      },
+      {
+        "question_id": "weapon",
+        "prompt": "What object appears to be the murder weapon?",
+        "expected_answer_node_ids": [
+          "truth_paperweight_weapon"
+        ]
+      },
+      {
+        "question_id": "movement",
+        "prompt": "Which movements through the apartment still need explanation?",
+        "expected_answer_node_ids": [
+          "truth_fire_escape_open"
+        ]
+      }
+    ],
+    "truth_nodes": [
+      {
+        "node_id": "truth_rick_dead",
+        "node_type": "fact",
+        "content": "Rick Martin is dead in his apartment bathroom.",
+        "conditions": [],
+        "related_characters": [
+          "rick"
+        ],
+        "related_clues": [
+          "clue_1"
+        ]
+      },
+      {
+        "node_id": "truth_blunt_force",
+        "node_type": "method_fact",
+        "content": "The body shows a severe blow to the back of the head.",
+        "conditions": [],
+        "related_characters": [
+          "rick"
+        ],
+        "related_clues": [
+          "clue_1"
+        ]
+      },
+      {
+        "node_id": "truth_paperweight_weapon",
+        "node_type": "evidence_identity",
+        "content": "A marble paperweight from Rick's office appears to be the murder weapon.",
+        "conditions": [],
+        "related_characters": [
+          "rick",
+          "tim",
+          "harold",
+          "pauline"
+        ],
+        "related_clues": [
+          "clue_2"
+        ]
+      },
+      {
+        "node_id": "truth_threat_note",
+        "node_type": "motive_signal",
+        "content": "A threat note suggests money pressure around Rick.",
+        "conditions": [],
+        "related_characters": [
+          "rick",
+          "louis"
+        ],
+        "related_clues": [
+          "clue_3"
+        ]
+      },
+      {
+        "node_id": "truth_fire_escape_open",
+        "node_type": "movement_fact",
+        "content": "The apartment fire escape exit is unlocked and slightly ajar.",
+        "conditions": [],
+        "related_characters": [
+          "rick"
+        ],
+        "related_clues": [
+          "clue_4"
+        ]
+      }
+    ],
+    "evidence_links": [
+      {
+        "link_id": "link_body_to_death",
+        "truth_node_id": "truth_blunt_force",
+        "clue_id": "clue_1",
+        "strength": "supports",
+        "explanation": "The body clue establishes the violent injury."
+      },
+      {
+        "link_id": "link_paperweight_to_weapon",
+        "truth_node_id": "truth_paperweight_weapon",
+        "clue_id": "clue_2",
+        "strength": "supports",
+        "explanation": "The paperweight carries blood and tissue traces."
+      },
+      {
+        "link_id": "link_note_to_money",
+        "truth_node_id": "truth_threat_note",
+        "clue_id": "clue_3",
+        "strength": "suggests",
+        "explanation": "The note points players toward financial pressure."
+      },
+      {
+        "link_id": "link_exit_to_movement",
+        "truth_node_id": "truth_fire_escape_open",
+        "clue_id": "clue_4",
+        "strength": "suggests",
+        "explanation": "The open fire escape affects movement possibilities."
+      }
+    ]
+  },
+  "forbidden_spoilers": [
+    {
+      "spoiler_id": "spoiler_weapon_before_clue_2",
+      "spoiler_type": "clue",
+      "content": "paperweight",
+      "aliases": [
+        "marble paperweight",
+        "murder weapon"
+      ],
+      "forbidden_until_phase": "clue_2_release",
+      "allowed_after_phase": "clue_2_release",
+      "allowed_after_reveal_rule": "reveal_clue_2",
+      "allowed_after_condition": null
+    },
+    {
+      "spoiler_id": "spoiler_note_before_clue_3",
+      "spoiler_type": "clue",
+      "content": "Pay up or die",
+      "aliases": [
+        "threat note",
+        "crumpled note"
+      ],
+      "forbidden_until_phase": "clue_3_release",
+      "allowed_after_phase": "clue_3_release",
+      "allowed_after_reveal_rule": "reveal_clue_3",
+      "allowed_after_condition": null
+    },
+    {
+      "spoiler_id": "spoiler_exit_before_clue_4",
+      "spoiler_type": "clue",
+      "content": "fire escape",
+      "aliases": [
+        "unlocked exit",
+        "ajar exit"
+      ],
+      "forbidden_until_phase": "clue_4_release",
+      "allowed_after_phase": "clue_4_release",
+      "allowed_after_reveal_rule": "reveal_clue_4",
+      "allowed_after_condition": null
+    },
+    {
+      "spoiler_id": "spoiler_final_killer",
+      "spoiler_type": "truth_node",
+      "content": "the killer is",
+      "aliases": [
+        "murderer is",
+        "culprit is"
+      ],
+      "forbidden_until_phase": "accusation",
+      "allowed_after_phase": "accusation",
+      "allowed_after_reveal_rule": null,
+      "allowed_after_condition": "manual accusation phase"
+    }
+  ],
+  "action_rules": {
+    "enabled": false,
+    "action_types": [],
+    "resolution_order": [],
+    "blocking_rules": [],
+    "outcomes": []
+  },
+  "forms": [
+    {
+      "form_id": "accusation_sheet",
+      "title": "Accusation Sheet",
+      "form_type": "accusation_sheet",
+      "per_player_or_global": "global",
+      "read_aloud_after_submit": true,
+      "used_for_resolution": true,
+      "fields": [
+        {
+          "field_id": "suspect",
+          "label": "Who do you suspect?",
+          "field_type": "character_ref",
+          "required": true
+        },
+        {
+          "field_id": "evidence",
+          "label": "Which evidence matters most?",
+          "field_type": "free_text",
+          "required": true
+        },
+        {
+          "field_id": "motive",
+          "label": "What motive or pressure explains it?",
+          "field_type": "free_text",
+          "required": false
+        }
+      ],
+      "submit_phase": "accusation"
+    }
+  ],
+  "ending_rules": {
+    "ending_type": "manual_fixed_reveal",
+    "conditions": [
+      {
+        "ending_id": "manual_resolution",
+        "priority": 1,
+        "when": "host chooses to reveal the original ending",
+        "ending_title": "Manual Resolution",
+        "ending_text_ref": "ending_text_manual"
+      }
+    ],
+    "final_reveal_sequence": [
+      {
+        "step": 1,
+        "trigger": "dm_manual",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_rick_dead",
+        "next_step_condition": null
+      },
+      {
+        "step": 2,
+        "trigger": "dm_manual",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_paperweight_weapon",
+        "next_step_condition": null
+      }
+    ]
+  },
+  "scoring_rules": {
+    "enabled": false,
+    "goal_checks": []
+  },
+  "hint_rules": [
+    {
+      "hint_id": "hint_second_timeline_l1",
+      "level": "L1",
+      "phase_id": "discussion",
+      "allowed_when": "players are stalled before clue_1",
+      "allowed_clue_ids": [],
+      "allowed_truth_nodes": [],
+      "forbidden_truth_nodes": [
+        "truth_paperweight_weapon",
+        "truth_threat_note",
+        "truth_fire_escape_open"
+      ],
+      "template": "The discussion seems stalled. Rebuild the party timeline: who was with Rick, who left the room, and who had a reason to seek him out.",
+      "cooldown_turns": 3,
+      "spoiler_check_mode": "strict"
+    },
+    {
+      "hint_id": "hint_second_body_l2",
+      "level": "L2",
+      "phase_id": "clue_1_release",
+      "allowed_when": "clue_1 is public and ignored",
+      "allowed_clue_ids": [
+        "clue_1"
+      ],
+      "allowed_truth_nodes": [],
+      "forbidden_truth_nodes": [
+        "truth_paperweight_weapon",
+        "truth_threat_note"
+      ],
+      "template": "The body clue tells you what kind of violence happened. Put that beside who had time alone, who knew Rick well, and who had visible pressure.",
+      "cooldown_turns": 4,
+      "spoiler_check_mode": "strict"
+    },
+    {
+      "hint_id": "hint_second_weapon_l3",
+      "level": "L3",
+      "phase_id": "clue_2_release",
+      "allowed_when": "clue_2 is public and players remain stalled",
+      "allowed_clue_ids": [
+        "clue_2"
+      ],
+      "allowed_truth_nodes": [],
+      "forbidden_truth_nodes": [
+        "truth_threat_note"
+      ],
+      "template": "The revealed weapon has a history outside the apartment. Ask who could connect Rick's office world to this apartment scene.",
+      "cooldown_turns": 4,
+      "spoiler_check_mode": "strict"
+    }
+  ]
+}

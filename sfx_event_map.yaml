@@ -1,0 +1,26 @@
+{
+  "defaults": {
+    "event_cooldown_sec": 0.5,
+    "file_reuse_cooldown_sec": 4.0,
+    "recent_history_size": 10,
+    "preload_hotspots": ["transition", "clue_search", "suspense_horror"],
+    "category_base_volume": {
+      "transition": 0.55,
+      "clue_search": 0.5,
+      "environment": 0.45,
+      "suspense_horror": 0.58,
+      "conflict_climax": 0.62,
+      "ending": 0.5
+    }
+  },
+  "events": {
+    "opening_start": { "category": "transition", "cooldown_sec": 1.2 },
+    "phase_transition": { "category": "transition", "cooldown_sec": 1.0 },
+    "clue_reveal": { "category": "clue_search", "cooldown_sec": 0.8 },
+    "search_action": { "category": "clue_search", "cooldown_sec": 0.8 },
+    "door_action": { "category": "environment", "cooldown_sec": 0.8 },
+    "suspense_raise": { "category": "suspense_horror", "cooldown_sec": 1.0 },
+    "conflict_hit": { "category": "conflict_climax", "cooldown_sec": 1.2 },
+    "ending_resolve": { "category": "ending", "cooldown_sec": 1.4 }
+  }
+}

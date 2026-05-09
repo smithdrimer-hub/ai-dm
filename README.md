@@ -41,16 +41,87 @@ pip install -r requirements.txt
 - `requests` - HTTP 请求（TTS 使用）
 - `pygame` - 音频播放
 
-### 可选：生成背景音乐
+### 可选：生成或批量下载背景音乐
 
-如需测试背景音乐功能，可运行以下命令生成合成音乐：
+如需快速测试背景音乐功能，可运行以下命令生成合成音乐：
 
 ```bash
 python generate_bgm.py
 ```
 
 这将在 `music/` 目录生成 8 个 WAV 格式的氛围音乐文件（每个约 30 秒）。
-建议后续从免费音效网站（如 freesound.org）下载更好的音乐替换。
+
+如需按情绪批量下载（Freesound API，默认每类 10 条、20-180 秒，且默认仅下载 CC0）：
+
+```bash
+python download_moods_freesound.py --dry-run
+python download_moods_freesound.py --resume
+```
+
+如需提升情绪匹配精度，可增加文本匹配阈值与更严格时长：
+
+```bash
+python download_moods_freesound.py --resume --min-duration 30 --min-text-match 0.08
+```
+
+如需在你确认后允许 CC BY 补位，可追加参数：
+
+```bash
+python download_moods_freesound.py --resume --allow-cc-by-fallback
+```
+
+SFX pipeline quick start (v2, keyword-level):
+
+SFX library bootstrap (6 categories / 50 keyword buckets, strict CC0, target 3 each):
+
+```bash
+python download_sfx_library.py --audit-only --target-per-keyword 3
+python download_sfx_library.py --resume --target-per-keyword 3 --max-page-limit 2 --max-per-query 30 --max-candidates-per-keyword 100 --max-attempts-per-keyword 45
+```
+
+Optional scoped retry (single or multiple keyword buckets):
+
+```bash
+python download_sfx_library.py --resume --target-per-keyword 3 --keyword-scope "ending:warm resolve,ending:relief chime"
+```
+
+SFX outputs:
+- `audio_library/sfx/<category>/*.mp3`
+- `audio_library/sfx/metadata.csv`
+- `audio_library/sfx/rejected.csv`
+- `audio_library/sfx/summary.json`
+- `audio_library/sfx/license_manifest.csv`
+- `audio_library/sfx/keyword_audit.csv`
+- `audio_library/sfx/keyword_audit.json`
+- `audio_library/sfx_demo_bundle/` (offline demo subset)
+
+SFX gap retry playbook (current known gaps):
+
+```bash
+python download_sfx_library.py --resume --target-per-keyword 3 --keyword-scope "environment:door knock" --max-author-per-keyword 3 --max-page-limit 4 --max-per-query 80 --max-candidates-per-keyword 240 --max-attempts-per-keyword 140 --rate-limit 45
+python download_sfx_library.py --resume --target-per-keyword 3 --keyword-scope "clue_search:photo pickup,ending:warm resolve,ending:mystery resolve,ending:relief chime,ending:ending swell" --max-author-per-keyword 2 --max-page-limit 5 --max-per-query 100 --max-candidates-per-keyword 300 --max-attempts-per-keyword 180 --rate-limit 45
+```
+
+SFX orphan cleanup playbook (metadata-driven, mp3 only):
+- 仅删除 `audio_library/sfx/<category>/` 和 `audio_library/sfx_demo_bundle/<category>/` 下未被各自 `metadata.csv` 引用的 mp3。
+- 不删除 `.csv/.json`；不跨目录删除；先 dry-run 统计再执行。
+- 若普通权限删除报 `WinError 5 Access denied`，使用管理员/提升权限执行同一套 metadata 驱动删除流程。
+
+下载脚本会将文件保存到 `music/moods/<mood_slug>/`，并生成：
+- `music/moods/index.json`（全量索引）
+- `music/moods/attribution.csv`（仅需署名素材）
+
+说明：
+- 播放系统优先按 `index.json` 加载情绪音效；未在索引中的文件默认视为“已移除”。
+- 在当前 Windows 权限环境下，如遇文件无法 move/delete，可先采用“索引移除 + `_rejected` 复制归档”的软移除方案；具备管理员权限时可执行 metadata 驱动的硬删除清理孤儿文件。
+
+推荐质检闭环（先筛选，再回补，再复筛）：
+
+```bash
+python filter_moods_library.py --apply --min-duration 30 --max-duration 180 --min-rms 120 --min-active-ratio 0.02 --min-head-rms 20
+python download_moods_freesound.py --resume --per-mood 10 --min-duration 30 --max-duration 180 --min-text-match 0.08
+python filter_moods_library.py --apply --min-duration 30 --max-duration 180 --min-rms 120 --min-active-ratio 0.02 --min-head-rms 20
+```
 
 ### 配置 API Key
 
@@ -62,6 +133,7 @@ OPENAI_BASE_URL=https://chat.ecnu.edu.cn/open/api/v1
 OPENAI_MODEL=ecnu-max
 ECNU_TTS_MODEL=ecnu-tts
 ECNU_DEFAULT_VOICE=xiayu
+FREESOUND_API_KEY=your_freesound_api_key_here
 ```
 
 ### 运行游戏
@@ -154,6 +226,16 @@ py -3.13 main.py
 | `/bgm on` | 开启背景音乐 |
 | `/bgm off` | 关闭背景音乐 |
 | `/bgm volume [0-1]` | 设置背景音乐音量 |
+| `/bgm mood list` | 显示可用情绪及数量 |
+| `/bgm mood [slug]` | 手动切换到指定情绪 |
+| `/bgm auto on/off` | 开关自动情绪映射 |
+| `/sfx on` | Enable SFX |
+| `/sfx off` | Disable SFX |
+| `/sfx volume [0-1]` | Set SFX volume |
+| `/sfx status` | Show SFX catalog and events |
+| `/sfx event [name]` | Trigger SFX event manually |
+| `/sfx category list` | List SFX categories |
+| `/sfx category [slug]` | Play one SFX by category |
 
 ---
 
@@ -242,6 +324,8 @@ py -3.13 main.py
 
 ## 代码结构
 
+### 文件列表
+
 ```
 murder-mystery-dm/
 ├── config.py                  # 配置与 API 客户端初始化
@@ -251,6 +335,8 @@ murder-mystery-dm/
 ├── bgm_engine.py              # 背景音乐播放模块
 ├── main.py                    # 命令行入口（集成 TTS+BGM）
 ├── generate_bgm.py            # 背景音乐生成脚本（测试用）
+├── download_moods_freesound.py# Freesound 情绪音效批量下载脚本
+├── mood_config.py             # 情绪分类、检索词、自动映射配置
 ├── test_api.py                # API 测试脚本
 ├── requirements.txt           # Python 依赖列表
 ├── .env                       # 环境变量（API Key，需自行配置）
@@ -263,30 +349,52 @@ murder-mystery-dm/
 └── China/                     # 剧本原始资料
 ```
 
-### 核心模块说明
+### 核心模块职责
 
-#### `dm_engine.py` - DM 引擎
+| 文件 | 职责 | 不负责 |
+|------|------|--------|
+| `config.py` | 配置加载、API 客户端初始化、多 API 提供商切换 | 不使用配置，仅导出 |
+| `script_data.py` | 剧本结构化数据（角色卡、线索、答案、世界设定） | 无逻辑，纯数据定义 |
+| `dm_engine.py` | 游戏状态机、LLM 调用、玩家输入处理、问题分类 | 不调用 TTS/BGM，不定义剧本数据 |
+| `tts_engine.py` | TTS API 调用、声音配置、音频播放、长文本分割 | 不判断场景，由外部传入 scene |
+| `bgm_engine.py` | 场景/情绪 BGM 播放、自动情绪映射、音量控制 | 不判断游戏阶段，由外部传入 phase |
+| `main.py` | 整合三大引擎、命令解析、TTS 场景判断、BGM 自动切换 | 不含游戏逻辑 |
+| `mood_config.py` | 情绪定义、Freesound 检索词、阶段 - 情绪映射 | 无逻辑，纯配置 |
 
-主要职责：
-- 管理游戏状态（阶段、发言玩家、线索、投票等）
-- 处理玩家输入，调用 AI 模型生成 DM 回复
-- 控制标记解析（NEXT_SPEAKER、PHASE_UPDATE 等）
-- 案件记忆与滚动摘要
-- 答案检查与结局判定
+### 数据流向
 
-关键方法：
-- `start_game()` - 五步开场白流程
-- `chat(user_input)` - 处理玩家输入
+```
+玩家输入 → main.py (命令解析) → dm_engine.chat() → LLM
+                                           ↓
+                                    DM 回复文本
+                                           ↓
+                    main.py (detect_tts_scene) → tts_engine.speak()
+                    main.py (auto_switch_bgm) → bgm_engine.play_for_phase()
+```
+
+### 关键方法索引
+
+#### dm_engine.py
+- `start_game()` - 启动五步开场白流程
+- `chat(user_input: str) -> str` - 处理玩家输入，返回 DM 回复
 - `start_vote()` - 进入最终公开答案阶段
-- `_classify_player_question()` - 问题分类（RULES/FLOW/CLUE/LORE/CHAT）
-- `_handle_opening_rules_confirmation()` - 规则确认环节
+- `release_clue(clue_id: str) -> str` - 手动公开指定线索
+- `save_game(filename: str) -> tuple[bool, str]` - 存档
+- `load_game(filename: str) -> tuple[bool, str]` - 读档
 
-#### `tts_engine.py` - TTS 语音引擎
+#### tts_engine.py
+- `speak(text: str, scene: str, blocking: bool) -> bool` - 合成并播放语音
+- `set_voice_for_scene(scene: str)` - 切换声音配置
 
-主要职责：
-- 调用 ECNU TTS API 合成语音
-- 多场景声音配置
-- 音频播放与资源管理
+#### bgm_engine.py
+- `play(scene: str, fade_ms: int) -> bool` - 播放场景音乐
+- `play_mood(mood: str, fade_ms: int) -> bool` - 播放情绪音乐
+- `play_for_phase(phase: str, reply_text: str, fade_ms: int) -> bool` - 根据阶段自动播放
+- `set_auto_mood(enabled: bool)` - 开关自动情绪映射
+
+#### main.py
+- `detect_tts_scene(reply: str) -> str` - 根据 DM 回复判断 TTS 场景
+- `main()` - 启动游戏
 
 ---
 

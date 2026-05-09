@@ -8,7 +8,11 @@
 
 ## 🎵 背景音乐推荐
 
-当前项目使用 `generate_bgm.py` 生成的合成测试音乐，音质较简陋。推荐从以下网站下载更好的背景音乐：
+当前项目支持两种方式准备背景音乐：
+- 快速测试：`python generate_bgm.py` 生成合成占位音乐
+- 批量下载：`python download_moods_freesound.py` 自动按情绪抓取（推荐）
+
+如需手动挑选，也可参考以下网站下载：
 
 ### 推荐音乐网站
 
@@ -59,6 +63,7 @@
    OPENAI_MODEL=ecnu-max
    ECNU_TTS_MODEL=ecnu-tts
    ECNU_DEFAULT_VOICE=xiayu
+   FREESOUND_API_KEY=your_freesound_api_key_here
    ```
 
 ### 第二步：运行游戏
@@ -155,6 +160,9 @@ python main.py
 | `/bgm on` | 开启背景音乐 |
 | `/bgm off` | 关闭背景音乐 |
 | `/bgm volume [0-1]` | 设置背景音乐音量 |
+| `/bgm mood list` | 显示可用情绪及数量 |
+| `/bgm mood [slug]` | 手动切换到指定情绪 |
+| `/bgm auto on/off` | 开关自动情绪映射 |
 
 ---
 

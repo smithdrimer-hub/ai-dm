@@ -1,0 +1,141 @@
+WELCOME
+=======
+
+	This is a party game of mystery and intrigue, a blend between 
+theatre games and Clue. It is played out purely by social interaction.  
+Each person attending will be playing the part of a character in a murder 
+mystery. They will act in character, and will know only what their character 
+knows. Together, they will discover that a murder has been committed, and 
+collect the facts of the murder. Then, between them, they have enough 
+information to discover the identity of the murderer. They will discuss, 
+accuse, and in general have fun investigating. 
+
+	As part of this package, there should be a total of 21 files: 
+
+1)  This file, with instructions for the Host: 
+	"READ.ME"
+
+2)  Invitations and background information for each character: 
+	"Invite.doc"
+	7 private character files: 	"bobby.invite"	"louis.invite"
+					"fiona.invite"	"margaret.invite"
+					"harold.invite"	"pauline.invite"
+							"tim.invite"
+
+3)  Starting instructions and character information: 
+	"Start.doc"
+	7 private character files: 	"bobby.start"	"louis.start"
+					"fiona.start"	"margaret.start"
+					"harold.start"	"pauline.start"
+							"tim.start"
+
+4)  4 files of sequential clues: 
+	"Clue1.doc"	"Clue3.doc"
+	"Clue2.doc"	"Clue4.doc"
+
+
+	Having (presumably) taken apart these files by the UNIX "tar" 
+utility, you now must find someone to act as Host for this game, who 
+should follow the instructions in the following section.  
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+INSTRUCTIONS TO THE HOST
+========================
+
+	As Host, your job is manifold.  You must: 
+
+1) Print, label, and enclose the various character information files. 
+
+	These should probably be sealed in envelopes and labeled: the 
+.invite files should be marked "Background Information:" plus the full 
+name of the character; the .start files should be marked "Additional 
+Information:" plus the full name of the character.  
+
+	If you wants to play a part in the game, then you must handle 
+the information without looking at it - the files are separated to make 
+this easy.  
+
+-*-
+2) Cast players to appropriate parts, and send out their invitations
+
+	In the following section is a description of the various character 
+parts in the game.  For a given player, you should try to choose a part 
+which he would be comfortable with, and can convincingly portray.  
+
+	Once you have decided who will be playing each part, send each 
+of them an invitation telling them the time and place of the party.  The 
+included file "Invite.doc" explains the nature of the game, and has a 
+cast list, which you can use to inform them who the other players will 
+be.  A space is also listed for the murdered character's name - you may 
+fill this in with a nonsense name in order keep them wondering who will 
+be killed.  
+
+	With each invitation, you should include a printout of their 
+character's Background Information.  This information is in the file 
+with the character's first name and the suffix ".invite".  
+
+-*-
+3) As the time approaches, prepare for the party. 
+
+	As the time approaches, you should confirm each player's 
+availability, and make sure that substitutes are found if some players 
+cannot come.  Remember that you are acting as a normal host as well - 
+perhaps providing food, drinks, and such things as make life more 
+comfortable. 
+
+-*-
+4) Read the Starting Instructions, and decide when to open Clues.  
+
+	Once the party begins, you will read the Starting Instructions, 
+and hand out the starting information to each character.  Finally, if the 
+investigation seems to be stymied or too slow, you should decide whether 
+and when to read one of the notes from the provided 'Hints' in order to 
+keep things moving. 
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+THE CAST
+========
+
+	Rick Martin is the murder victim in this scenario, although no 
+one will know it initially. No one will be playing this part - he is 
+listed as part of the cast as a decoy, so no one (except you) knows 
+who the murder victim will be. If you write the names of the players 
+in the introduction, make up a fictitious name for his 'player'. 
+
+	Louis Cagliostro is an MBA student at the U of C. He is quite 
+well-off and well-connected, and is widely rumored to be related to 
+the local Mafia, being groomed for some important position. This 
+part is best suited to someone who will ham up the Italian mafioso 
+part, but it is not neccessary. 
+
+	Harold Chun is an assistant professor at the U of C in Finance. 
+He is a friendly sort, known as a 'whiz kid' from his well-known 
+thesis work, but he has not done very much since then. This part is 
+fairly open - it does not require strong acting ability. 
+
+	Margaret Chun is the wife of Professor Chun, an emotional type 
+who is known to have problems with her husband. This part, also, is 
+fairly open, although there are subtleties which can be shown by a 
+good player. 
+
+	Bobby Herrara was Fiona's boyfriend, but their relationship now 
+is uncertain as she has become involved with her ex-boyfriend Rick. 
+This part is open to hamming up the jealous lover or angry Don Juan. 
+
+	Tim Kane is an overly impulsive PhD student in Finance, working 
+for Professor Chun. He shares an office with Rick Martin, a friend 
+of his. This part is open to a nervous, timid portrayal. 
+
+	Fiona McAllister is Rick's old girlfriend, whom he seems to be 
+getting back together with. This is open to a number of strong 
+emotions at the death of her lover. 
+
+	Pauline Thompson is a stranger at the party, a mysterious woman 
+who showed up to talk to Rick. This part is suited to a no-nonsense 
+business attitude, but there is plenty of room for variations and 
+subtleties. 
+

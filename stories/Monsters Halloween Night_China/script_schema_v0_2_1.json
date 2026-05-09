@@ -1,0 +1,833 @@
+{
+  "schema_version": "0.2.1",
+  "script_info": {
+    "id": "monsters_halloween_night_cn",
+    "title": "Monsters Halloween Night",
+    "author": null,
+    "game_mode": "fixed_truth",
+    "player_count": {
+      "min": 4,
+      "max": 4,
+      "recommended": 4
+    },
+    "language": "zh-CN"
+  },
+  "license_info": {
+    "source": "Local demo materials in stories/Monsters Halloween Night_China",
+    "license_type": "unknown",
+    "commercial_allowed": null,
+    "redistribution_allowed": null,
+    "attribution_required": false,
+    "notes": "Migrated from the current local demo data. Source terms still require manual review before external use."
+  },
+  "public_materials": {
+    "setting": "万圣节活动期间，四个真正的怪物在主题乐园“克苏鲁仙境”打工。闭园后，业主宣称有一名孩童失踪，并要求找出袭击客人的犯人。",
+    "public_intro": "四位怪物在乐园的万圣节活动中担任工作人员。活动结束后，业主指控有人袭击了失踪的孩童。在找出犯人之前，所有人的报酬都会被冻结。",
+    "rules_text": "犯人以外的人不能说谎；不想透露的事可以说 NO COMMENT 或“我不知道”。讨论中会逐步公开线索，最终所有玩家同时公开自己的答案。",
+    "cast_public_list": [
+      {
+        "character_id": "wolf",
+        "display_name": "狼",
+        "public_profile": "拥有强大力量的狼人，擅长用庞大的身体进行表演。"
+      },
+      {
+        "character_id": "witch",
+        "display_name": "女巫",
+        "public_profile": "驼背的魔女，能把真正的魔法伪装成魔术表演。"
+      },
+      {
+        "character_id": "vampire",
+        "display_name": "吸血鬼",
+        "public_profile": "面色苍白的真祖吸血鬼，举止天然就像吸血鬼。"
+      },
+      {
+        "character_id": "mummy",
+        "display_name": "木乃伊",
+        "public_profile": "来自埃及的木乃伊，因原本是人类而更擅长服务游客。"
+      }
+    ],
+    "opening_script": "欢迎来到闭园后的克苏鲁仙境。今晚，灯光已经熄灭，但问题还没有结束。请各位怪物先确认自己的角色信息，记住：除犯人外不能说谎；如果被问到不能说的内容，可以选择 NO COMMENT。",
+    "player_guidance": "先围绕时间线、进入等候室的顺序、补给橱柜和每个人看到的异常展开讨论。不要朗读角色私密信息，除非规则或 DM 明确要求。",
+    "content_notes": "本迁移稿只服务当前固定 demo 剧本；部分内容从既有结构化数据压缩整理，未做 PDF 自动解析。"
+  },
+  "player_config": {
+    "mode": "all_role_players",
+    "role_player_slots": [
+      {
+        "slot_id": "slot_wolf",
+        "character_id": "wolf",
+        "required": true
+      },
+      {
+        "slot_id": "slot_witch",
+        "character_id": "witch",
+        "required": true
+      },
+      {
+        "slot_id": "slot_vampire",
+        "character_id": "vampire",
+        "required": true
+      },
+      {
+        "slot_id": "slot_mummy",
+        "character_id": "mummy",
+        "required": true
+      }
+    ],
+    "observer_slots": []
+  },
+  "cast": [
+    {
+      "character_id": "wolf",
+      "display_name": "狼",
+      "public_profile": "拥有强大力量的狼人，擅长用庞大的身体进行表演。",
+      "goals": [
+        {
+          "goal_id": "wolf_vote_culprit",
+          "description": "让大家投票给真正的犯人，也就是自己。",
+          "visibility": "private"
+        },
+        {
+          "goal_id": "wolf_explain_cabinet",
+          "description": "说明孩童为什么会被放进上锁的补给橱柜。",
+          "visibility": "private"
+        }
+      ],
+      "relationships": [
+        {
+          "target_id": "vampire",
+          "relation_type": "witnessed_behavior",
+          "public_description": "狼和吸血鬼都是乐园工作人员。",
+          "private_description": "狼目击到吸血鬼从等候室里慌张逃走。"
+        },
+        {
+          "target_id": "mummy",
+          "relation_type": "observed_evidence",
+          "public_description": "狼和木乃伊都参与了活动后的讨论。",
+          "private_description": "狼注意到木乃伊绷带上沾着漂亮碎布。"
+        }
+      ],
+      "secrets": [
+        {
+          "secret_id": "wolf_is_culprit",
+          "description": "狼杀害了孩童。",
+          "reveal_policy": "keep_secret"
+        },
+        {
+          "secret_id": "wolf_broke_cabinet",
+          "description": "狼撬坏了补给橱柜。",
+          "reveal_policy": "keep_secret"
+        },
+        {
+          "secret_id": "wolf_destroyed_clothes",
+          "description": "狼撕碎并丢弃了孩童衣物。",
+          "reveal_policy": "keep_secret"
+        }
+      ]
+    },
+    {
+      "character_id": "witch",
+      "display_name": "女巫",
+      "public_profile": "驼背的魔女，能把真正的魔法伪装成魔术表演。",
+      "goals": [
+        {
+          "goal_id": "witch_vote_culprit",
+          "description": "投票给真正的犯人。",
+          "visibility": "private"
+        },
+        {
+          "goal_id": "witch_entry_order",
+          "description": "说明自己是第几个进入等候室的人。",
+          "visibility": "private"
+        }
+      ],
+      "relationships": [
+        {
+          "target_id": "mummy",
+          "relation_type": "witnessed_behavior",
+          "public_description": "女巫和木乃伊都是活动工作人员。",
+          "private_description": "女巫在 18:00 左右看到木乃伊因迷路孩童而非常混乱。"
+        },
+        {
+          "target_id": "wolf",
+          "relation_type": "witnessed_behavior",
+          "public_description": "女巫和狼都是活动工作人员。",
+          "private_description": "女巫目击到狼被孩童误认为布偶服工作人员而被欺负。"
+        }
+      ],
+      "secrets": [
+        {
+          "secret_id": "witch_found_key",
+          "description": "女巫在地上找到补给橱柜钥匙，并把它放回画框后。",
+          "reveal_policy": "reveal_only_when_challenged"
+        },
+        {
+          "secret_id": "witch_sensed_human",
+          "description": "女巫感受到等候室里有人类存在。",
+          "reveal_policy": "reveal_only_when_challenged"
+        }
+      ]
+    },
+    {
+      "character_id": "vampire",
+      "display_name": "吸血鬼",
+      "public_profile": "面色苍白的真祖吸血鬼，举止天然就像吸血鬼。",
+      "goals": [
+        {
+          "goal_id": "vampire_vote_culprit",
+          "description": "投票给真正的犯人。",
+          "visibility": "private"
+        },
+        {
+          "goal_id": "vampire_entry_order",
+          "description": "说明自己是第几个进入等候室的人。",
+          "visibility": "private"
+        }
+      ],
+      "relationships": [
+        {
+          "target_id": "mummy",
+          "relation_type": "witnessed_behavior",
+          "public_description": "吸血鬼和木乃伊都是活动工作人员。",
+          "private_description": "吸血鬼目击到木乃伊在四处寻找业主。"
+        },
+        {
+          "target_id": "witch",
+          "relation_type": "witnessed_behavior",
+          "public_description": "吸血鬼和女巫都是活动工作人员。",
+          "private_description": "吸血鬼目击到女巫只对特定孩童做特别表演。"
+        }
+      ],
+      "secrets": [
+        {
+          "secret_id": "vampire_scared_child",
+          "description": "吸血鬼进入等候室时和躲在角落里的孩童对上视线，并被吓得逃离。",
+          "reveal_policy": "reveal_only_when_challenged"
+        }
+      ]
+    },
+    {
+      "character_id": "mummy",
+      "display_name": "木乃伊",
+      "public_profile": "来自埃及的木乃伊，因原本是人类而更擅长服务游客。",
+      "goals": [
+        {
+          "goal_id": "mummy_vote_culprit",
+          "description": "投票给真正的犯人。",
+          "visibility": "private"
+        },
+        {
+          "goal_id": "mummy_explain_cloth",
+          "description": "说明那块漂亮碎布究竟是什么。",
+          "visibility": "private"
+        }
+      ],
+      "relationships": [
+        {
+          "target_id": "witch",
+          "relation_type": "witnessed_behavior",
+          "public_description": "木乃伊和女巫都是活动工作人员。",
+          "private_description": "木乃伊目击到女巫在还没到休息时间前进入等候室。"
+        },
+        {
+          "target_id": "vampire",
+          "relation_type": "observed_evidence",
+          "public_description": "木乃伊和吸血鬼都是活动工作人员。",
+          "private_description": "木乃伊在 22:00 左右发现吸血鬼的喉咙一直吞咽，眼里似乎布满血丝。"
+        }
+      ],
+      "secrets": [
+        {
+          "secret_id": "mummy_brought_child",
+          "description": "木乃伊把迷路哭泣的孩童带进等候室后离开。",
+          "reveal_policy": "reveal_only_when_challenged"
+        },
+        {
+          "secret_id": "mummy_took_cloth",
+          "description": "木乃伊在垃圾桶里发现漂亮碎布，并拿来当绷带。",
+          "reveal_policy": "reveal_only_when_challenged"
+        }
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "phase_id": "intro",
+      "title": "开场接待",
+      "phase_type": "intro",
+      "order": 1,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "欢迎玩家、确认角色、说明不说谎规则和 NO COMMENT 机制。",
+        "pace_notes": "仪式感要足，但不要提前解释真相。",
+        "transition_condition": "players_confirm_rules"
+      }
+    },
+    {
+      "phase_id": "discussion",
+      "title": "自由讨论",
+      "phase_type": "free_discussion",
+      "order": 2,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "引导玩家从时间线、等候室和各自目击内容开始。",
+        "pace_notes": "正常推进时少打断；停滞时只用低剧透提示。",
+        "transition_condition": "manual_or_timed_clue"
+      }
+    },
+    {
+      "phase_id": "clue_1_release",
+      "title": "线索一公开",
+      "phase_type": "discovery",
+      "order": 3,
+      "materials_to_release": [
+        "asset_clue_1"
+      ],
+      "clues_to_reveal": [
+        "clue_1"
+      ],
+      "dm_instructions": {
+        "opening_text": "公开第一条线索，并把讨论焦点带到补给橱柜。",
+        "pace_notes": "只说明已公开内容，不解释狼的行为。",
+        "transition_condition": "clue_revealed"
+      }
+    },
+    {
+      "phase_id": "search",
+      "title": "搜证",
+      "phase_type": "search",
+      "order": 4,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "允许玩家围绕等候室、补给橱柜和垃圾桶提出搜证。",
+        "pace_notes": "搜证成功时给出结果；失败时保持克制。",
+        "transition_condition": "manual_or_timed_clue"
+      }
+    },
+    {
+      "phase_id": "clue_2_release",
+      "title": "线索二公开",
+      "phase_type": "discovery",
+      "order": 5,
+      "materials_to_release": [
+        "asset_clue_2"
+      ],
+      "clues_to_reveal": [
+        "clue_2"
+      ],
+      "dm_instructions": {
+        "opening_text": "公开第二条线索，并提醒玩家梳理谁接触过补给橱柜。",
+        "pace_notes": "不得直接给出女巫藏人或狼吃人的结论。",
+        "transition_condition": "clue_revealed"
+      }
+    },
+    {
+      "phase_id": "accusation",
+      "title": "最终公开答案",
+      "phase_type": "accusation",
+      "order": 6,
+      "materials_to_release": [
+        "accusation_sheet"
+      ],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "请所有玩家同时写下并公开最终答案。",
+        "pace_notes": "收束问题：犯人是谁、漂亮碎布是什么、孩童为何在上锁橱柜里。",
+        "transition_condition": "accusation_sheet_submitted"
+      }
+    },
+    {
+      "phase_id": "owner_confrontation",
+      "title": "真相揭晓",
+      "phase_type": "resolution",
+      "order": 7,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "业主逼近，DM 按真相节点揭晓完整因果。",
+        "pace_notes": "先判答案，再按时间线解释，不要跳步。",
+        "transition_condition": "dm_reveal_complete"
+      }
+    },
+    {
+      "phase_id": "recap",
+      "title": "复盘",
+      "phase_type": "recap",
+      "order": 8,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "按时间线、证据、角色秘密和真相逻辑进行复盘。",
+        "pace_notes": "先结构化复盘，再回答玩家问题。",
+        "transition_condition": "players_done"
+      }
+    }
+  ],
+  "role_packets": [
+    {
+      "packet_id": "wolf_intro_private",
+      "character_id": "wolf",
+      "phase_id": "intro",
+      "content": "你是狼。你被孩童误认为布偶服工作人员而遭欺负，后来逃入等候室，因地板上的血滑倒。你找不到补给橱柜的钥匙，于是撬坏橱柜，发现里面的孩童并将其吃掉，又撕碎孩童衣物丢进垃圾桶。必须隐藏自己是犯人、撬坏橱柜、撕碎衣物。",
+      "content_ref": null,
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    },
+    {
+      "packet_id": "witch_intro_private",
+      "character_id": "witch",
+      "phase_id": "intro",
+      "content": "你是女巫。20:00 左右你进入等候室，发现地板上满是血，在地上找到补给橱柜钥匙，并将其放回画框后面。同时你感受到等候室里有人类存在。你还在 18:00 左右看到木乃伊因迷路孩童而混乱，并看到狼被孩童欺负。",
+      "content_ref": null,
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    },
+    {
+      "packet_id": "vampire_intro_private",
+      "character_id": "vampire",
+      "phase_id": "intro",
+      "content": "你是吸血鬼。19:00 左右你进入等候室，准备从补给橱柜里拿鲜血果汁，却和躲在房间角落、表情恐慌的孩童对上视线。你被突发情况吓到，匆忙逃离等候室。你还看到木乃伊在四处寻找业主，看到女巫只对特定孩子做特别表演。",
+      "content_ref": null,
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    },
+    {
+      "packet_id": "mummy_intro_private",
+      "character_id": "mummy",
+      "phase_id": "intro",
+      "content": "你是木乃伊。18:00 左右你因迷路孩童的哭泣而慌乱，把孩童带进等候室，随后离开去找业主。22:00 左右你回到等候室时发现孩童不见了，之后在垃圾桶里发现漂亮碎布，并拿它当绷带。你看到女巫较早进入等候室，也注意到吸血鬼喉咙吞咽、眼里似乎布满血丝。",
+      "content_ref": null,
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "may_share"
+    }
+  ],
+  "clues": [
+    {
+      "clue_id": "clue_1",
+      "title": "发现到的线索一",
+      "clue_type": "object",
+      "content": "补给橱柜的合页被破坏了。",
+      "asset_refs": [
+        "asset_clue_1"
+      ],
+      "initial_visibility": "hidden",
+      "reveal_phase": "clue_1_release",
+      "related_characters": [
+        "wolf"
+      ]
+    },
+    {
+      "clue_id": "clue_2",
+      "title": "发现到的线索二",
+      "clue_type": "object",
+      "content": "在补给橱柜里找到了钥匙。",
+      "asset_refs": [
+        "asset_clue_2"
+      ],
+      "initial_visibility": "hidden",
+      "reveal_phase": "clue_2_release",
+      "related_characters": [
+        "witch",
+        "wolf"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "asset_announcement",
+      "asset_type": "document",
+      "path": "stories/Monsters Halloween Night_China/Announcement.docx",
+      "description": "Public announcement source document.",
+      "linked_clue_id": null,
+      "visibility": "public",
+      "source_page": null,
+      "requires_manual_review": true
+    },
+    {
+      "asset_id": "asset_clue_1",
+      "asset_type": "handout",
+      "path": "stories/Monsters Halloween Night_China/Monsters Halloween Night/What I noticed_1.docx",
+      "description": "First clue handout source.",
+      "linked_clue_id": "clue_1",
+      "visibility": "hidden",
+      "source_page": null,
+      "requires_manual_review": true
+    },
+    {
+      "asset_id": "asset_clue_2",
+      "asset_type": "handout",
+      "path": "stories/Monsters Halloween Night_China/Monsters Halloween Night/What I noticed_2.docx",
+      "description": "Second clue handout source.",
+      "linked_clue_id": "clue_2",
+      "visibility": "hidden",
+      "source_page": null,
+      "requires_manual_review": true
+    },
+    {
+      "asset_id": "asset_ending",
+      "asset_type": "document",
+      "path": "stories/Monsters Halloween Night_China/Monsters Halloween Night/Ending.docx",
+      "description": "Ending source document.",
+      "linked_clue_id": null,
+      "visibility": "dm_only",
+      "source_page": null,
+      "requires_manual_review": true
+    }
+  ],
+  "reveal_rules": [
+    {
+      "rule_id": "reveal_clue_1",
+      "target_type": "clue",
+      "target_id": "clue_1",
+      "trigger_type": "timed",
+      "phase_id": "clue_1_release",
+      "recipients": [
+        "ALL"
+      ],
+      "after_reveal_visibility": "public",
+      "announcement_template": "新的现场线索公开：补给橱柜的合页被破坏了。"
+    },
+    {
+      "rule_id": "reveal_clue_2",
+      "target_type": "clue",
+      "target_id": "clue_2",
+      "trigger_type": "timed",
+      "phase_id": "clue_2_release",
+      "recipients": [
+        "ALL"
+      ],
+      "after_reveal_visibility": "public",
+      "announcement_template": "新的现场线索公开：在补给橱柜里找到了钥匙。"
+    }
+  ],
+  "truth_model": {
+    "truth_type": "fixed",
+    "case_questions": [
+      {
+        "question_id": "culprit",
+        "prompt": "谁是真正的犯人？",
+        "expected_answer_node_ids": [
+          "truth_culprit_wolf"
+        ]
+      },
+      {
+        "question_id": "cloth",
+        "prompt": "木乃伊身上的漂亮碎布究竟是什么？",
+        "expected_answer_node_ids": [
+          "truth_cloth_child_clothes"
+        ]
+      },
+      {
+        "question_id": "cabinet",
+        "prompt": "孩童为什么会被放进上锁的补给橱柜？",
+        "expected_answer_node_ids": [
+          "truth_witch_locked_child"
+        ]
+      }
+    ],
+    "truth_nodes": [
+      {
+        "node_id": "truth_mummy_brought_child",
+        "node_type": "timeline_fact",
+        "content": "18:00 左右，木乃伊把迷路哭泣的孩童带进等候室，然后离开去找业主。",
+        "conditions": [],
+        "related_characters": [
+          "mummy"
+        ],
+        "related_clues": []
+      },
+      {
+        "node_id": "truth_vampire_scared_child",
+        "node_type": "timeline_fact",
+        "content": "19:00 左右，吸血鬼进入等候室，被躲在角落里的孩童吓到并逃离。",
+        "conditions": [],
+        "related_characters": [
+          "vampire"
+        ],
+        "related_clues": []
+      },
+      {
+        "node_id": "truth_witch_locked_child",
+        "node_type": "causal_fact",
+        "content": "女巫发现等候室里还有人类后，使用钥匙把孩童藏进了上锁的补给橱柜。",
+        "conditions": [],
+        "related_characters": [
+          "witch"
+        ],
+        "related_clues": [
+          "clue_2"
+        ]
+      },
+      {
+        "node_id": "truth_wolf_broke_cabinet",
+        "node_type": "method",
+        "content": "狼找不到钥匙，于是撬坏补给橱柜。",
+        "conditions": [],
+        "related_characters": [
+          "wolf"
+        ],
+        "related_clues": [
+          "clue_1"
+        ]
+      },
+      {
+        "node_id": "truth_culprit_wolf",
+        "node_type": "culprit",
+        "content": "犯人是狼。",
+        "conditions": [],
+        "related_characters": [
+          "wolf"
+        ],
+        "related_clues": [
+          "clue_1"
+        ]
+      },
+      {
+        "node_id": "truth_cloth_child_clothes",
+        "node_type": "evidence_identity",
+        "content": "漂亮碎布是孩童衣服的碎片。",
+        "conditions": [],
+        "related_characters": [
+          "mummy",
+          "wolf"
+        ],
+        "related_clues": []
+      }
+    ],
+    "evidence_links": [
+      {
+        "link_id": "link_broken_hinge_to_wolf",
+        "truth_node_id": "truth_wolf_broke_cabinet",
+        "clue_id": "clue_1",
+        "strength": "supports",
+        "explanation": "被破坏的合页说明有人用暴力打开过补给橱柜。"
+      },
+      {
+        "link_id": "link_key_to_witch_locking",
+        "truth_node_id": "truth_witch_locked_child",
+        "clue_id": "clue_2",
+        "strength": "supports",
+        "explanation": "钥匙在橱柜里，说明孩童曾被正常上锁藏入，之后才被暴力打开。"
+      },
+      {
+        "link_id": "link_broken_hinge_to_culprit",
+        "truth_node_id": "truth_culprit_wolf",
+        "clue_id": "clue_1",
+        "strength": "supports",
+        "explanation": "狼的力量和撬坏橱柜的行为共同指向最终犯人。"
+      }
+    ]
+  },
+  "forbidden_spoilers": [
+    {
+      "spoiler_id": "spoiler_key_before_clue_2",
+      "spoiler_type": "clue",
+      "content": "钥匙",
+      "aliases": [
+        "橱柜钥匙",
+        "补给橱柜钥匙"
+      ],
+      "forbidden_until_phase": "clue_2_release",
+      "allowed_after_phase": "clue_2_release",
+      "allowed_after_reveal_rule": "reveal_clue_2",
+      "allowed_after_condition": null
+    },
+    {
+      "spoiler_id": "spoiler_culprit_wolf",
+      "spoiler_type": "truth_node",
+      "content": "犯人是狼",
+      "aliases": [
+        "狼是犯人",
+        "狼杀了孩童"
+      ],
+      "forbidden_until_phase": "owner_confrontation",
+      "allowed_after_phase": "owner_confrontation",
+      "allowed_after_reveal_rule": null,
+      "allowed_after_condition": "final answers submitted"
+    },
+    {
+      "spoiler_id": "spoiler_witch_locked_child",
+      "spoiler_type": "truth_node",
+      "content": "女巫把孩童藏进补给橱柜",
+      "aliases": [
+        "女巫锁住孩童",
+        "女巫把孩子放进橱柜"
+      ],
+      "forbidden_until_phase": "owner_confrontation",
+      "allowed_after_phase": "owner_confrontation",
+      "allowed_after_reveal_rule": null,
+      "allowed_after_condition": "final answers submitted"
+    }
+  ],
+  "action_rules": {
+    "enabled": false,
+    "action_types": [],
+    "resolution_order": [],
+    "blocking_rules": [],
+    "outcomes": []
+  },
+  "forms": [
+    {
+      "form_id": "accusation_sheet",
+      "title": "最终答案表",
+      "form_type": "accusation_sheet",
+      "per_player_or_global": "global",
+      "read_aloud_after_submit": true,
+      "used_for_resolution": true,
+      "fields": [
+        {
+          "field_id": "whodunit",
+          "label": "谁是真正的犯人？",
+          "field_type": "character_ref",
+          "required": true
+        },
+        {
+          "field_id": "cloth",
+          "label": "漂亮碎布是什么？",
+          "field_type": "free_text",
+          "required": true
+        },
+        {
+          "field_id": "cabinet",
+          "label": "孩童为什么在上锁的补给橱柜里？",
+          "field_type": "free_text",
+          "required": true
+        }
+      ],
+      "submit_phase": "accusation"
+    }
+  ],
+  "ending_rules": {
+    "ending_type": "fixed_reveal",
+    "conditions": [
+      {
+        "ending_id": "happy_ending",
+        "priority": 1,
+        "when": "players answer all public questions correctly",
+        "ending_title": "Happy Ending",
+        "ending_text_ref": "ending_text_happy"
+      },
+      {
+        "ending_id": "bad_ending",
+        "priority": 2,
+        "when": "players miss one or more public questions",
+        "ending_title": "Bad Ending",
+        "ending_text_ref": "ending_text_bad"
+      }
+    ],
+    "final_reveal_sequence": [
+      {
+        "step": 1,
+        "trigger": "dm_reveal",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_mummy_brought_child",
+        "next_step_condition": null
+      },
+      {
+        "step": 2,
+        "trigger": "dm_reveal",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_vampire_scared_child",
+        "next_step_condition": null
+      },
+      {
+        "step": 3,
+        "trigger": "dm_reveal",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_witch_locked_child",
+        "next_step_condition": null
+      },
+      {
+        "step": 4,
+        "trigger": "dm_reveal",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_wolf_broke_cabinet",
+        "next_step_condition": null
+      },
+      {
+        "step": 5,
+        "trigger": "dm_reveal",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_culprit_wolf",
+        "next_step_condition": null
+      },
+      {
+        "step": 6,
+        "trigger": "dm_reveal",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_cloth_child_clothes",
+        "next_step_condition": null
+      }
+    ]
+  },
+  "scoring_rules": {
+    "enabled": false,
+    "goal_checks": []
+  },
+  "hint_rules": [
+    {
+      "hint_id": "hint_timeline_l1",
+      "level": "L1",
+      "phase_id": "discussion",
+      "allowed_when": "players are stalled before clue_1",
+      "allowed_clue_ids": [],
+      "allowed_truth_nodes": [],
+      "forbidden_truth_nodes": [
+        "truth_witch_locked_child",
+        "truth_culprit_wolf"
+      ],
+      "template": "讨论似乎有些停滞。先别急着下结论，可以把每个人进入等候室的时间线重新排一遍。",
+      "cooldown_turns": 3,
+      "spoiler_check_mode": "strict"
+    },
+    {
+      "hint_id": "hint_broken_cabinet_l2",
+      "level": "L2",
+      "phase_id": "clue_1_release",
+      "allowed_when": "clue_1 is public and ignored",
+      "allowed_clue_ids": [
+        "clue_1"
+      ],
+      "allowed_truth_nodes": [],
+      "forbidden_truth_nodes": [
+        "truth_culprit_wolf"
+      ],
+      "template": "已经公开的线索里，橱柜状态值得和每个人的力量、进入顺序放在一起看。",
+      "cooldown_turns": 4,
+      "spoiler_check_mode": "strict"
+    },
+    {
+      "hint_id": "hint_key_l3",
+      "level": "L3",
+      "phase_id": "clue_2_release",
+      "allowed_when": "clue_2 is public and players remain stalled",
+      "allowed_clue_ids": [
+        "clue_2"
+      ],
+      "allowed_truth_nodes": [],
+      "forbidden_truth_nodes": [
+        "truth_culprit_wolf"
+      ],
+      "template": "第二条公开的信息可以和补给橱柜状态放在一起看，先区分“正常上锁”和“后来被破坏打开”这两件事。",
+      "cooldown_turns": 4,
+      "spoiler_check_mode": "strict"
+    }
+  ]
+}

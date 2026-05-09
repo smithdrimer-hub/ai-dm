@@ -1,0 +1,727 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-dm.local/schemas/game_schema_v0_1.schema.json",
+  "title": "GameSchema v0.1",
+  "description": "Single-player AI detective game schema. The program is the judge; the LLM is only an actor.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "game_info",
+    "source_info",
+    "review",
+    "public_case",
+    "npc_characters",
+    "scenes",
+    "evidence",
+    "lies",
+    "truth_model",
+    "phases",
+    "mechanics",
+    "accusation_rules",
+    "recap"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "game_schema_v0.1"
+    },
+    "game_info": {
+      "$ref": "#/$defs/game_info"
+    },
+    "source_info": {
+      "$ref": "#/$defs/source_info"
+    },
+    "review": {
+      "$ref": "#/$defs/review"
+    },
+    "public_case": {
+      "$ref": "#/$defs/public_case"
+    },
+    "npc_characters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/npc_character"
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/scene"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "lies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lie"
+      }
+    },
+    "truth_model": {
+      "$ref": "#/$defs/truth_model"
+    },
+    "phases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/phase"
+      }
+    },
+    "mechanics": {
+      "$ref": "#/$defs/mechanics"
+    },
+    "accusation_rules": {
+      "$ref": "#/$defs/accusation_rules"
+    },
+    "recap": {
+      "$ref": "#/$defs/recap"
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nullable_string": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "string_list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "game_info": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "title",
+        "language",
+        "mode",
+        "player_role"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "mode": {
+          "const": "single_player_detective"
+        },
+        "player_role": {
+          "const": "detective"
+        }
+      }
+    },
+    "source_info": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "source_type",
+        "input_format",
+        "license_status",
+        "notes"
+      ],
+      "properties": {
+        "source_type": {
+          "enum": [
+            "murder_mystery_text",
+            "suspense_novel",
+            "manual"
+          ]
+        },
+        "input_format": {
+          "enum": [
+            "md",
+            "txt",
+            "json",
+            "manual"
+          ]
+        },
+        "license_status": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "status",
+        "missing_fields",
+        "logic_warnings",
+        "spoiler_risks",
+        "manual_checklist",
+        "source_traces"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "draft",
+            "needs_review",
+            "confirmed"
+          ]
+        },
+        "missing_fields": {
+          "$ref": "#/$defs/string_list"
+        },
+        "logic_warnings": {
+          "$ref": "#/$defs/string_list"
+        },
+        "spoiler_risks": {
+          "$ref": "#/$defs/string_list"
+        },
+        "manual_checklist": {
+          "$ref": "#/$defs/string_list"
+        },
+        "source_traces": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "public_case": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "setting",
+        "opening_text",
+        "detective_briefing",
+        "case_objectives",
+        "initial_available_scene_ids",
+        "content_warnings"
+      ],
+      "properties": {
+        "setting": {
+          "type": "string"
+        },
+        "opening_text": {
+          "type": "string"
+        },
+        "detective_briefing": {
+          "type": "string"
+        },
+        "case_objectives": {
+          "$ref": "#/$defs/string_list"
+        },
+        "initial_available_scene_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "content_warnings": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    },
+    "npc_character": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "character_id",
+        "display_name",
+        "public_profile",
+        "private_profile",
+        "known_truth_ids",
+        "initial_attitude",
+        "conversation_rules"
+      ],
+      "properties": {
+        "character_id": {
+          "$ref": "#/$defs/id"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "public_profile": {
+          "type": "string"
+        },
+        "private_profile": {
+          "type": "string"
+        },
+        "known_truth_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "initial_attitude": {
+          "type": "string"
+        },
+        "conversation_rules": {
+          "$ref": "#/$defs/conversation_rules"
+        }
+      }
+    },
+    "conversation_rules": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "can_lie",
+        "lie_ids",
+        "forbidden_truth_ids",
+        "fallback_style"
+      ],
+      "properties": {
+        "can_lie": {
+          "type": "boolean"
+        },
+        "lie_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "forbidden_truth_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "fallback_style": {
+          "type": "string"
+        }
+      }
+    },
+    "scene": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "scene_id",
+        "title",
+        "description",
+        "initially_unlocked",
+        "unlock_condition",
+        "evidence_ids",
+        "npc_ids"
+      ],
+      "properties": {
+        "scene_id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "initially_unlocked": {
+          "type": "boolean"
+        },
+        "unlock_condition": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "npc_ids": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "evidence_id",
+        "title",
+        "evidence_type",
+        "content",
+        "scene_id",
+        "initially_discovered",
+        "unlock_condition",
+        "related_truth_ids",
+        "can_confront_lie_ids"
+      ],
+      "properties": {
+        "evidence_id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "evidence_type": {
+          "enum": [
+            "physical",
+            "document",
+            "testimony",
+            "digital",
+            "observation",
+            "other"
+          ]
+        },
+        "content": {
+          "type": "string"
+        },
+        "scene_id": {
+          "$ref": "#/$defs/id"
+        },
+        "initially_discovered": {
+          "type": "boolean"
+        },
+        "unlock_condition": {
+          "type": "string"
+        },
+        "related_truth_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "can_confront_lie_ids": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    },
+    "lie": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "lie_id",
+        "character_id",
+        "claim",
+        "truth_id",
+        "required_evidence_ids",
+        "break_result"
+      ],
+      "properties": {
+        "lie_id": {
+          "$ref": "#/$defs/id"
+        },
+        "character_id": {
+          "$ref": "#/$defs/id"
+        },
+        "claim": {
+          "type": "string"
+        },
+        "truth_id": {
+          "$ref": "#/$defs/id"
+        },
+        "required_evidence_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "break_result": {
+          "$ref": "#/$defs/break_result"
+        }
+      }
+    },
+    "break_result": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "unlocked_truth_ids",
+        "phase_unlock_ids",
+        "attitude_shift",
+        "response_guidance"
+      ],
+      "properties": {
+        "unlocked_truth_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "phase_unlock_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "attitude_shift": {
+          "type": "string"
+        },
+        "response_guidance": {
+          "type": "string"
+        }
+      }
+    },
+    "truth_model": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "culprit_character_id",
+        "motive_truth_id",
+        "method_truth_id",
+        "truth_nodes",
+        "timeline",
+        "evidence_links"
+      ],
+      "properties": {
+        "culprit_character_id": {
+          "$ref": "#/$defs/id"
+        },
+        "motive_truth_id": {
+          "$ref": "#/$defs/id"
+        },
+        "method_truth_id": {
+          "$ref": "#/$defs/id"
+        },
+        "truth_nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/truth_node"
+          }
+        },
+        "timeline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/timeline_item"
+          }
+        },
+        "evidence_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence_link"
+          }
+        }
+      }
+    },
+    "truth_node": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "truth_id",
+        "truth_type",
+        "content",
+        "revealed_by_default",
+        "related_character_ids",
+        "related_evidence_ids"
+      ],
+      "properties": {
+        "truth_id": {
+          "$ref": "#/$defs/id"
+        },
+        "truth_type": {
+          "enum": [
+            "fact",
+            "motive",
+            "method",
+            "timeline",
+            "alibi",
+            "contradiction",
+            "identity",
+            "other"
+          ]
+        },
+        "content": {
+          "type": "string"
+        },
+        "revealed_by_default": {
+          "type": "boolean"
+        },
+        "related_character_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "related_evidence_ids": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    },
+    "timeline_item": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "time_label",
+        "event",
+        "truth_ids"
+      ],
+      "properties": {
+        "time_label": {
+          "type": "string"
+        },
+        "event": {
+          "type": "string"
+        },
+        "truth_ids": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    },
+    "evidence_link": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "link_id",
+        "truth_id",
+        "evidence_id",
+        "strength",
+        "explanation"
+      ],
+      "properties": {
+        "link_id": {
+          "$ref": "#/$defs/id"
+        },
+        "truth_id": {
+          "$ref": "#/$defs/id"
+        },
+        "evidence_id": {
+          "$ref": "#/$defs/id"
+        },
+        "strength": {
+          "enum": [
+            "suggests",
+            "supports",
+            "contradicts",
+            "proves"
+          ]
+        },
+        "explanation": {
+          "type": "string"
+        }
+      }
+    },
+    "phase": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "phase_id",
+        "title",
+        "phase_type",
+        "order",
+        "unlock_condition",
+        "unlocked_scene_ids",
+        "unlocked_evidence_ids",
+        "allowed_actions"
+      ],
+      "properties": {
+        "phase_id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "phase_type": {
+          "enum": [
+            "intro",
+            "investigation",
+            "confrontation",
+            "accusation",
+            "recap"
+          ]
+        },
+        "order": {
+          "type": "integer"
+        },
+        "unlock_condition": {
+          "type": "string"
+        },
+        "unlocked_scene_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "unlocked_evidence_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "allowed_actions": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    },
+    "mechanics": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "starting_phase_id",
+        "max_hint_level",
+        "commands"
+      ],
+      "properties": {
+        "starting_phase_id": {
+          "$ref": "#/$defs/id"
+        },
+        "max_hint_level": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "commands": {
+          "type": "object"
+        }
+      }
+    },
+    "accusation_rules": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "required_fields",
+        "scoring_items",
+        "score_thresholds"
+      ],
+      "properties": {
+        "required_fields": {
+          "$ref": "#/$defs/string_list"
+        },
+        "scoring_items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/scoring_item"
+          }
+        },
+        "score_thresholds": {
+          "type": "object"
+        }
+      }
+    },
+    "scoring_item": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "score_id",
+        "field_id",
+        "prompt",
+        "expected_character_id",
+        "expected_truth_ids",
+        "expected_evidence_ids",
+        "expected_lie_ids",
+        "points"
+      ],
+      "properties": {
+        "score_id": {
+          "$ref": "#/$defs/id"
+        },
+        "field_id": {
+          "enum": [
+            "culprit",
+            "motive",
+            "method",
+            "evidence_chain"
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "expected_character_id": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "expected_truth_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "expected_evidence_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "expected_lie_ids": {
+          "$ref": "#/$defs/string_list"
+        },
+        "points": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "recap": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "truth_summary",
+        "timeline_summary",
+        "missed_content_templates"
+      ],
+      "properties": {
+        "truth_summary": {
+          "type": "string"
+        },
+        "timeline_summary": {
+          "type": "string"
+        },
+        "missed_content_templates": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-dm.local/schemas/script_schema_v0_2_1.schema.json",
+  "title": "ScriptSchema v0.2.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "script_info",
+    "license_info",
+    "public_materials",
+    "player_config",
+    "cast",
+    "phases",
+    "role_packets",
+    "clues",
+    "assets",
+    "reveal_rules",
+    "truth_model",
+    "forbidden_spoilers",
+    "action_rules",
+    "forms",
+    "ending_rules",
+    "scoring_rules",
+    "hint_rules"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.2.1"
+    },
+    "script_info": {
+      "$ref": "#/$defs/script_info"
+    },
+    "license_info": {
+      "$ref": "#/$defs/license_info"
+    },
+    "public_materials": {
+      "$ref": "#/$defs/public_materials"
+    },
+    "player_config": {
+      "$ref": "#/$defs/player_config"
+    },
+    "cast": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/character"
+      }
+    },
+    "phases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/phase"
+      }
+    },
+    "role_packets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/role_packet"
+      }
+    },
+    "clues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/clue"
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/asset"
+      }
+    },
+    "reveal_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reveal_rule"
+      }
+    },
+    "truth_model": {
+      "$ref": "#/$defs/truth_model"
+    },
+    "forbidden_spoilers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/forbidden_spoiler"
+      }
+    },
+    "action_rules": {
+      "$ref": "#/$defs/action_rules"
+    },
+    "forms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/form"
+      }
+    },
+    "ending_rules": {
+      "$ref": "#/$defs/ending_rules"
+    },
+    "scoring_rules": {
+      "$ref": "#/$defs/scoring_rules"
+    },
+    "hint_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/hint_rule"
+      }
+    }
+  },
+  "$defs": {
+    "nullable_string": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "visibility": {
+      "enum": [
+        "hidden",
+        "private",
+        "public",
+        "dm_only",
+        "role_private",
+        "group_limited"
+      ]
+    },
+    "packet_visibility": {
+      "enum": [
+        "private",
+        "public",
+        "dm_only",
+        "group_limited"
+      ]
+    },
+    "script_info": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "title",
+        "author",
+        "game_mode",
+        "player_count",
+        "language"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "game_mode": {
+          "enum": [
+            "fixed_truth",
+            "emergent_resolution",
+            "hybrid"
+          ]
+        },
+        "player_count": {
+          "type": "object",
+          "required": [
+            "min",
+            "max",
+            "recommended"
+          ],
+          "properties": {
+            "min": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "recommended": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "language": {
+          "type": "string"
+        }
+      }
+    },
+    "license_info": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "source",
+        "license_type",
+        "commercial_allowed",
+        "redistribution_allowed",
+        "attribution_required",
+        "notes"
+      ],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "license_type": {
+          "type": "string"
+        },
+        "commercial_allowed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "redistribution_allowed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "attribution_required": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "public_materials": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "setting",
+        "public_intro",
+        "rules_text",
+        "cast_public_list",
+        "opening_script",
+        "player_guidance",
+        "content_notes"
+      ],
+      "properties": {
+        "setting": {
+          "type": "string"
+        },
+        "public_intro": {
+          "type": "string"
+        },
+        "rules_text": {
+          "type": "string"
+        },
+        "cast_public_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "character_id",
+              "display_name",
+              "public_profile"
+            ]
+          }
+        },
+        "opening_script": {
+          "type": "string"
+        },
+        "player_guidance": {
+          "type": "string"
+        },
+        "content_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "player_config": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "mode",
+        "role_player_slots",
+        "observer_slots"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "all_role_players",
+            "role_players_plus_observers",
+            "role_players_plus_detectives"
+          ]
+        },
+        "role_player_slots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "slot_id",
+              "character_id",
+              "required"
+            ],
+            "properties": {
+              "slot_id": {
+                "$ref": "#/$defs/id"
+              },
+              "character_id": {
+                "$ref": "#/$defs/id"
+              },
+              "required": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "observer_slots": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "character": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "character_id",
+        "display_name",
+        "public_profile",
+        "goals",
+        "relationships",
+        "secrets"
+      ],
+      "properties": {
+        "character_id": {
+          "$ref": "#/$defs/id"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "public_profile": {
+          "type": "string"
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relationship"
+          }
+        },
+        "secrets": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "target_id",
+        "relation_type",
+        "public_description",
+        "private_description"
+      ],
+      "properties": {
+        "target_id": {
+          "$ref": "#/$defs/id"
+        },
+        "relation_type": {
+          "type": "string"
+        },
+        "public_description": {
+          "type": "string"
+        },
+        "private_description": {
+          "type": "string"
+        }
+      }
+    },
+    "phase": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "phase_id",
+        "title",
+        "phase_type",
+        "order",
+        "materials_to_release",
+        "clues_to_reveal",
+        "dm_instructions"
+      ],
+      "properties": {
+        "phase_id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "phase_type": {
+          "enum": [
+            "intro",
+            "free_discussion",
+            "search",
+            "discovery",
+            "examination",
+            "accusation",
+            "resolution",
+            "confession_chain",
+            "recap"
+          ]
+        },
+        "order": {
+          "type": "integer"
+        },
+        "materials_to_release": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "clues_to_reveal": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "dm_instructions": {
+          "type": "object"
+        }
+      }
+    },
+    "role_packet": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "packet_id",
+        "character_id",
+        "phase_id",
+        "content",
+        "content_ref",
+        "visibility",
+        "recipients",
+        "after_reveal_visibility",
+        "reveal_instruction"
+      ],
+      "properties": {
+        "packet_id": {
+          "$ref": "#/$defs/id"
+        },
+        "character_id": {
+          "$ref": "#/$defs/id"
+        },
+        "phase_id": {
+          "$ref": "#/$defs/id"
+        },
+        "content": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "content_ref": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "visibility": {
+          "$ref": "#/$defs/packet_visibility"
+        },
+        "recipients": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "after_reveal_visibility": {
+          "$ref": "#/$defs/packet_visibility"
+        },
+        "reveal_instruction": {
+          "enum": [
+            "keep_secret",
+            "must_read_aloud",
+            "reveal_only_when_challenged",
+            "reveal_at_phase_start",
+            "may_share"
+          ]
+        }
+      }
+    },
+    "clue": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "clue_id",
+        "title",
+        "clue_type",
+        "content",
+        "asset_refs",
+        "initial_visibility",
+        "reveal_phase",
+        "related_characters"
+      ],
+      "properties": {
+        "clue_id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "clue_type": {
+          "enum": [
+            "text",
+            "letter",
+            "newspaper",
+            "map",
+            "object",
+            "testimony",
+            "rule_extract"
+          ]
+        },
+        "content": {
+          "type": "string"
+        },
+        "asset_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "initial_visibility": {
+          "$ref": "#/$defs/visibility"
+        },
+        "reveal_phase": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "related_characters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "asset_id",
+        "asset_type",
+        "path",
+        "description",
+        "linked_clue_id",
+        "visibility",
+        "source_page",
+        "requires_manual_review"
+      ],
+      "properties": {
+        "asset_id": {
+          "$ref": "#/$defs/id"
+        },
+        "asset_type": {
+          "enum": [
+            "image",
+            "audio",
+            "document",
+            "handout",
+            "map",
+            "other"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "linked_clue_id": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibility"
+        },
+        "source_page": {
+          "type": [
+            "integer",
+            "string",
+            "null"
+          ]
+        },
+        "requires_manual_review": {
+          "type": "boolean"
+        }
+      }
+    },
+    "reveal_rule": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "rule_id",
+        "target_type",
+        "target_id",
+        "trigger_type",
+        "phase_id",
+        "recipients",
+        "after_reveal_visibility",
+        "announcement_template"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/id"
+        },
+        "target_type": {
+          "enum": [
+            "clue",
+            "role_packet",
+            "public_material",
+            "asset",
+            "truth_node",
+            "form"
+          ]
+        },
+        "target_id": {
+          "$ref": "#/$defs/id"
+        },
+        "trigger_type": {
+          "enum": [
+            "phase_start",
+            "phase_end",
+            "timed",
+            "dm_manual",
+            "player_action",
+            "form_submit",
+            "challenge",
+            "code_word"
+          ]
+        },
+        "phase_id": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "recipients": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "after_reveal_visibility": {
+          "$ref": "#/$defs/packet_visibility"
+        },
+        "announcement_template": {
+          "type": "string"
+        }
+      }
+    },
+    "truth_model": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "truth_type",
+        "case_questions",
+        "truth_nodes",
+        "evidence_links"
+      ],
+      "not": {
+        "required": [
+          "final_reveal_sequence"
+        ]
+      },
+      "properties": {
+        "truth_type": {
+          "enum": [
+            "fixed",
+            "emergent",
+            "hybrid"
+          ]
+        },
+        "case_questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/case_question"
+          }
+        },
+        "truth_nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/truth_node"
+          }
+        },
+        "evidence_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence_link"
+          }
+        }
+      }
+    },
+    "case_question": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "question_id",
+        "prompt",
+        "expected_answer_node_ids"
+      ],
+      "properties": {
+        "question_id": {
+          "$ref": "#/$defs/id"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "expected_answer_node_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      }
+    },
+    "truth_node": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "node_id",
+        "node_type",
+        "content",
+        "conditions",
+        "related_characters",
+        "related_clues"
+      ],
+      "properties": {
+        "node_id": {
+          "$ref": "#/$defs/id"
+        },
+        "node_type": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "conditions": {
+          "type": "array"
+        },
+        "related_characters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "related_clues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      }
+    },
+    "evidence_link": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "link_id",
+        "truth_node_id",
+        "clue_id",
+        "strength",
+        "explanation"
+      ],
+      "properties": {
+        "link_id": {
+          "$ref": "#/$defs/id"
+        },
+        "truth_node_id": {
+          "$ref": "#/$defs/id"
+        },
+        "clue_id": {
+          "$ref": "#/$defs/id"
+        },
+        "strength": {
+          "type": "string"
+        },
+        "explanation": {
+          "type": "string"
+        }
+      }
+    },
+    "forbidden_spoiler": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "spoiler_id",
+        "spoiler_type",
+        "content",
+        "aliases",
+        "forbidden_until_phase",
+        "allowed_after_phase",
+        "allowed_after_reveal_rule",
+        "allowed_after_condition"
+      ],
+      "properties": {
+        "spoiler_id": {
+          "$ref": "#/$defs/id"
+        },
+        "spoiler_type": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden_until_phase": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "allowed_after_phase": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "allowed_after_reveal_rule": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "allowed_after_condition": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "action_rules": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "enabled",
+        "action_types",
+        "resolution_order",
+        "blocking_rules",
+        "outcomes"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "action_types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/action_type"
+          }
+        },
+        "resolution_order": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocking_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/blocking_rule"
+          }
+        },
+        "outcomes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "action_type": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "action_type",
+        "actor_scope",
+        "target_scope",
+        "input_form_id",
+        "changes_character_state",
+        "changes_voting_eligibility",
+        "changes_candidate_eligibility"
+      ],
+      "properties": {
+        "action_type": {
+          "enum": [
+            "MURDER",
+            "GUARD",
+            "INVESTIGATE",
+            "DECLARE",
+            "VOTE",
+            "ACCUSE",
+            "CUSTOM"
+          ]
+        },
+        "actor_scope": {
+          "type": "string"
+        },
+        "target_scope": {
+          "type": "string"
+        },
+        "input_form_id": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "changes_character_state": {
+          "type": "boolean"
+        },
+        "changes_voting_eligibility": {
+          "type": "boolean"
+        },
+        "changes_candidate_eligibility": {
+          "type": "boolean"
+        }
+      }
+    },
+    "blocking_rule": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "rule_id",
+        "blocked_action_type",
+        "blocked_when",
+        "blocked_by_action_type",
+        "minimum_block_count",
+        "same_target_required",
+        "result"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/id"
+        },
+        "blocked_action_type": {
+          "type": "string"
+        },
+        "blocked_when": {
+          "type": "string"
+        },
+        "blocked_by_action_type": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "minimum_block_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "same_target_required": {
+          "type": "boolean"
+        },
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    "form": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "form_id",
+        "title",
+        "form_type",
+        "per_player_or_global",
+        "read_aloud_after_submit",
+        "used_for_resolution",
+        "fields",
+        "submit_phase"
+      ],
+      "properties": {
+        "form_id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "form_type": {
+          "enum": [
+            "declaration_card",
+            "accusation_sheet",
+            "vote_card",
+            "action_card",
+            "resolution_card",
+            "custom"
+          ]
+        },
+        "per_player_or_global": {
+          "enum": [
+            "per_player",
+            "global"
+          ]
+        },
+        "read_aloud_after_submit": {
+          "type": "boolean"
+        },
+        "used_for_resolution": {
+          "type": "boolean"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/form_field"
+          }
+        },
+        "submit_phase": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "form_field": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "field_id",
+        "label",
+        "field_type",
+        "required"
+      ],
+      "properties": {
+        "field_id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string"
+        },
+        "field_type": {
+          "enum": [
+            "character_ref",
+            "action_type",
+            "free_text",
+            "clue_ref",
+            "choice",
+            "boolean"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ending_rules": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "ending_type",
+        "conditions",
+        "final_reveal_sequence"
+      ],
+      "properties": {
+        "ending_type": {
+          "type": "string"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "final_reveal_sequence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/final_reveal_step"
+          }
+        }
+      }
+    },
+    "final_reveal_step": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "step",
+        "trigger",
+        "speaker_character_id",
+        "required_code_word",
+        "content_ref",
+        "next_step_condition"
+      ],
+      "properties": {
+        "step": {
+          "type": "integer"
+        },
+        "trigger": {
+          "type": "string"
+        },
+        "speaker_character_id": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "required_code_word": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "content_ref": {
+          "$ref": "#/$defs/id"
+        },
+        "next_step_condition": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "scoring_rules": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "enabled",
+        "goal_checks"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "goal_checks": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "hint_rule": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "hint_id",
+        "level",
+        "phase_id",
+        "allowed_when",
+        "allowed_clue_ids",
+        "allowed_truth_nodes",
+        "forbidden_truth_nodes",
+        "template",
+        "cooldown_turns",
+        "spoiler_check_mode"
+      ],
+      "properties": {
+        "hint_id": {
+          "$ref": "#/$defs/id"
+        },
+        "level": {
+          "enum": [
+            "L1",
+            "L2",
+            "L3"
+          ]
+        },
+        "phase_id": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "allowed_when": {
+          "type": "string"
+        },
+        "allowed_clue_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "allowed_truth_nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "forbidden_truth_nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "template": {
+          "type": "string"
+        },
+        "cooldown_turns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "spoiler_check_mode": {
+          "enum": [
+            "strict",
+            "phase_limited",
+            "off"
+          ]
+        }
+      }
+    }
+  }
+}

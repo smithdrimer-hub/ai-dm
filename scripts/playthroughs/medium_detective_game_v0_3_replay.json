@@ -1,0 +1,372 @@
+{
+  "name": "medium DetectiveGameEngine v0.3 replay",
+  "sessions": [
+    {
+      "name": "wrong accusation path",
+      "schema_path": "scripts/schema_examples/medium_detective_case_v0_3.json",
+      "steps": [
+        {
+          "name": "initial status",
+          "command": "/status",
+          "expect_code": "status_ok",
+          "expect_ok": true,
+          "expect_phase": "phase_intro",
+          "expect_snapshot": {
+            "game_over": false,
+            "won": false
+          },
+          "expect_snapshot_contains": {
+            "unlocked_scene_ids": [
+              "scene_atrium",
+              "scene_sample_lab",
+              "scene_security"
+            ]
+          }
+        },
+        {
+          "name": "search atrium red herring",
+          "command": "/search scene_atrium",
+          "expect_code": "search_found_evidence",
+          "expect_ok": true,
+          "expect_phase": "phase_investigation",
+          "expect_new_evidence_ids": [
+            "evidence_broken_banner_clip",
+            "evidence_guest_log",
+            "evidence_red_fiber"
+          ],
+          "expect_new_truth_ids": [
+            "truth_no_outside_entry",
+            "truth_red_fiber_mislead"
+          ],
+          "expect_snapshot_contains": {
+            "discovered_evidence_ids": [
+              "evidence_red_fiber"
+            ],
+            "unlocked_truth_ids": [
+              "truth_red_fiber_mislead"
+            ]
+          }
+        },
+        {
+          "name": "show misleading fiber",
+          "command": "/show evidence_red_fiber",
+          "expect_code": "show_ok",
+          "expect_ok": true,
+          "expect_phase": "phase_investigation",
+          "expect_snapshot_contains": {
+            "shown_evidence_ids": [
+              "evidence_red_fiber"
+            ]
+          }
+        },
+        {
+          "name": "ask liam",
+          "command": "/ask liam_chen Did your scarf leave the red fiber?",
+          "expect_code": "ask_ok",
+          "expect_ok": true,
+          "expect_phase": "phase_investigation",
+          "expect_snapshot_contains": {
+            "asked_character_ids": [
+              "liam_chen"
+            ]
+          }
+        },
+        {
+          "name": "wrongly accuse liam",
+          "command": "/accuse liam_chen",
+          "expect_code": "accuse_wrong",
+          "expect_ok": true,
+          "expect_phase": "phase_recap",
+          "expect_snapshot": {
+            "game_over": true,
+            "won": false,
+            "wrong_accusations": 1
+          },
+          "expect_accusation": {
+            "suspect_id": "liam_chen",
+            "correct": false,
+            "score": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "correct full path",
+      "schema_path": "scripts/schema_examples/medium_detective_case_v0_3.json",
+      "steps": [
+        {
+          "name": "initial status",
+          "command": "/status",
+          "expect_code": "status_ok",
+          "expect_ok": true,
+          "expect_phase": "phase_intro",
+          "expect_clue_state_by_id": {
+            "evidence_camera_gap": "discoverable",
+            "evidence_rooftop_keycard": "hidden",
+            "evidence_cold_box_log": "hidden"
+          }
+        },
+        {
+          "name": "search atrium",
+          "command": "/search scene_atrium",
+          "expect_code": "search_found_evidence",
+          "expect_ok": true,
+          "expect_phase": "phase_investigation",
+          "expect_snapshot_contains": {
+            "discovered_evidence_ids": [
+              "evidence_guest_log",
+              "evidence_broken_banner_clip"
+            ],
+            "unlocked_truth_ids": [
+              "truth_no_outside_entry",
+              "truth_red_fiber_mislead"
+            ]
+          }
+        },
+        {
+          "name": "search security",
+          "command": "/search scene_security",
+          "expect_code": "search_found_evidence",
+          "expect_ok": true,
+          "expect_phase": "phase_investigation",
+          "expect_new_evidence_ids": [
+            "evidence_camera_gap",
+            "evidence_manual_override"
+          ],
+          "expect_new_truth_ids": [
+            "truth_camera_gap",
+            "truth_manual_override_used"
+          ],
+          "expect_snapshot_contains": {
+            "discovered_evidence_ids": [
+              "evidence_camera_gap",
+              "evidence_manual_override"
+            ],
+            "unlocked_truth_ids": [
+              "truth_camera_gap"
+            ]
+          },
+          "expect_npc_event_text_contains": [
+            "Mira keeps glancing",
+            "Arden watches"
+          ],
+          "expect_npc_runtime": {
+            "mira_sun": {
+              "stance": "nervous",
+              "stress": 1
+            },
+            "arden_kai": {
+              "suspicion_target_id": "liam_chen",
+              "stance": "deflecting"
+            }
+          }
+        },
+        {
+          "name": "confront mira with camera gap",
+          "command": "/confront mira_sun evidence_camera_gap",
+          "expect_code": "confront_lie_broken",
+          "expect_ok": true,
+          "expect_phase": "phase_confrontation",
+          "expect_new_truth_ids": [
+            "truth_mira_left_post"
+          ],
+          "expect_new_broken_lie_ids": [
+            "lie_mira_no_gap"
+          ],
+          "expect_new_unlocked_scene_ids": [
+            "scene_cold_storage",
+            "scene_rooftop"
+          ],
+          "expect_snapshot_contains": {
+            "broken_lie_ids": [
+              "lie_mira_no_gap"
+            ],
+            "unlocked_scene_ids": [
+              "scene_rooftop",
+              "scene_cold_storage"
+            ],
+            "unlocked_truth_ids": [
+              "truth_camera_gap"
+            ]
+          },
+          "expect_clue_state_by_id": {
+            "evidence_rooftop_keycard": "discoverable",
+            "evidence_cold_box_log": "discoverable"
+          }
+        },
+        {
+          "name": "search sample lab",
+          "command": "/search scene_sample_lab",
+          "expect_code": "search_found_evidence",
+          "expect_ok": true,
+          "expect_phase": "phase_confrontation",
+          "expect_new_evidence_ids": [
+            "evidence_missing_sedative",
+            "evidence_reagent_inventory"
+          ],
+          "expect_new_truth_ids": [],
+          "expect_snapshot_contains": {
+            "discovered_evidence_ids": [
+              "evidence_missing_sedative"
+            ],
+            "unlocked_truth_ids": []
+          }
+        },
+        {
+          "name": "search rooftop",
+          "command": "/search scene_rooftop",
+          "expect_code": "search_found_evidence",
+          "expect_ok": true,
+          "expect_phase": "phase_confrontation",
+          "expect_new_evidence_ids": [
+            "evidence_drone_receipt",
+            "evidence_rooftop_keycard"
+          ],
+          "expect_snapshot_contains": {
+            "discovered_evidence_ids": [
+              "evidence_rooftop_keycard",
+              "evidence_drone_receipt"
+            ]
+          },
+          "expect_npc_event_text_contains": [
+            "Nova becomes visibly tense"
+          ],
+          "expect_npc_runtime": {
+            "nova_park": {
+              "stance": "alarmed",
+              "stress": 1
+            }
+          }
+        },
+        {
+          "name": "show rooftop keycard",
+          "command": "/show evidence_rooftop_keycard",
+          "expect_code": "show_ok",
+          "expect_ok": true,
+          "expect_phase": "phase_confrontation",
+          "expect_snapshot_contains": {
+            "shown_evidence_ids": [
+              "evidence_rooftop_keycard"
+            ]
+          },
+          "expect_clue_state_by_id": {
+            "evidence_rooftop_keycard": "revealed"
+          }
+        },
+        {
+          "name": "confront nova with drone receipt",
+          "command": "/confront nova_park evidence_drone_receipt",
+          "expect_code": "confront_lie_broken",
+          "expect_ok": true,
+          "expect_phase": "phase_confrontation",
+          "expect_new_truth_ids": [
+            "truth_drone_receipt_mislead"
+          ],
+          "expect_new_broken_lie_ids": [
+            "lie_nova_no_delivery"
+          ],
+          "expect_snapshot_contains": {
+            "broken_lie_ids": [
+              "lie_nova_no_delivery"
+            ],
+            "unlocked_truth_ids": [
+              "truth_drone_receipt_mislead"
+            ]
+          },
+          "expect_npc_event_text_contains": [
+            "Nova stops deflecting"
+          ],
+          "expect_npc_runtime": {
+            "nova_park": {
+              "stance": "cooperative",
+              "stress": 0
+            }
+          }
+        },
+        {
+          "name": "confront arden with rooftop keycard",
+          "command": "/confront arden_kai evidence_rooftop_keycard",
+          "expect_code": "confront_lie_broken",
+          "expect_ok": true,
+          "expect_phase": "phase_confrontation",
+          "expect_new_truth_ids": [
+            "truth_arden_rooftop_entry",
+            "truth_combo_access_route"
+          ],
+          "expect_new_broken_lie_ids": [
+            "lie_arden_no_rooftop"
+          ],
+          "expect_snapshot_contains": {
+            "broken_lie_ids": [
+              "lie_arden_no_rooftop"
+            ],
+            "unlocked_truth_ids": [
+              "truth_combo_access_route"
+            ]
+          },
+          "expect_npc_event_text_contains": [
+            "Arden steps back"
+          ],
+          "expect_npc_runtime": {
+            "arden_kai": {
+              "location_scene_id": "scene_atrium",
+              "stance": "cornered",
+              "stress": 3
+            }
+          }
+        },
+        {
+          "name": "search cold storage",
+          "command": "/search scene_cold_storage",
+          "expect_code": "search_found_evidence",
+          "expect_ok": true,
+          "expect_phase": "phase_confrontation",
+          "expect_new_evidence_ids": [
+            "evidence_cold_box_log",
+            "evidence_cup_residue",
+            "evidence_prototype_invoice"
+          ],
+          "expect_new_truth_ids": [
+            "truth_culprit_arden",
+            "truth_method_sedative",
+            "truth_motive_data_sale"
+          ],
+          "expect_snapshot_contains": {
+            "discovered_evidence_ids": [
+              "evidence_cold_box_log",
+              "evidence_prototype_invoice",
+              "evidence_cup_residue"
+            ],
+            "unlocked_truth_ids": [
+              "truth_motive_data_sale",
+              "truth_method_sedative",
+              "truth_culprit_arden"
+            ]
+          }
+        },
+        {
+          "name": "correctly accuse arden",
+          "command": "/accuse arden_kai motive=truth_motive_data_sale method=truth_method_sedative evidence=evidence_cold_box_log,evidence_prototype_invoice,evidence_missing_sedative,evidence_cup_residue,evidence_manual_override,evidence_rooftop_keycard lies=lie_arden_no_rooftop",
+          "expect_code": "accuse_correct",
+          "expect_ok": true,
+          "expect_phase": "phase_recap",
+          "expect_snapshot": {
+            "game_over": true,
+            "won": true,
+            "wrong_accusations": 0
+          },
+          "expect_accusation": {
+            "suspect_id": "arden_kai",
+            "correct": true,
+            "score": 10
+          },
+          "expect_snapshot_contains": {
+            "unlocked_truth_ids": [
+              "truth_culprit_arden"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

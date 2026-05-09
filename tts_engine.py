@@ -1,12 +1,30 @@
 """
 语音合成模块 - 使用 ECNU 学校官方 TTS API
-提供 OpenAI 兼容的文本转语音接口
-支持多场景声音配置（DM 女声、业主男声等）
+
+职责：
+- 调用 ECNU TTS API 合成语音（支持多场景声音配置）
+- 音频播放控制（加载、播放、停止）
+- 长文本自动分割（避免 TTS 超时）
+
+不负责的模块：
+- BGM 播放 → bgm_engine.py
+- 场景判断 → main.py 的 detect_tts_scene()
+
+场景声音配置（VOICE_CONFIGS）：
+- dm: 女声 xiayu，语速 1.0（默认 DM 旁白）
+- owner: 男声 liwa，语速 1.15（业主愤怒）
+- owner_forgiveness: 男声 liwa，语速 0.85（业主原谅）
+- clue: 女声 xiayu，语速 0.9（线索公开）
+- ending: 女声 xiayu，语速 0.85（结局演绎）
+- ending_happy: 女声 xiayu，语速 0.9（Happy Ending）
+- task: 女声 xiayu，语速 0.95（任务陈述）
 """
 
 import os
 import re
 import hashlib
+import tempfile
+import threading
 import pygame
 import requests
 from typing import Optional, Dict, List
@@ -65,20 +83,41 @@ VOICE_CONFIGS: Dict[str, Dict[str, any]] = {
 
 
 class TTSEngine:
-    """语音合成引擎 - 使用 ECNU 学校 API"""
+    """
+    TTS 语音合成引擎
+
+    核心功能：
+    - speak(): 合成并播放语音（支持长文本自动分割）
+    - set_voice_for_scene(): 根据场景切换声音配置
+
+    容错机制：
+    - 连续失败 3 次后打印警告，调用方应降级到纯文字模式
+    - 长文本自动按句号/问号/感叹号分割（最大 180 字/段）
+    """
 
     def __init__(self, use_cache: bool = False):
         """
-        初始化 TTS 引擎
-        :param use_cache: 是否启用缓存（第一版建议 False）
+        初始化 TTS 引擎。
+
+        参数:
+            use_cache: 是否启用音频缓存（默认 False，开发阶段建议关闭）
+
+        副作用:
+            - 初始化 pygame.mixer（与 BGM/SFX 共用 44.1kHz 立体声）
+            - 创建 requests.Session（复用 HTTP 连接）
         """
         self.use_cache = use_cache
         self.cache_dir = "audio_cache"
         if use_cache:
             os.makedirs(self.cache_dir, exist_ok=True)
 
-        # 初始化 pygame 混音器
-        pygame.mixer.init(frequency=24000, size=-16, channels=1, buffer=512)
+        # 与 BGM/SFX 共用 mixer；TTS 使用保留 channel，避免占用 pygame.mixer.music。
+        if pygame.mixer.get_init() is None:
+            pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=512)
+        pygame.mixer.set_num_channels(max(pygame.mixer.get_num_channels(), 16))
+        pygame.mixer.set_reserved(1)
+        self._tts_channel = pygame.mixer.Channel(0)
+        self._active_sound = None
 
         # 当前声音配置
         self.current_voice_config = VOICE_CONFIGS["dm"].copy()
@@ -92,6 +131,9 @@ class TTSEngine:
         # 连续失败计数，用于自动降级
         self.consecutive_failures = 0
         self.max_failures_before_disable = 3
+
+        # 播放锁，防止并发调用导致状态混乱
+        self._play_lock = threading.Lock()
 
     def set_voice_for_scene(self, scene: str):
         """根据场景切换声音配置"""
@@ -144,36 +186,51 @@ class TTSEngine:
         Returns:
             是否成功
         """
-        output_path = "temp_tts_output.mp3"
+        # 使用唯一临时文件名，避免并发冲突
         if self.use_cache:
             output_path = self._get_cache_path(text)
+            is_temp_file = False
+        else:
+            fd, output_path = tempfile.mkstemp(suffix='.mp3')
+            os.close(fd)  # 关闭文件描述符，只保留路径
+            is_temp_file = True
 
         # 调用 API 合成
         if not self._synthesize(text, output_path):
-            return False
-
-        # 播放音频
-        try:
-            pygame.mixer.music.load(output_path)
-            pygame.mixer.music.play()
-
-            if blocking:
-                # 等待播放完成
-                while pygame.mixer.music.get_busy():
-                    pygame.time.Clock().tick(10)
-
-            # 清理临时文件（缓存模式下保留）
-            if not self.use_cache:
-                pygame.mixer.music.unload()
+            if is_temp_file:
                 try:
                     os.unlink(output_path)
                 except OSError:
                     pass
+            return False
+
+        # 播放音频（加锁保护，防止并发调用导致状态混乱）
+        try:
+            with self._play_lock:
+                self._active_sound = pygame.mixer.Sound(output_path)
+                self._tts_channel.play(self._active_sound)
+
+                if blocking:
+                    # 等待播放完成
+                    while self._tts_channel.get_busy():
+                        pygame.time.Clock().tick(10)
+
+                # 清理临时文件（缓存模式下保留）
+                if is_temp_file:
+                    try:
+                        os.unlink(output_path)
+                    except OSError:
+                        pass
 
             return True
 
         except Exception as e:
             print(f"音频播放失败：{e}")
+            if is_temp_file:
+                try:
+                    os.unlink(output_path)
+                except OSError:
+                    pass
             return False
 
     def _get_cache_path(self, text: str) -> str:
@@ -225,11 +282,34 @@ class TTSEngine:
 
     def speak(self, text: str, scene: str = "dm", blocking: bool = True) -> bool:
         """
-        合成并播放语音（支持长文本自动分割）
-        :param text: 要播放的文本
-        :param scene: 场景类型 ("dm", "owner", "clue", "ending", "task")
-        :param blocking: 是否阻塞等待播放完成
-        :return: 是否成功
+        合成并播放语音（支持长文本自动分割）。
+
+        核心方法，外部调用此方法来播放语音。
+
+        参数:
+            text: 要播放的文本内容
+            scene: 场景类型，决定声音配置
+                - "dm": 默认 DM 旁白（女声，1.0 倍速）
+                - "owner": 业主愤怒（男声，1.15 倍速）
+                - "owner_forgiveness": 业主原谅（男声，0.85 倍速）
+                - "clue": 线索公开（女声，0.9 倍速）
+                - "ending": 结局演绎（女声，0.85 倍速）
+                - "ending_happy": Happy Ending（女声，0.9 倍速）
+                - "task": 任务陈述（女声，0.95 倍速）
+            blocking: 是否阻塞等待播放完成（默认 True）
+
+        返回:
+            bool: 所有片段是否都成功播放
+
+        流程:
+            1. 根据 scene 切换声音配置
+            2. 按标点符号分割长文本（最大 180 字/段）
+            3. 逐段调用 _synthesize_and_play()
+            4. 失败次数累加到 consecutive_failures
+
+        注意:
+            返回 False 不意味着完全失败，可能是部分片段失败。
+            调用方应检查 consecutive_failures 决定是否降级到纯文字模式。
         """
         # 切换声音配置
         self.set_voice_for_scene(scene)
@@ -259,9 +339,9 @@ class TTSEngine:
 
     def stop(self):
         """停止当前播放"""
-        pygame.mixer.music.stop()
+        self._tts_channel.stop()
 
     def unload(self):
         """卸载引擎（退出时调用）"""
-        pygame.mixer.quit()
+        self._tts_channel.stop()
         self.session.close()

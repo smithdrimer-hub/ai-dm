@@ -27,7 +27,7 @@ if API_PROVIDER == "ecnu":
     # ========== ECNU 配置 ==========
     API_KEY = os.getenv("OPENAI_API_KEY")
     BASE_URL = os.getenv("OPENAI_BASE_URL", "https://chat.ecnu.edu.cn/open/api/v1")
-    MODEL_NAME = os.getenv("OPENAI_MODEL", "ecnu-max")
+    MODEL_NAME = os.getenv("OPENAI_MODEL", "ecnu-max[1m]")
 
     # TTS 配置
     TTS_MODEL = os.getenv("ECNU_TTS_MODEL", "ecnu-tts")

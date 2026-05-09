@@ -1,0 +1,126 @@
+{
+  "name": "imported_tiny_replay",
+  "schema_path": "scripts/import_outputs/tiny_fixed_truth/script.json",
+  "schema_enabled": true,
+  "steps": [
+    {
+      "name": "start imported draft",
+      "op": "start_game",
+      "assert": {
+        "active_script_id": "tiny_fixed_truth_imported",
+        "schema_phase": "intro",
+        "final_reveal_steps_exact": [],
+        "released_clues_exact": [],
+        "prompt_not_contains": [
+          "The cup was poisoned before dinner.",
+          "Ada moved the poisoned cup"
+        ],
+        "public_knowledge_not_contains": [
+          "The cup was poisoned before dinner.",
+          "Ada moved the poisoned cup"
+        ]
+      }
+    },
+    {
+      "name": "advance discussion",
+      "command": "/phase next",
+      "assert": {
+        "schema_phase": "discussion",
+        "released_clues_exact": []
+      }
+    },
+    {
+      "name": "advance clue one",
+      "command": "/phase next",
+      "assert": {
+        "schema_phase": "clue_1_release",
+        "released_clues_contains": [
+          "clue_1"
+        ],
+        "public_knowledge_contains": [
+          "Tarnished Cup"
+        ],
+        "prompt_not_contains": [
+          "Ada moved the poisoned cup"
+        ]
+      }
+    },
+    {
+      "name": "advance clue two",
+      "command": "/phase next",
+      "assert": {
+        "schema_phase": "clue_2_release",
+        "released_clues_contains": [
+          "clue_1",
+          "clue_2"
+        ],
+        "public_knowledge_contains": [
+          "Muddy Key"
+        ],
+        "prompt_not_contains": [
+          "Ada moved the poisoned cup"
+        ]
+      }
+    },
+    {
+      "name": "advance accusation",
+      "command": "/phase next",
+      "assert": {
+        "schema_phase": "accusation",
+        "final_reveal_steps_exact": []
+      }
+    },
+    {
+      "name": "reveal first truth",
+      "command": "/schema reveal",
+      "assert": {
+        "schema_phase": "accusation",
+        "final_reveal_steps_exact": [
+          1
+        ],
+        "output_contains": [
+          "The cup was poisoned before dinner."
+        ],
+        "public_knowledge_contains": [
+          "The cup was poisoned before dinner."
+        ],
+        "prompt_not_contains": [
+          "Ada moved the poisoned cup"
+        ]
+      }
+    },
+    {
+      "name": "wrong code blocked",
+      "command": "/schema reveal code_word=WRONG",
+      "assert": {
+        "schema_phase": "accusation",
+        "final_reveal_steps_exact": [
+          1
+        ],
+        "output_contains": [
+          "requires code_word: LANTERN"
+        ],
+        "public_knowledge_not_contains": [
+          "Ada moved the poisoned cup"
+        ]
+      }
+    },
+    {
+      "name": "right code reveals second truth",
+      "command": "/schema reveal code_word=LANTERN",
+      "assert": {
+        "schema_phase": "accusation",
+        "final_reveal_steps_exact": [
+          1,
+          2
+        ],
+        "output_contains": [
+          "Ada moved the poisoned cup"
+        ],
+        "public_knowledge_contains": [
+          "Ada moved the poisoned cup"
+        ]
+      }
+    }
+  ]
+}

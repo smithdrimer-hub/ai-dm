@@ -1,0 +1,631 @@
+{
+  "schema_version": "0.2.1",
+  "script_info": {
+    "id": "tiny_fixed_truth_imported",
+    "title": "Tiny Imported Manor",
+    "author": "Demo Author",
+    "game_mode": "fixed_truth",
+    "player_count": {
+      "min": 3,
+      "max": 3,
+      "recommended": 3
+    },
+    "language": "en"
+  },
+  "license_info": {
+    "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+    "license_type": "unknown_imported_text",
+    "commercial_allowed": false,
+    "redistribution_allowed": false,
+    "attribution_required": true,
+    "notes": "Imported draft. Human must verify rights before demo or redistribution."
+  },
+  "public_materials": {
+    "setting": "A storm keeps four guests inside a quiet manor.",
+    "public_intro": "The host is found unconscious after dinner. Everyone stayed inside the manor, and the DM should keep the first discussion focused on public timelines.",
+    "rules_text": "Discuss openly, reveal clues when the DM advances phases, then make an accusation before the final reveal.",
+    "cast_public_list": [
+      {
+        "character_id": "char_ada",
+        "display_name": "Ada",
+        "public_profile": "A calm botanist who says she checked the greenhouse."
+      },
+      {
+        "character_id": "char_bruno",
+        "display_name": "Bruno",
+        "public_profile": "A nervous butler who controls the dining room keys."
+      },
+      {
+        "character_id": "char_cora",
+        "display_name": "Cora",
+        "public_profile": "A visiting journalist who wants the truth."
+      }
+    ],
+    "opening_script": "Welcome to Tiny Imported Manor. This is an imported draft and requires manual review.",
+    "player_guidance": "Stay in character. Do not reveal private packets unless instructed.",
+    "content_notes": "Imported text requires manual safety/content review."
+  },
+  "player_config": {
+    "mode": "all_role_players",
+    "role_player_slots": [
+      {
+        "slot_id": "slot_char_ada",
+        "character_id": "char_ada",
+        "required": true
+      },
+      {
+        "slot_id": "slot_char_bruno",
+        "character_id": "char_bruno",
+        "required": true
+      },
+      {
+        "slot_id": "slot_char_cora",
+        "character_id": "char_cora",
+        "required": true
+      }
+    ],
+    "observer_slots": []
+  },
+  "cast": [
+    {
+      "character_id": "char_ada",
+      "display_name": "Ada",
+      "public_profile": "A calm botanist who says she checked the greenhouse.",
+      "goals": [
+        {
+          "goal_id": "goal_char_ada",
+          "description": "Avoid being blamed for the cup.",
+          "visibility": "private"
+        }
+      ],
+      "relationships": [],
+      "secrets": [
+        {
+          "secret_id": "secret_char_ada",
+          "description": "Ada moved the silver cup before dinner.",
+          "reveal_policy": "reveal_only_when_challenged"
+        }
+      ]
+    },
+    {
+      "character_id": "char_bruno",
+      "display_name": "Bruno",
+      "public_profile": "A nervous butler who controls the dining room keys.",
+      "goals": [
+        {
+          "goal_id": "goal_char_bruno",
+          "description": "Protect the household reputation.",
+          "visibility": "private"
+        }
+      ],
+      "relationships": [],
+      "secrets": [
+        {
+          "secret_id": "secret_char_bruno",
+          "description": "Bruno saw Ada near the study.",
+          "reveal_policy": "reveal_only_when_challenged"
+        }
+      ]
+    },
+    {
+      "character_id": "char_cora",
+      "display_name": "Cora",
+      "public_profile": "A visiting journalist who wants the truth.",
+      "goals": [
+        {
+          "goal_id": "goal_char_cora",
+          "description": "Publish the correct story.",
+          "visibility": "private"
+        }
+      ],
+      "relationships": [],
+      "secrets": [
+        {
+          "secret_id": "secret_char_cora",
+          "description": "Cora heard a code word in the hallway.",
+          "reveal_policy": "reveal_only_when_challenged"
+        }
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "phase_id": "intro",
+      "title": "Intro",
+      "phase_type": "intro",
+      "order": 1,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Welcome players and explain the public setup.",
+        "pace_notes": "Manual review required before live hosting.",
+        "transition_condition": "players_confirm_rules"
+      }
+    },
+    {
+      "phase_id": "discussion",
+      "title": "Discussion",
+      "phase_type": "free_discussion",
+      "order": 2,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Begin open discussion.",
+        "pace_notes": "Only use public information.",
+        "transition_condition": "dm_manual"
+      }
+    },
+    {
+      "phase_id": "clue_1_release",
+      "title": "Clue 1 Release",
+      "phase_type": "discovery",
+      "order": 3,
+      "materials_to_release": [],
+      "clues_to_reveal": [
+        "clue_1"
+      ],
+      "dm_instructions": {
+        "opening_text": "Reveal clue candidate: Tarnished Cup",
+        "pace_notes": "Confirm clue timing before live use.",
+        "transition_condition": "dm_manual"
+      }
+    },
+    {
+      "phase_id": "clue_2_release",
+      "title": "Clue 2 Release",
+      "phase_type": "discovery",
+      "order": 4,
+      "materials_to_release": [],
+      "clues_to_reveal": [
+        "clue_2"
+      ],
+      "dm_instructions": {
+        "opening_text": "Reveal clue candidate: Muddy Key",
+        "pace_notes": "Confirm clue timing before live use.",
+        "transition_condition": "dm_manual"
+      }
+    },
+    {
+      "phase_id": "accusation",
+      "title": "Accusation",
+      "phase_type": "accusation",
+      "order": 5,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Collect player accusations.",
+        "pace_notes": "Do not reveal truth until final_reveal_sequence is triggered.",
+        "transition_condition": "accusation_submitted"
+      }
+    },
+    {
+      "phase_id": "recap",
+      "title": "Recap",
+      "phase_type": "recap",
+      "order": 6,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Close with recap after final reveal.",
+        "pace_notes": "Answer questions using public final reveal information.",
+        "transition_condition": "players_done"
+      }
+    }
+  ],
+  "role_packets": [
+    {
+      "packet_id": "packet_char_ada_intro",
+      "character_id": "char_ada",
+      "phase_id": "intro",
+      "content": "Ada moved the silver cup before dinner.",
+      "content_ref": null,
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "reveal_only_when_challenged"
+    },
+    {
+      "packet_id": "packet_char_bruno_intro",
+      "character_id": "char_bruno",
+      "phase_id": "intro",
+      "content": "Bruno saw Ada near the study.",
+      "content_ref": null,
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "reveal_only_when_challenged"
+    },
+    {
+      "packet_id": "packet_char_cora_intro",
+      "character_id": "char_cora",
+      "phase_id": "intro",
+      "content": "Cora heard a code word in the hallway.",
+      "content_ref": null,
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "reveal_only_when_challenged"
+    }
+  ],
+  "clues": [
+    {
+      "clue_id": "clue_1",
+      "title": "Tarnished Cup",
+      "clue_type": "text",
+      "content": "The silver cup has a bitter almond smell.",
+      "asset_refs": [
+        "asset_clue_1"
+      ],
+      "initial_visibility": "hidden",
+      "reveal_phase": "clue_1_release",
+      "related_characters": []
+    },
+    {
+      "clue_id": "clue_2",
+      "title": "Muddy Key",
+      "clue_type": "text",
+      "content": "The dining room key has greenhouse mud on it.",
+      "asset_refs": [
+        "asset_clue_2"
+      ],
+      "initial_visibility": "hidden",
+      "reveal_phase": "clue_2_release",
+      "related_characters": []
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "asset_clue_1",
+      "asset_type": "document",
+      "path": "assets/imported/clue_1.txt",
+      "description": "Imported text clue candidate: Tarnished Cup",
+      "linked_clue_id": "clue_1",
+      "visibility": "hidden",
+      "source_page": null,
+      "requires_manual_review": true
+    },
+    {
+      "asset_id": "asset_clue_2",
+      "asset_type": "document",
+      "path": "assets/imported/clue_2.txt",
+      "description": "Imported text clue candidate: Muddy Key",
+      "linked_clue_id": "clue_2",
+      "visibility": "hidden",
+      "source_page": null,
+      "requires_manual_review": true
+    }
+  ],
+  "reveal_rules": [
+    {
+      "rule_id": "reveal_clue_1",
+      "target_type": "clue",
+      "target_id": "clue_1",
+      "trigger_type": "phase_start",
+      "phase_id": "clue_1_release",
+      "recipients": [
+        "ALL"
+      ],
+      "after_reveal_visibility": "public",
+      "announcement_template": "New clue revealed: Tarnished Cup"
+    },
+    {
+      "rule_id": "reveal_clue_2",
+      "target_type": "clue",
+      "target_id": "clue_2",
+      "trigger_type": "phase_start",
+      "phase_id": "clue_2_release",
+      "recipients": [
+        "ALL"
+      ],
+      "after_reveal_visibility": "public",
+      "announcement_template": "New clue revealed: Muddy Key"
+    }
+  ],
+  "truth_model": {
+    "truth_type": "fixed",
+    "case_questions": [
+      {
+        "question_id": "main_truth",
+        "prompt": "What is the truth?",
+        "expected_answer_node_ids": [
+          "truth_1"
+        ]
+      }
+    ],
+    "truth_nodes": [
+      {
+        "node_id": "truth_1",
+        "node_type": "fact",
+        "content": "The cup was poisoned before dinner.",
+        "conditions": [],
+        "related_characters": [
+          "char_ada"
+        ],
+        "related_clues": [
+          "clue_1"
+        ]
+      },
+      {
+        "node_id": "truth_2",
+        "node_type": "fact",
+        "content": "Ada moved the poisoned cup from the study to the dining room.",
+        "conditions": [],
+        "related_characters": [
+          "char_ada"
+        ],
+        "related_clues": [
+          "clue_1"
+        ]
+      }
+    ],
+    "evidence_links": [
+      {
+        "link_id": "link_truth_1_clue_1",
+        "truth_node_id": "truth_1",
+        "clue_id": "clue_1",
+        "strength": "suggests",
+        "explanation": "Imported draft link; manual review required."
+      },
+      {
+        "link_id": "link_truth_2_clue_1",
+        "truth_node_id": "truth_2",
+        "clue_id": "clue_1",
+        "strength": "suggests",
+        "explanation": "Imported draft link; manual review required."
+      }
+    ]
+  },
+  "forbidden_spoilers": [
+    {
+      "spoiler_id": "spoiler_truth_1",
+      "spoiler_type": "truth_node",
+      "content": "The cup was poisoned before dinner.",
+      "aliases": [],
+      "forbidden_until_phase": "accusation",
+      "allowed_after_phase": "accusation",
+      "allowed_after_reveal_rule": null,
+      "allowed_after_condition": null
+    },
+    {
+      "spoiler_id": "spoiler_truth_2",
+      "spoiler_type": "truth_node",
+      "content": "Ada moved the poisoned cup from the study to the dining room.",
+      "aliases": [],
+      "forbidden_until_phase": "accusation",
+      "allowed_after_phase": "accusation",
+      "allowed_after_reveal_rule": null,
+      "allowed_after_condition": null
+    }
+  ],
+  "action_rules": {
+    "enabled": false,
+    "action_types": [],
+    "resolution_order": [],
+    "blocking_rules": [],
+    "outcomes": []
+  },
+  "forms": [
+    {
+      "form_id": "accusation_sheet",
+      "title": "Accusation Sheet",
+      "form_type": "accusation_sheet",
+      "per_player_or_global": "global",
+      "read_aloud_after_submit": true,
+      "used_for_resolution": true,
+      "fields": [
+        {
+          "field_id": "whodunit",
+          "label": "Who did it?",
+          "field_type": "character_ref",
+          "required": true
+        },
+        {
+          "field_id": "how",
+          "label": "How?",
+          "field_type": "free_text",
+          "required": true
+        },
+        {
+          "field_id": "why",
+          "label": "Why?",
+          "field_type": "free_text",
+          "required": true
+        }
+      ],
+      "submit_phase": "accusation"
+    }
+  ],
+  "ending_rules": {
+    "ending_type": "fixed_reveal",
+    "conditions": [
+      {
+        "ending_id": "ending_imported_fixed",
+        "priority": 1,
+        "when": "manual accusation complete",
+        "ending_title": "Imported Truth Reveal",
+        "ending_text_ref": "ending_text_imported"
+      }
+    ],
+    "final_reveal_sequence": [
+      {
+        "step": 1,
+        "trigger": "dm_reveal",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_1",
+        "next_step_condition": null
+      },
+      {
+        "step": 2,
+        "trigger": "code_word",
+        "speaker_character_id": null,
+        "required_code_word": "LANTERN",
+        "content_ref": "truth_2",
+        "next_step_condition": null
+      }
+    ]
+  },
+  "scoring_rules": {
+    "enabled": false,
+    "goal_checks": []
+  },
+  "hint_rules": [
+    {
+      "hint_id": "hint_imported_method",
+      "level": "L1",
+      "phase_id": "discussion",
+      "allowed_when": "players are stalled",
+      "allowed_clue_ids": [],
+      "allowed_truth_nodes": [],
+      "forbidden_truth_nodes": [
+        "truth_1",
+        "truth_2"
+      ],
+      "template": "Rebuild the public timeline before making an accusation.",
+      "cooldown_turns": 3,
+      "spoiler_check_mode": "strict"
+    }
+  ],
+  "x_import_trace": {
+    "generated_by": "import_text_script_v0_1",
+    "source_path": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+    "source_trace": {
+      "title": {
+        "field": "script_info.title",
+        "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+        "line_start": 1,
+        "line_end": 5,
+        "chunk_index": 1,
+        "heading": "Tiny Imported Manor",
+        "evidence": "Tiny Imported Manor"
+      },
+      "author": {
+        "field": "script_info.author",
+        "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+        "line_start": 3,
+        "line_end": 3,
+        "chunk_index": null,
+        "heading": null,
+        "evidence": "Author: Demo Author"
+      },
+      "setting": {
+        "field": "public_materials.setting",
+        "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+        "line_start": 4,
+        "line_end": 4,
+        "chunk_index": null,
+        "heading": null,
+        "evidence": "Setting: A storm keeps four guests inside a quiet manor."
+      },
+      "public_intro": {
+        "field": "public_materials.public_intro",
+        "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+        "line_start": 6,
+        "line_end": 9,
+        "chunk_index": 2,
+        "heading": "Public Intro",
+        "evidence": "The host is found unconscious after dinner. Everyone stayed inside the manor, and the DM should keep the first discussion focused on public timelines."
+      },
+      "rules_text": {
+        "field": "public_materials.rules_text",
+        "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+        "line_start": 10,
+        "line_end": 13,
+        "chunk_index": 3,
+        "heading": "Rules",
+        "evidence": "Discuss openly, reveal clues when the DM advances phases, then make an accusation before the final reveal."
+      },
+      "cast": [
+        {
+          "field": "cast.Ada",
+          "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+          "line_start": 14,
+          "line_end": 19,
+          "chunk_index": 4,
+          "heading": "Cast",
+          "evidence": "Ada: A calm botanist who says she checked the greenhouse. | Secret: Ada moved the silver cup before dinner. | Goal: Avoid being blamed for the cup."
+        },
+        {
+          "field": "cast.Bruno",
+          "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+          "line_start": 14,
+          "line_end": 19,
+          "chunk_index": 4,
+          "heading": "Cast",
+          "evidence": "Bruno: A nervous butler who controls the dining room keys. | Secret: Bruno saw Ada near the study. | Goal: Protect the household reputation."
+        },
+        {
+          "field": "cast.Cora",
+          "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+          "line_start": 14,
+          "line_end": 19,
+          "chunk_index": 4,
+          "heading": "Cast",
+          "evidence": "Cora: A visiting journalist who wants the truth. | Secret: Cora heard a code word in the hallway. | Goal: Publish the correct story."
+        }
+      ],
+      "clues": [
+        {
+          "field": "clues.Tarnished Cup",
+          "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+          "line_start": 20,
+          "line_end": 24,
+          "chunk_index": 5,
+          "heading": "Clues",
+          "evidence": "Tarnished Cup: The silver cup has a bitter almond smell."
+        },
+        {
+          "field": "clues.Muddy Key",
+          "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+          "line_start": 20,
+          "line_end": 24,
+          "chunk_index": 5,
+          "heading": "Clues",
+          "evidence": "Muddy Key: The dining room key has greenhouse mud on it."
+        }
+      ],
+      "truth_items": [
+        {
+          "field": "truth_model.Truth 1",
+          "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+          "line_start": 25,
+          "line_end": 29,
+          "chunk_index": 6,
+          "heading": "Truth",
+          "evidence": "The cup was poisoned before dinner."
+        },
+        {
+          "field": "truth_model.Truth 2",
+          "source": "D:\\3plus\\111inovation\\script\\murder-mystery-dm\\scripts\\import_samples\\tiny_fixed_truth.md",
+          "line_start": 25,
+          "line_end": 29,
+          "chunk_index": 6,
+          "heading": "Truth",
+          "evidence": "[code: LANTERN] Ada moved the poisoned cup from the study to the dining room."
+        }
+      ]
+    },
+    "confidence": {
+      "title": 0.9,
+      "author": 0.85,
+      "public_materials": 0.75,
+      "cast": 1.0,
+      "clues": 1.0,
+      "truth_model": 1.0,
+      "actions": 0.0,
+      "overall": 0.92
+    },
+    "missing_fields": [
+      "Character relationships are not inferred.",
+      "No content_ref role packet files were inferred.",
+      "action_rules remain disabled in imported drafts.",
+      "License and redistribution rights are unknown."
+    ],
+    "privacy_warnings": [],
+    "validator": {
+      "valid": true,
+      "error_count": 0
+    },
+    "manual_review_required": true
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "schema_version": "0.2.1",
+  "script_info": {
+    "id": "fixed_truth_minimal",
+    "title": "Fixed Truth Minimal",
+    "author": null,
+    "game_mode": "fixed_truth",
+    "player_count": {
+      "min": 2,
+      "max": 2,
+      "recommended": 2
+    },
+    "language": "zh-CN"
+  },
+  "license_info": {
+    "source": "internal mock",
+    "license_type": "mock",
+    "commercial_allowed": false,
+    "redistribution_allowed": false,
+    "attribution_required": false,
+    "notes": "Schema example only."
+  },
+  "public_materials": {
+    "setting": "A public setting summary.",
+    "public_intro": "A public introduction.",
+    "rules_text": "Discuss, reveal clues, then accuse.",
+    "cast_public_list": [
+      {
+        "character_id": "char_a",
+        "display_name": "Character A",
+        "public_profile": "Public profile A."
+      },
+      {
+        "character_id": "char_b",
+        "display_name": "Character B",
+        "public_profile": "Public profile B."
+      }
+    ],
+    "opening_script": "DM opening script.",
+    "player_guidance": "Stay in character and do not reveal private packets unless instructed.",
+    "content_notes": "No content notes."
+  },
+  "player_config": {
+    "mode": "all_role_players",
+    "role_player_slots": [
+      {
+        "slot_id": "slot_a",
+        "character_id": "char_a",
+        "required": true
+      },
+      {
+        "slot_id": "slot_b",
+        "character_id": "char_b",
+        "required": true
+      }
+    ],
+    "observer_slots": []
+  },
+  "cast": [
+    {
+      "character_id": "char_a",
+      "display_name": "Character A",
+      "public_profile": "Public profile A.",
+      "goals": [
+        {
+          "goal_id": "goal_a",
+          "description": "Find the truth.",
+          "visibility": "public"
+        }
+      ],
+      "relationships": [
+        {
+          "target_id": "char_b",
+          "relation_type": "rival",
+          "public_description": "They disagree publicly.",
+          "private_description": "A private tension exists."
+        }
+      ],
+      "secrets": [
+        {
+          "secret_id": "secret_a",
+          "description": "Private fact A.",
+          "reveal_policy": "reveal_only_when_challenged"
+        }
+      ]
+    },
+    {
+      "character_id": "char_b",
+      "display_name": "Character B",
+      "public_profile": "Public profile B.",
+      "goals": [],
+      "relationships": [],
+      "secrets": []
+    }
+  ],
+  "phases": [
+    {
+      "phase_id": "intro",
+      "title": "Intro",
+      "phase_type": "intro",
+      "order": 1,
+      "materials_to_release": [],
+      "clues_to_reveal": [],
+      "dm_instructions": {
+        "opening_text": "Start the game.",
+        "pace_notes": "Keep it brief.",
+        "transition_condition": "manual"
+      }
+    },
+    {
+      "phase_id": "accuse",
+      "title": "Accusation",
+      "phase_type": "accusation",
+      "order": 2,
+      "materials_to_release": [],
+      "clues_to_reveal": [
+        "clue_1"
+      ],
+      "dm_instructions": {
+        "opening_text": "Collect accusations.",
+        "pace_notes": "Do not reveal the answer early.",
+        "transition_condition": "form_submitted"
+      }
+    }
+  ],
+  "role_packets": [
+    {
+      "packet_id": "packet_a_intro",
+      "character_id": "char_a",
+      "phase_id": "intro",
+      "content": "Private packet text.",
+      "content_ref": null,
+      "visibility": "private",
+      "recipients": [],
+      "after_reveal_visibility": "private",
+      "reveal_instruction": "reveal_only_when_challenged"
+    }
+  ],
+  "clues": [
+    {
+      "clue_id": "clue_1",
+      "title": "Sample Clue",
+      "clue_type": "letter",
+      "content": "A clue text.",
+      "asset_refs": [
+        "asset_clue_1"
+      ],
+      "initial_visibility": "hidden",
+      "reveal_phase": "accuse",
+      "related_characters": [
+        "char_a"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "asset_clue_1",
+      "asset_type": "document",
+      "path": "assets/mock/clue_1.txt",
+      "description": "Mock clue handout.",
+      "linked_clue_id": "clue_1",
+      "visibility": "hidden",
+      "source_page": null,
+      "requires_manual_review": true
+    }
+  ],
+  "reveal_rules": [
+    {
+      "rule_id": "reveal_clue_1",
+      "target_type": "clue",
+      "target_id": "clue_1",
+      "trigger_type": "phase_start",
+      "phase_id": "accuse",
+      "recipients": [
+        "ALL"
+      ],
+      "after_reveal_visibility": "public",
+      "announcement_template": "A clue is revealed."
+    }
+  ],
+  "truth_model": {
+    "truth_type": "fixed",
+    "case_questions": [
+      {
+        "question_id": "whodunit",
+        "prompt": "Who did it?",
+        "expected_answer_node_ids": [
+          "truth_1"
+        ]
+      }
+    ],
+    "truth_nodes": [
+      {
+        "node_id": "truth_1",
+        "node_type": "fact",
+        "content": "A fixed truth fact.",
+        "conditions": [],
+        "related_characters": [
+          "char_a"
+        ],
+        "related_clues": [
+          "clue_1"
+        ]
+      },
+      {
+        "node_id": "truth_2",
+        "node_type": "motive",
+        "content": "A second fixed reveal fact unlocked by code word.",
+        "conditions": [],
+        "related_characters": [
+          "char_b"
+        ],
+        "related_clues": []
+      }
+    ],
+    "evidence_links": [
+      {
+        "link_id": "link_1",
+        "truth_node_id": "truth_1",
+        "clue_id": "clue_1",
+        "strength": "supports",
+        "explanation": "The clue supports the fixed fact."
+      }
+    ]
+  },
+  "forbidden_spoilers": [
+    {
+      "spoiler_id": "spoiler_truth_1",
+      "spoiler_type": "truth_node",
+      "content": "A fixed truth fact.",
+      "aliases": [
+        "fixed fact"
+      ],
+      "forbidden_until_phase": "accuse",
+      "allowed_after_phase": "accuse",
+      "allowed_after_reveal_rule": "reveal_clue_1",
+      "allowed_after_condition": null
+    }
+  ],
+  "action_rules": {
+    "enabled": false,
+    "action_types": [],
+    "resolution_order": [],
+    "blocking_rules": [],
+    "outcomes": []
+  },
+  "forms": [
+    {
+      "form_id": "accusation_sheet",
+      "title": "Accusation Sheet",
+      "form_type": "accusation_sheet",
+      "per_player_or_global": "global",
+      "read_aloud_after_submit": true,
+      "used_for_resolution": true,
+      "fields": [
+        {
+          "field_id": "whodunit",
+          "label": "Who did it?",
+          "field_type": "character_ref",
+          "required": true
+        },
+        {
+          "field_id": "how",
+          "label": "How?",
+          "field_type": "free_text",
+          "required": true
+        },
+        {
+          "field_id": "why",
+          "label": "Why?",
+          "field_type": "free_text",
+          "required": true
+        }
+      ],
+      "submit_phase": "accuse"
+    }
+  ],
+  "ending_rules": {
+    "ending_type": "fixed_reveal",
+    "conditions": [
+      {
+        "ending_id": "ending_fixed",
+        "priority": 1,
+        "when": "accusation_sheet submitted",
+        "ending_title": "Truth Revealed",
+        "ending_text_ref": "ending_text_fixed"
+      }
+    ],
+    "final_reveal_sequence": [
+      {
+        "step": 1,
+        "trigger": "dm_reveal",
+        "speaker_character_id": null,
+        "required_code_word": null,
+        "content_ref": "truth_1",
+        "next_step_condition": "await code word OPEN"
+      },
+      {
+        "step": 2,
+        "trigger": "code_word",
+        "speaker_character_id": "char_b",
+        "required_code_word": "OPEN",
+        "content_ref": "truth_2",
+        "next_step_condition": null
+      }
+    ]
+  },
+  "scoring_rules": {
+    "enabled": false,
+    "goal_checks": []
+  },
+  "hint_rules": [
+    {
+      "hint_id": "hint_basic",
+      "level": "L1",
+      "phase_id": "accuse",
+      "allowed_when": "players are stalled",
+      "allowed_clue_ids": [
+        "clue_1"
+      ],
+      "allowed_truth_nodes": [],
+      "forbidden_truth_nodes": [
+        "truth_1"
+      ],
+      "template": "Look back at the revealed clue.",
+      "cooldown_turns": 3,
+      "spoiler_check_mode": "strict"
+    }
+  ]
+}

@@ -1,0 +1,1608 @@
+{
+  "schema_version": "game_schema_v0.3",
+  "game_info": {
+    "id": "medium_detective_case_v0_3",
+    "title": "The Atrium Prototype Case",
+    "language": "en-US",
+    "mode": "single_player_detective",
+    "player_role": "detective"
+  },
+  "source_info": {
+    "source_type": "manual",
+    "input_format": "json",
+    "license_status": "internal mock only",
+    "notes": "Medium complexity hand-authored fixture for GameSchema v0.1 and DetectiveGameEngine replay validation. Migrated to GameSchema v0.3 for clue lifecycle and scene graph validation."
+  },
+  "review": {
+    "status": "confirmed",
+    "missing_fields": [],
+    "logic_warnings": [],
+    "spoiler_risks": [
+      "Arden's rooftop entry and prototype theft motive must not appear before the relevant evidence is found.",
+      "The red fiber and drone receipt are deliberate red herrings and should not determine the culprit."
+    ],
+    "manual_checklist": [
+      "Confirm culprit, motive, method, and evidence chain all point to Arden Kai.",
+      "Confirm Liam and Nova both have suspicious evidence but lack the complete means/opportunity chain."
+    ],
+    "source_traces": [
+      {
+        "field": "truth_model.culprit_character_id",
+        "source": "manual medium fixture",
+        "confidence": 1.0
+      }
+    ],
+    "author_questions": []
+  },
+  "public_case": {
+    "setting": "A private biotech launch event ended with Dr. Vale dead near the atrium prototype display.",
+    "opening_text": "You arrive after the guests have been held inside. The event floor, security office, and sample lab are available for an initial search.",
+    "detective_briefing": "Find the killer, motive, method, and evidence chain. Be careful: some clues are designed to point at the wrong suspect.",
+    "case_objectives": [
+      "Search the available scenes.",
+      "Question suspects after evidence is found.",
+      "Break false statements through evidence-driven rules.",
+      "Submit a final accusation."
+    ],
+    "initial_available_scene_ids": [
+      "scene_atrium",
+      "scene_security",
+      "scene_sample_lab"
+    ],
+    "content_warnings": [
+      "fictional murder",
+      "fictional poisoning"
+    ]
+  },
+  "npc_characters": [
+    {
+      "character_id": "arden_kai",
+      "display_name": "Arden Kai",
+      "public_profile": "Operations director for the launch event. Controlled staff schedules and emergency access.",
+      "private_profile": "Sold prototype access data and killed Dr. Vale when the theft was discovered.",
+      "known_truth_ids": [
+        "truth_motive_data_sale",
+        "truth_method_sedative",
+        "truth_arden_rooftop_entry",
+        "truth_combo_access_route"
+      ],
+      "initial_attitude": "Controlled and practical, eager to redirect blame toward an outside investor.",
+      "conversation_rules": {
+        "can_lie": true,
+        "lie_ids": [
+          "lie_arden_no_rooftop"
+        ],
+        "forbidden_truth_ids": [
+          "truth_culprit_arden"
+        ],
+        "fallback_style": "If evidence is incomplete, insist the emergency route was sealed and discuss event logistics instead."
+      },
+      "action_profile": {
+        "initial_location_scene_id": "scene_atrium",
+        "initial_stance": "controlled",
+        "initial_stress": 0,
+        "goals": [
+          {
+            "goal_id": "hide_service_route",
+            "priority": 10,
+            "directive": "Keep attention away from the rooftop route and the prototype data sale."
+          }
+        ],
+        "rules": [
+          {
+            "rule_id": "arden_redirect_after_security_search",
+            "priority": 90,
+            "trigger": "after_search",
+            "conditions": {
+              "area_id_is": "scene_security",
+              "discovered_evidence_ids_all": [
+                "evidence_camera_gap",
+                "evidence_manual_override"
+              ]
+            },
+            "action": {
+              "type": "redirect_suspicion",
+              "target_character_id": "liam_chen",
+              "stance": "deflecting",
+              "stress_delta": 1
+            },
+            "visible_event": "Arden watches the security doorway and steers attention back toward Liam's public argument."
+          },
+          {
+            "rule_id": "arden_withdraw_after_rooftop_confront",
+            "priority": 100,
+            "trigger": "after_confront",
+            "conditions": {
+              "target_character_id_is": "arden_kai",
+              "new_broken_lie_ids_any": [
+                "lie_arden_no_rooftop"
+              ]
+            },
+            "action": {
+              "type": "withdraw",
+              "target_scene_id": "scene_atrium",
+              "stance": "cornered",
+              "stress_delta": 2
+            },
+            "visible_event": "Arden steps back toward the atrium, visibly measuring the room before answering."
+          }
+        ]
+      }
+    },
+    {
+      "character_id": "mira_sun",
+      "display_name": "Mira Sun",
+      "public_profile": "Night security lead responsible for cameras and door logs.",
+      "private_profile": "Left the desk for a short personal call, creating a camera gap but not committing the murder.",
+      "known_truth_ids": [
+        "truth_camera_gap",
+        "truth_mira_left_post"
+      ],
+      "initial_attitude": "Defensive about procedures, afraid the gap will cost her job.",
+      "conversation_rules": {
+        "can_lie": true,
+        "lie_ids": [
+          "lie_mira_no_gap"
+        ],
+        "forbidden_truth_ids": [
+          "truth_culprit_arden",
+          "truth_method_sedative"
+        ],
+        "fallback_style": "Without camera evidence, maintain that all feeds were continuous."
+      },
+      "action_profile": {
+        "initial_location_scene_id": "scene_security",
+        "initial_stance": "defensive",
+        "initial_stress": 0,
+        "goals": [
+          {
+            "goal_id": "protect_job",
+            "priority": 8,
+            "directive": "Admit procedural failures only when evidence forces it."
+          }
+        ],
+        "rules": [
+          {
+            "rule_id": "mira_stressed_after_security_search",
+            "priority": 80,
+            "trigger": "after_search",
+            "conditions": {
+              "area_id_is": "scene_security",
+              "discovered_evidence_ids_any": [
+                "evidence_camera_gap",
+                "evidence_manual_override"
+              ]
+            },
+            "action": {
+              "type": "raise_stress",
+              "amount": 1,
+              "stance": "nervous"
+            },
+            "visible_event": "Mira keeps glancing from the camera gap to the manual override log."
+          }
+        ]
+      }
+    },
+    {
+      "character_id": "liam_chen",
+      "display_name": "Liam Chen",
+      "public_profile": "Investor who argued with Dr. Vale about the launch valuation.",
+      "private_profile": "Was angry and near the display, but the fiber clue is from a banner, not his scarf.",
+      "known_truth_ids": [
+        "truth_red_fiber_mislead"
+      ],
+      "initial_attitude": "Irritated and impatient, but direct when shown physical evidence.",
+      "conversation_rules": {
+        "can_lie": false,
+        "lie_ids": [],
+        "forbidden_truth_ids": [
+          "truth_culprit_arden",
+          "truth_combo_access_route"
+        ],
+        "fallback_style": "Admit the argument, deny touching the prototype or roof access."
+      },
+      "action_profile": {
+        "initial_location_scene_id": "scene_atrium",
+        "initial_stance": "irritated",
+        "initial_stress": 0,
+        "goals": [
+          {
+            "goal_id": "clear_fiber_suspicion",
+            "priority": 6,
+            "directive": "Push back on the red fiber clue without inventing new facts."
+          }
+        ],
+        "rules": [
+          {
+            "rule_id": "liam_irritated_after_fiber_found",
+            "priority": 70,
+            "trigger": "after_search",
+            "conditions": {
+              "area_id_is": "scene_atrium",
+              "discovered_evidence_ids_any": [
+                "evidence_red_fiber"
+              ]
+            },
+            "action": {
+              "type": "change_stance",
+              "stance": "irritated"
+            },
+            "visible_event": "Liam points at the launch banner rig instead of his scarf."
+          }
+        ]
+      }
+    },
+    {
+      "character_id": "nova_park",
+      "display_name": "Nova Park",
+      "public_profile": "Sample lab assistant who prepared non-toxic demo reagents.",
+      "private_profile": "Used a drone delivery earlier, which looks suspicious but is unrelated to the sedative.",
+      "known_truth_ids": [
+        "truth_drone_receipt_mislead",
+        "truth_method_sedative"
+      ],
+      "initial_attitude": "Nervous and technical, worried the lab will be blamed.",
+      "conversation_rules": {
+        "can_lie": true,
+        "lie_ids": [
+          "lie_nova_no_delivery"
+        ],
+        "forbidden_truth_ids": [
+          "truth_culprit_arden",
+          "truth_motive_data_sale"
+        ],
+        "fallback_style": "Without the receipt, avoid mentioning the drone delivery and focus on lab inventory."
+      },
+      "action_profile": {
+        "initial_location_scene_id": "scene_sample_lab",
+        "initial_stance": "nervous",
+        "initial_stress": 0,
+        "goals": [
+          {
+            "goal_id": "explain_drone",
+            "priority": 7,
+            "directive": "Hide the drone delivery until the receipt is presented, then explain it as unrelated lab material."
+          }
+        ],
+        "rules": [
+          {
+            "rule_id": "nova_stressed_after_drone_found",
+            "priority": 80,
+            "trigger": "after_search",
+            "conditions": {
+              "area_id_is": "scene_rooftop",
+              "discovered_evidence_ids_any": [
+                "evidence_drone_receipt"
+              ]
+            },
+            "action": {
+              "type": "raise_stress",
+              "amount": 1,
+              "stance": "alarmed"
+            },
+            "visible_event": "Nova becomes visibly tense when the drone receipt is mentioned."
+          },
+          {
+            "rule_id": "nova_cooperative_after_drone_confront",
+            "priority": 100,
+            "trigger": "after_confront",
+            "conditions": {
+              "target_character_id_is": "nova_park",
+              "new_broken_lie_ids_any": [
+                "lie_nova_no_delivery"
+              ]
+            },
+            "action": {
+              "type": "change_stance",
+              "stance": "cooperative",
+              "stress_delta": -1
+            },
+            "visible_event": "Nova stops deflecting and starts answering like a lab technician instead of a suspect."
+          }
+        ]
+      }
+    }
+  ],
+  "scenes": [
+    {
+      "scene_id": "scene_atrium",
+      "title": "Atrium Display",
+      "description": "The prototype pedestal, guest lane, and banner rig are still in place.",
+      "initially_unlocked": true,
+      "unlock_condition": "available at start",
+      "evidence_ids": [
+        "evidence_guest_log",
+        "evidence_red_fiber",
+        "evidence_broken_banner_clip"
+      ],
+      "npc_ids": [
+        "arden_kai",
+        "liam_chen"
+      ],
+      "entry_condition": {},
+      "exit_condition": {
+        "searched_scene_ids_all": [
+          "scene_atrium"
+        ]
+      },
+      "scene_tags": [
+        "public_area",
+        "red_herring_source"
+      ],
+      "search_result_events": [
+        {
+          "event_id": "scene_atrium_search_reveals_evidence",
+          "event_type": "reveal_clues",
+          "target_ids": [
+            "evidence_guest_log",
+            "evidence_red_fiber",
+            "evidence_broken_banner_clip"
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_security",
+      "title": "Security Office",
+      "description": "Camera monitors and emergency access logs are available.",
+      "initially_unlocked": true,
+      "unlock_condition": "available at start",
+      "evidence_ids": [
+        "evidence_camera_gap",
+        "evidence_manual_override"
+      ],
+      "npc_ids": [
+        "mira_sun"
+      ],
+      "entry_condition": {},
+      "exit_condition": {
+        "searched_scene_ids_all": [
+          "scene_security"
+        ]
+      },
+      "scene_tags": [
+        "logs",
+        "phase_unlock_source"
+      ],
+      "search_result_events": [
+        {
+          "event_id": "scene_security_search_reveals_evidence",
+          "event_type": "reveal_clues",
+          "target_ids": [
+            "evidence_camera_gap",
+            "evidence_manual_override"
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_sample_lab",
+      "title": "Sample Lab",
+      "description": "The demo reagents, storage checklist, and lab assistant's bench are accessible.",
+      "initially_unlocked": true,
+      "unlock_condition": "available at start",
+      "evidence_ids": [
+        "evidence_reagent_inventory",
+        "evidence_missing_sedative"
+      ],
+      "npc_ids": [
+        "nova_park"
+      ],
+      "entry_condition": {},
+      "exit_condition": {
+        "searched_scene_ids_all": [
+          "scene_sample_lab"
+        ]
+      },
+      "scene_tags": [
+        "method_source"
+      ],
+      "search_result_events": [
+        {
+          "event_id": "scene_sample_lab_search_reveals_evidence",
+          "event_type": "reveal_clues",
+          "target_ids": [
+            "evidence_reagent_inventory",
+            "evidence_missing_sedative"
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_rooftop",
+      "title": "Rooftop Service Door",
+      "description": "The emergency stairs connect the atrium to a private service route.",
+      "initially_unlocked": false,
+      "unlock_condition": "unlock after lie_mira_no_gap is broken",
+      "evidence_ids": [
+        "evidence_rooftop_keycard",
+        "evidence_drone_receipt"
+      ],
+      "npc_ids": [],
+      "entry_condition": {
+        "broken_lie_ids_any": [
+          "lie_mira_no_gap",
+          "lie_arden_no_rooftop"
+        ]
+      },
+      "exit_condition": {
+        "searched_scene_ids_all": [
+          "scene_rooftop"
+        ]
+      },
+      "scene_tags": [
+        "route_source",
+        "mislead_source"
+      ],
+      "search_result_events": [
+        {
+          "event_id": "scene_rooftop_search_reveals_evidence",
+          "event_type": "reveal_clues",
+          "target_ids": [
+            "evidence_rooftop_keycard",
+            "evidence_drone_receipt"
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_cold_storage",
+      "title": "Cold Storage Locker",
+      "description": "The prototype coolant locker and transfer case are sealed behind the lab.",
+      "initially_unlocked": false,
+      "unlock_condition": "unlock after phase_confrontation begins",
+      "evidence_ids": [
+        "evidence_cold_box_log",
+        "evidence_prototype_invoice",
+        "evidence_cup_residue"
+      ],
+      "npc_ids": [],
+      "entry_condition": {
+        "broken_lie_ids_any": [
+          "lie_mira_no_gap",
+          "lie_arden_no_rooftop"
+        ]
+      },
+      "exit_condition": {
+        "searched_scene_ids_all": [
+          "scene_cold_storage"
+        ]
+      },
+      "scene_tags": [
+        "motive_source",
+        "method_confirmation"
+      ],
+      "search_result_events": [
+        {
+          "event_id": "scene_cold_storage_search_reveals_evidence",
+          "event_type": "reveal_clues",
+          "target_ids": [
+            "evidence_cold_box_log",
+            "evidence_prototype_invoice",
+            "evidence_cup_residue"
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "evidence_guest_log",
+      "title": "Guest Exit Log",
+      "evidence_type": "document",
+      "content": "The log shows no outsider left or entered during the twenty-minute window.",
+      "scene_id": "scene_atrium",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_atrium",
+      "related_truth_ids": [
+        "truth_no_outside_entry"
+      ],
+      "can_confront_lie_ids": [],
+      "source_scene_id": "scene_atrium",
+      "lifecycle": {
+        "initial_state": "discoverable",
+        "discoverable_when": {},
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_guest_log"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_red_fiber",
+      "title": "Red Fiber Near Pedestal",
+      "evidence_type": "physical",
+      "content": "A red fiber appears to match Liam's scarf at first glance.",
+      "scene_id": "scene_atrium",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_atrium",
+      "related_truth_ids": [],
+      "can_confront_lie_ids": [],
+      "tags": [
+        "red_herring"
+      ],
+      "source_scene_id": "scene_atrium",
+      "lifecycle": {
+        "initial_state": "discoverable",
+        "discoverable_when": {},
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_red_fiber"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_broken_banner_clip",
+      "title": "Broken Banner Clip",
+      "evidence_type": "physical",
+      "content": "The red launch banner has a broken clip with matching fibers.",
+      "scene_id": "scene_atrium",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_atrium",
+      "related_truth_ids": [
+        "truth_red_fiber_mislead"
+      ],
+      "can_confront_lie_ids": [],
+      "source_scene_id": "scene_atrium",
+      "lifecycle": {
+        "initial_state": "discoverable",
+        "discoverable_when": {},
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_broken_banner_clip"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_camera_gap",
+      "title": "Camera Gap",
+      "evidence_type": "digital",
+      "content": "The atrium camera stopped recording from 21:12 to 21:18.",
+      "scene_id": "scene_security",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_security",
+      "related_truth_ids": [],
+      "can_confront_lie_ids": [
+        "lie_mira_no_gap"
+      ],
+      "source_scene_id": "scene_security",
+      "lifecycle": {
+        "initial_state": "discoverable",
+        "discoverable_when": {},
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_camera_gap"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_manual_override",
+      "title": "Manual Door Override",
+      "evidence_type": "digital",
+      "content": "The rooftop service door was opened by a manager-level override during the gap.",
+      "scene_id": "scene_security",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_security",
+      "related_truth_ids": [
+        "truth_manual_override_used"
+      ],
+      "can_confront_lie_ids": [
+        "lie_arden_no_rooftop"
+      ],
+      "source_scene_id": "scene_security",
+      "lifecycle": {
+        "initial_state": "discoverable",
+        "discoverable_when": {},
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_manual_override"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_reagent_inventory",
+      "title": "Reagent Inventory",
+      "evidence_type": "document",
+      "content": "A sedative vial is listed as present before the launch rehearsal.",
+      "scene_id": "scene_sample_lab",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_sample_lab",
+      "related_truth_ids": [],
+      "can_confront_lie_ids": [],
+      "source_scene_id": "scene_sample_lab",
+      "lifecycle": {
+        "initial_state": "discoverable",
+        "discoverable_when": {},
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_reagent_inventory"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_missing_sedative",
+      "title": "Missing Sedative Slot",
+      "evidence_type": "observation",
+      "content": "The sedative slot is empty and signed out under operations authority.",
+      "scene_id": "scene_sample_lab",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_sample_lab",
+      "related_truth_ids": [
+        "truth_method_sedative"
+      ],
+      "can_confront_lie_ids": [],
+      "source_scene_id": "scene_sample_lab",
+      "lifecycle": {
+        "initial_state": "discoverable",
+        "discoverable_when": {},
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_missing_sedative"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_rooftop_keycard",
+      "title": "Rooftop Keycard Trace",
+      "evidence_type": "digital",
+      "content": "Arden's staff card pinged the rooftop reader at 21:14.",
+      "scene_id": "scene_rooftop",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_rooftop",
+      "related_truth_ids": [],
+      "can_confront_lie_ids": [
+        "lie_arden_no_rooftop"
+      ],
+      "source_scene_id": "scene_rooftop",
+      "lifecycle": {
+        "initial_state": "hidden",
+        "discoverable_when": {
+          "unlocked_scene_ids_all": [
+            "scene_rooftop"
+          ]
+        },
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_rooftop_keycard"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_drone_receipt",
+      "title": "Drone Delivery Receipt",
+      "evidence_type": "document",
+      "content": "Nova received a private drone delivery earlier in the evening.",
+      "scene_id": "scene_rooftop",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_rooftop",
+      "related_truth_ids": [],
+      "can_confront_lie_ids": [
+        "lie_nova_no_delivery"
+      ],
+      "tags": [
+        "red_herring"
+      ],
+      "source_scene_id": "scene_rooftop",
+      "lifecycle": {
+        "initial_state": "hidden",
+        "discoverable_when": {
+          "unlocked_scene_ids_all": [
+            "scene_rooftop"
+          ]
+        },
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_drone_receipt"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_cold_box_log",
+      "title": "Cold Box Transfer Log",
+      "evidence_type": "document",
+      "content": "The prototype transfer case was checked out under Arden's operations credentials.",
+      "scene_id": "scene_cold_storage",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_cold_storage",
+      "related_truth_ids": [
+        "truth_motive_data_sale"
+      ],
+      "can_confront_lie_ids": [],
+      "source_scene_id": "scene_cold_storage",
+      "lifecycle": {
+        "initial_state": "hidden",
+        "discoverable_when": {
+          "unlocked_scene_ids_all": [
+            "scene_cold_storage"
+          ]
+        },
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_cold_box_log"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_prototype_invoice",
+      "title": "Prototype Buyer Invoice",
+      "evidence_type": "document",
+      "content": "A shell buyer paid for pre-release prototype access under Arden's alias.",
+      "scene_id": "scene_cold_storage",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_cold_storage",
+      "related_truth_ids": [
+        "truth_motive_data_sale"
+      ],
+      "can_confront_lie_ids": [],
+      "source_scene_id": "scene_cold_storage",
+      "lifecycle": {
+        "initial_state": "hidden",
+        "discoverable_when": {
+          "unlocked_scene_ids_all": [
+            "scene_cold_storage"
+          ]
+        },
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_prototype_invoice"
+          ]
+        },
+        "lock_reason": ""
+      }
+    },
+    {
+      "evidence_id": "evidence_cup_residue",
+      "title": "Glass Residue",
+      "evidence_type": "physical",
+      "content": "Dr. Vale's cup contains the same sedative missing from the lab cabinet.",
+      "scene_id": "scene_cold_storage",
+      "initially_discovered": false,
+      "unlock_condition": "search scene_cold_storage",
+      "related_truth_ids": [
+        "truth_method_sedative"
+      ],
+      "can_confront_lie_ids": [],
+      "source_scene_id": "scene_cold_storage",
+      "lifecycle": {
+        "initial_state": "hidden",
+        "discoverable_when": {
+          "unlocked_scene_ids_all": [
+            "scene_cold_storage"
+          ]
+        },
+        "reveal_when": {
+          "discovered_evidence_ids_all": [
+            "evidence_cup_residue"
+          ]
+        },
+        "lock_reason": ""
+      }
+    }
+  ],
+  "lies": [
+    {
+      "lie_id": "lie_mira_no_gap",
+      "character_id": "mira_sun",
+      "claim": "Mira says the camera feeds were continuous all night.",
+      "truth_id": "truth_camera_gap",
+      "required_evidence_ids": [
+        "evidence_camera_gap"
+      ],
+      "break_result": {
+        "unlocked_truth_ids": [
+          "truth_camera_gap",
+          "truth_mira_left_post"
+        ],
+        "phase_unlock_ids": [
+          "phase_confrontation"
+        ],
+        "attitude_shift": "Mira admits the camera gap and gives access to the locked service areas.",
+        "response_guidance": "Admit leaving the desk for a personal call, but deny contact with Dr. Vale."
+      }
+    },
+    {
+      "lie_id": "lie_arden_no_rooftop",
+      "character_id": "arden_kai",
+      "claim": "Arden says he never used the rooftop service route.",
+      "truth_id": "truth_arden_rooftop_entry",
+      "required_evidence_ids": [
+        "evidence_manual_override",
+        "evidence_rooftop_keycard"
+      ],
+      "break_result": {
+        "unlocked_truth_ids": [
+          "truth_arden_rooftop_entry",
+          "truth_combo_access_route"
+        ],
+        "phase_unlock_ids": [
+          "phase_confrontation"
+        ],
+        "attitude_shift": "Arden becomes guarded and reframes the route as emergency logistics.",
+        "response_guidance": "Concede the route was used, but claim it was for crowd safety."
+      }
+    },
+    {
+      "lie_id": "lie_nova_no_delivery",
+      "character_id": "nova_park",
+      "claim": "Nova says no private delivery arrived before the launch.",
+      "truth_id": "truth_drone_receipt_mislead",
+      "required_evidence_ids": [
+        "evidence_drone_receipt"
+      ],
+      "break_result": {
+        "unlocked_truth_ids": [
+          "truth_drone_receipt_mislead"
+        ],
+        "phase_unlock_ids": [],
+        "attitude_shift": "Nova admits the drone delivered replacement lab gloves, not poison.",
+        "response_guidance": "Admit the delivery but explain it was unrelated lab material."
+      }
+    }
+  ],
+  "truth_model": {
+    "culprit_character_id": "arden_kai",
+    "motive_truth_id": "truth_motive_data_sale",
+    "method_truth_id": "truth_method_sedative",
+    "truth_nodes": [
+      {
+        "truth_id": "truth_no_outside_entry",
+        "truth_type": "fact",
+        "content": "No outsider entered or left during the murder window.",
+        "revealed_by_default": false,
+        "related_character_ids": [],
+        "related_evidence_ids": [
+          "evidence_guest_log"
+        ],
+        "required_clue_ids": [
+          "evidence_guest_log"
+        ],
+        "supporting_character_ids": [],
+        "timeline_refs": [],
+        "unlock_condition": {
+          "discovered_evidence_ids_all": [
+            "evidence_guest_log"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_red_fiber_mislead",
+        "truth_type": "contradiction",
+        "content": "The red fiber came from the launch banner, not Liam's scarf.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "liam_chen"
+        ],
+        "related_evidence_ids": [
+          "evidence_red_fiber",
+          "evidence_broken_banner_clip"
+        ],
+        "required_clue_ids": [
+          "evidence_red_fiber",
+          "evidence_broken_banner_clip"
+        ],
+        "supporting_character_ids": [
+          "liam_chen"
+        ],
+        "timeline_refs": [],
+        "unlock_condition": {
+          "discovered_evidence_ids_all": [
+            "evidence_red_fiber",
+            "evidence_broken_banner_clip"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_camera_gap",
+        "truth_type": "timeline",
+        "content": "A camera gap existed from 21:12 to 21:18.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "mira_sun"
+        ],
+        "related_evidence_ids": [
+          "evidence_camera_gap"
+        ],
+        "required_clue_ids": [
+          "evidence_camera_gap"
+        ],
+        "supporting_character_ids": [
+          "mira_sun"
+        ],
+        "timeline_refs": [
+          "timeline_02"
+        ],
+        "unlock_condition": {
+          "discovered_evidence_ids_all": [
+            "evidence_camera_gap"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_mira_left_post",
+        "truth_type": "alibi",
+        "content": "Mira left the desk but did not enter the atrium or service route.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "mira_sun"
+        ],
+        "related_evidence_ids": [
+          "evidence_camera_gap"
+        ],
+        "required_clue_ids": [
+          "evidence_camera_gap"
+        ],
+        "supporting_character_ids": [
+          "mira_sun"
+        ],
+        "timeline_refs": [
+          "timeline_02"
+        ],
+        "unlock_condition": {
+          "broken_lie_ids_any": [
+            "lie_mira_no_gap"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_manual_override_used",
+        "truth_type": "timeline",
+        "content": "A manager-level override opened the rooftop service door.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "arden_kai"
+        ],
+        "related_evidence_ids": [
+          "evidence_manual_override"
+        ],
+        "required_clue_ids": [
+          "evidence_manual_override"
+        ],
+        "supporting_character_ids": [
+          "arden_kai"
+        ],
+        "timeline_refs": [
+          "timeline_03"
+        ],
+        "unlock_condition": {
+          "discovered_evidence_ids_all": [
+            "evidence_manual_override"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_method_sedative",
+        "truth_type": "method",
+        "content": "Dr. Vale was killed with a sedative taken from the sample lab and placed in his cup.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "arden_kai",
+          "nova_park"
+        ],
+        "related_evidence_ids": [
+          "evidence_missing_sedative",
+          "evidence_cup_residue"
+        ],
+        "required_clue_ids": [
+          "evidence_missing_sedative",
+          "evidence_cup_residue"
+        ],
+        "supporting_character_ids": [
+          "arden_kai",
+          "nova_park"
+        ],
+        "timeline_refs": [
+          "timeline_04"
+        ],
+        "unlock_condition": {
+          "discovered_evidence_ids_all": [
+            "evidence_missing_sedative",
+            "evidence_cup_residue"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_arden_rooftop_entry",
+        "truth_type": "timeline",
+        "content": "Arden used the rooftop service route during the camera gap.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "arden_kai"
+        ],
+        "related_evidence_ids": [
+          "evidence_manual_override",
+          "evidence_rooftop_keycard"
+        ],
+        "required_clue_ids": [
+          "evidence_manual_override",
+          "evidence_rooftop_keycard"
+        ],
+        "supporting_character_ids": [
+          "arden_kai"
+        ],
+        "timeline_refs": [
+          "timeline_03"
+        ],
+        "unlock_condition": {
+          "broken_lie_ids_any": [
+            "lie_arden_no_rooftop"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_combo_access_route",
+        "truth_type": "contradiction",
+        "content": "Only the combination of manager override and Arden's keycard proves Arden had the route and timing.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "arden_kai"
+        ],
+        "related_evidence_ids": [
+          "evidence_manual_override",
+          "evidence_rooftop_keycard"
+        ],
+        "required_clue_ids": [
+          "evidence_manual_override",
+          "evidence_rooftop_keycard"
+        ],
+        "supporting_character_ids": [
+          "arden_kai"
+        ],
+        "timeline_refs": [
+          "timeline_03"
+        ],
+        "unlock_condition": {
+          "discovered_evidence_ids_all": [
+            "evidence_manual_override",
+            "evidence_rooftop_keycard"
+          ],
+          "broken_lie_ids_any": [
+            "lie_arden_no_rooftop"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_motive_data_sale",
+        "truth_type": "motive",
+        "content": "Arden was selling pre-release prototype access and Dr. Vale discovered the transfer.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "arden_kai"
+        ],
+        "related_evidence_ids": [
+          "evidence_cold_box_log",
+          "evidence_prototype_invoice"
+        ],
+        "required_clue_ids": [
+          "evidence_cold_box_log",
+          "evidence_prototype_invoice"
+        ],
+        "supporting_character_ids": [
+          "arden_kai"
+        ],
+        "timeline_refs": [
+          "timeline_01"
+        ],
+        "unlock_condition": {
+          "discovered_evidence_ids_all": [
+            "evidence_cold_box_log",
+            "evidence_prototype_invoice"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_drone_receipt_mislead",
+        "truth_type": "contradiction",
+        "content": "Nova's drone receipt was for lab gloves and is not the poison source.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "nova_park"
+        ],
+        "related_evidence_ids": [
+          "evidence_drone_receipt"
+        ],
+        "required_clue_ids": [
+          "evidence_drone_receipt"
+        ],
+        "supporting_character_ids": [
+          "nova_park"
+        ],
+        "timeline_refs": [],
+        "unlock_condition": {
+          "broken_lie_ids_any": [
+            "lie_nova_no_delivery"
+          ]
+        }
+      },
+      {
+        "truth_id": "truth_culprit_arden",
+        "truth_type": "fact",
+        "content": "Arden Kai is the killer.",
+        "revealed_by_default": false,
+        "related_character_ids": [
+          "arden_kai"
+        ],
+        "related_evidence_ids": [
+          "evidence_manual_override",
+          "evidence_rooftop_keycard",
+          "evidence_cold_box_log",
+          "evidence_prototype_invoice",
+          "evidence_cup_residue"
+        ],
+        "required_clue_ids": [
+          "evidence_manual_override",
+          "evidence_rooftop_keycard",
+          "evidence_cold_box_log",
+          "evidence_prototype_invoice",
+          "evidence_cup_residue"
+        ],
+        "supporting_character_ids": [
+          "arden_kai"
+        ],
+        "timeline_refs": [],
+        "unlock_condition": {
+          "unlocked_truth_ids_all": [
+            "truth_motive_data_sale",
+            "truth_combo_access_route",
+            "truth_method_sedative"
+          ]
+        }
+      }
+    ],
+    "timeline": [
+      {
+        "time_label": "20:55",
+        "event": "Dr. Vale discovers the suspicious prototype access sale.",
+        "truth_ids": [
+          "truth_motive_data_sale"
+        ],
+        "timeline_id": "timeline_01"
+      },
+      {
+        "time_label": "21:12",
+        "event": "Mira leaves the security desk and a camera gap begins.",
+        "truth_ids": [
+          "truth_camera_gap",
+          "truth_mira_left_post"
+        ],
+        "timeline_id": "timeline_02"
+      },
+      {
+        "time_label": "21:14",
+        "event": "Arden uses manager override and keycard access through the rooftop route.",
+        "truth_ids": [
+          "truth_manual_override_used",
+          "truth_arden_rooftop_entry",
+          "truth_combo_access_route"
+        ],
+        "timeline_id": "timeline_03"
+      },
+      {
+        "time_label": "21:17",
+        "event": "Dr. Vale drinks from the sedative-laced cup.",
+        "truth_ids": [
+          "truth_method_sedative"
+        ],
+        "timeline_id": "timeline_04"
+      }
+    ],
+    "evidence_links": [
+      {
+        "link_id": "link_guest_no_outside",
+        "truth_id": "truth_no_outside_entry",
+        "evidence_id": "evidence_guest_log",
+        "strength": "supports",
+        "explanation": "The guest log narrows the suspect pool to insiders."
+      },
+      {
+        "link_id": "link_banner_fiber",
+        "truth_id": "truth_red_fiber_mislead",
+        "evidence_id": "evidence_broken_banner_clip",
+        "strength": "proves",
+        "explanation": "The banner clip explains the red fiber without implicating Liam."
+      },
+      {
+        "link_id": "link_camera_gap",
+        "truth_id": "truth_camera_gap",
+        "evidence_id": "evidence_camera_gap",
+        "strength": "proves",
+        "explanation": "The digital gap proves Mira's first statement is false."
+      },
+      {
+        "link_id": "link_override_route",
+        "truth_id": "truth_combo_access_route",
+        "evidence_id": "evidence_manual_override",
+        "strength": "supports",
+        "explanation": "The override shows the service route was used by manager-level access."
+      },
+      {
+        "link_id": "link_keycard_route",
+        "truth_id": "truth_combo_access_route",
+        "evidence_id": "evidence_rooftop_keycard",
+        "strength": "supports",
+        "explanation": "The keycard trace connects the route to Arden."
+      },
+      {
+        "link_id": "link_sedative_method",
+        "truth_id": "truth_method_sedative",
+        "evidence_id": "evidence_cup_residue",
+        "strength": "proves",
+        "explanation": "The residue proves the method."
+      },
+      {
+        "link_id": "link_invoice_motive",
+        "truth_id": "truth_motive_data_sale",
+        "evidence_id": "evidence_prototype_invoice",
+        "strength": "proves",
+        "explanation": "The invoice proves Arden's profit motive."
+      }
+    ]
+  },
+  "phases": [
+    {
+      "phase_id": "phase_intro",
+      "title": "Intake",
+      "phase_type": "intro",
+      "order": 1,
+      "unlock_condition": "start",
+      "unlocked_scene_ids": [
+        "scene_atrium",
+        "scene_security",
+        "scene_sample_lab"
+      ],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "search",
+        "ask",
+        "status",
+        "hint"
+      ],
+      "entry_condition": {},
+      "exit_condition": {
+        "discovered_evidence_ids_any": [
+          "evidence_guest_log",
+          "evidence_camera_gap",
+          "evidence_reagent_inventory"
+        ]
+      },
+      "mandatory_events": [
+        "phase_intro_status_available"
+      ],
+      "optional_events": []
+    },
+    {
+      "phase_id": "phase_investigation",
+      "title": "Initial Investigation",
+      "phase_type": "investigation",
+      "order": 2,
+      "unlock_condition": "after first search or first ask",
+      "unlocked_scene_ids": [
+        "scene_atrium",
+        "scene_security",
+        "scene_sample_lab"
+      ],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "search",
+        "ask",
+        "inspect",
+        "show_evidence",
+        "status",
+        "hint"
+      ],
+      "entry_condition": {
+        "discovered_evidence_ids_any": [
+          "evidence_guest_log",
+          "evidence_camera_gap",
+          "evidence_reagent_inventory"
+        ]
+      },
+      "exit_condition": {
+        "broken_lie_ids_any": [
+          "lie_mira_no_gap",
+          "lie_arden_no_rooftop"
+        ]
+      },
+      "mandatory_events": [
+        "phase_investigation_status_available"
+      ],
+      "optional_events": []
+    },
+    {
+      "phase_id": "phase_confrontation",
+      "title": "Evidence Confrontation",
+      "phase_type": "confrontation",
+      "order": 3,
+      "unlock_condition": "break lie_mira_no_gap or lie_arden_no_rooftop",
+      "unlocked_scene_ids": [
+        "scene_rooftop",
+        "scene_cold_storage"
+      ],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "search",
+        "ask",
+        "inspect",
+        "show_evidence",
+        "status",
+        "hint",
+        "accuse"
+      ],
+      "entry_condition": {
+        "broken_lie_ids_any": [
+          "lie_mira_no_gap",
+          "lie_arden_no_rooftop"
+        ]
+      },
+      "exit_condition": {
+        "accusation_submitted": true
+      },
+      "mandatory_events": [
+        "phase_confrontation_status_available"
+      ],
+      "optional_events": []
+    },
+    {
+      "phase_id": "phase_accusation",
+      "title": "Final Accusation",
+      "phase_type": "accusation",
+      "order": 4,
+      "unlock_condition": "player chooses accuse",
+      "unlocked_scene_ids": [],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "accuse",
+        "status"
+      ],
+      "entry_condition": {
+        "unlocked_truth_ids_any": [
+          "truth_combo_access_route",
+          "truth_motive_data_sale"
+        ]
+      },
+      "exit_condition": {
+        "accusation_submitted": true
+      },
+      "mandatory_events": [
+        "phase_accusation_status_available"
+      ],
+      "optional_events": []
+    },
+    {
+      "phase_id": "phase_recap",
+      "title": "Recap",
+      "phase_type": "recap",
+      "order": 5,
+      "unlock_condition": "after accusation scoring",
+      "unlocked_scene_ids": [],
+      "unlocked_evidence_ids": [],
+      "allowed_actions": [
+        "review",
+        "status"
+      ],
+      "entry_condition": {
+        "game_over": true
+      },
+      "exit_condition": {
+        "manual": true
+      },
+      "mandatory_events": [
+        "phase_recap_status_available"
+      ],
+      "optional_events": []
+    }
+  ],
+  "mechanics": {
+    "starting_phase_id": "phase_intro",
+    "max_hint_level": 3,
+    "commands": {
+      "ask": "/ask [npc] [question]",
+      "search": "/search [scene]",
+      "inspect": "/inspect [evidence]",
+      "show_evidence": "/show [evidence]",
+      "accuse": "/accuse [suspect_id]",
+      "status": "/status",
+      "hint": "/hint"
+    }
+  },
+  "accusation_rules": {
+    "required_fields": [
+      "culprit",
+      "motive",
+      "method",
+      "evidence_chain"
+    ],
+    "score_thresholds": {
+      "perfect": 10,
+      "pass": 7
+    },
+    "scoring_items": [
+      {
+        "score_id": "score_culprit",
+        "field_id": "culprit",
+        "prompt": "Identify Arden Kai as the culprit.",
+        "expected_character_id": "arden_kai",
+        "expected_truth_ids": [
+          "truth_culprit_arden"
+        ],
+        "expected_evidence_ids": [],
+        "expected_lie_ids": [],
+        "points": 3
+      },
+      {
+        "score_id": "score_motive",
+        "field_id": "motive",
+        "prompt": "Explain the prototype data sale motive.",
+        "expected_character_id": null,
+        "expected_truth_ids": [
+          "truth_motive_data_sale"
+        ],
+        "expected_evidence_ids": [
+          "evidence_cold_box_log",
+          "evidence_prototype_invoice"
+        ],
+        "expected_lie_ids": [],
+        "points": 2
+      },
+      {
+        "score_id": "score_method",
+        "field_id": "method",
+        "prompt": "Explain the sedative method.",
+        "expected_character_id": null,
+        "expected_truth_ids": [
+          "truth_method_sedative"
+        ],
+        "expected_evidence_ids": [
+          "evidence_missing_sedative",
+          "evidence_cup_residue"
+        ],
+        "expected_lie_ids": [],
+        "points": 2
+      },
+      {
+        "score_id": "score_chain",
+        "field_id": "evidence_chain",
+        "prompt": "Connect motive, route, timing, and sedative evidence.",
+        "expected_character_id": null,
+        "expected_truth_ids": [
+          "truth_motive_data_sale",
+          "truth_combo_access_route",
+          "truth_method_sedative"
+        ],
+        "expected_evidence_ids": [
+          "evidence_manual_override",
+          "evidence_rooftop_keycard",
+          "evidence_prototype_invoice",
+          "evidence_cup_residue"
+        ],
+        "expected_lie_ids": [
+          "lie_arden_no_rooftop"
+        ],
+        "points": 3
+      }
+    ]
+  },
+  "recap": {
+    "truth_summary": "Arden Kai killed Dr. Vale after Vale discovered Arden's prototype access sale. Arden used the camera gap, manager override, and rooftop route, then used a stolen sedative in Vale's cup.",
+    "timeline_summary": "20:55 motive discovered; 21:12 camera gap; 21:14 Arden uses service route; 21:17 Vale drinks sedative.",
+    "missed_content_templates": [
+      "Undiscovered evidence: {evidence_title}.",
+      "Unbroken lie: {lie_claim}.",
+      "Missing truth: {truth_content}."
+    ]
+  },
+  "ending_rules": {
+    "required_fields": [
+      "culprit",
+      "motive",
+      "method",
+      "evidence_chain"
+    ],
+    "score_thresholds": {
+      "perfect": 10,
+      "pass": 7
+    },
+    "scoring_items": [
+      {
+        "score_id": "score_culprit",
+        "field_id": "culprit",
+        "prompt": "Identify Arden Kai as the culprit.",
+        "expected_character_id": "arden_kai",
+        "expected_truth_ids": [
+          "truth_culprit_arden"
+        ],
+        "expected_evidence_ids": [],
+        "expected_lie_ids": [],
+        "points": 3
+      },
+      {
+        "score_id": "score_motive",
+        "field_id": "motive",
+        "prompt": "Explain the prototype data sale motive.",
+        "expected_character_id": null,
+        "expected_truth_ids": [
+          "truth_motive_data_sale"
+        ],
+        "expected_evidence_ids": [
+          "evidence_cold_box_log",
+          "evidence_prototype_invoice"
+        ],
+        "expected_lie_ids": [],
+        "points": 2
+      },
+      {
+        "score_id": "score_method",
+        "field_id": "method",
+        "prompt": "Explain the sedative method.",
+        "expected_character_id": null,
+        "expected_truth_ids": [
+          "truth_method_sedative"
+        ],
+        "expected_evidence_ids": [
+          "evidence_missing_sedative",
+          "evidence_cup_residue"
+        ],
+        "expected_lie_ids": [],
+        "points": 2
+      },
+      {
+        "score_id": "score_chain",
+        "field_id": "evidence_chain",
+        "prompt": "Connect motive, route, timing, and sedative evidence.",
+        "expected_character_id": null,
+        "expected_truth_ids": [
+          "truth_motive_data_sale",
+          "truth_combo_access_route",
+          "truth_method_sedative"
+        ],
+        "expected_evidence_ids": [
+          "evidence_manual_override",
+          "evidence_rooftop_keycard",
+          "evidence_prototype_invoice",
+          "evidence_cup_residue"
+        ],
+        "expected_lie_ids": [
+          "lie_arden_no_rooftop"
+        ],
+        "points": 3
+      }
+    ]
+  },
+  "game_state_spec": {
+    "snapshot_fields": [
+      "current_phase_id",
+      "unlocked_scene_ids",
+      "searched_scene_ids",
+      "discovered_evidence_ids",
+      "shown_evidence_ids",
+      "clue_state_by_id",
+      "unlocked_truth_ids",
+      "broken_lie_ids",
+      "action_history",
+      "npc_runtime_state",
+      "npc_action_history",
+      "accusation_history",
+      "last_action_result"
+    ],
+    "note": "Dynamic state is produced by DetectiveGameEngine.get_progress_snapshot(), not authored in static schema."
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.ai-dm/schemas/game_schema_v0_3.schema.json",
+  "title": "GameSchema v0.3",
+  "description": "Minimal static schema for a single-player AI detective runtime. Deep project-specific validation lives in game_schema_v0_3.py.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "game_info",
+    "source_info",
+    "review",
+    "public_case",
+    "npc_characters",
+    "scenes",
+    "evidence",
+    "lies",
+    "truth_model",
+    "phases",
+    "mechanics",
+    "accusation_rules",
+    "ending_rules",
+    "recap"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "game_schema_v0.3"
+    },
+    "game_info": {
+      "type": "object"
+    },
+    "source_info": {
+      "type": "object"
+    },
+    "review": {
+      "type": "object",
+      "required": [
+        "status",
+        "missing_fields",
+        "logic_warnings",
+        "spoiler_risks",
+        "manual_checklist",
+        "source_traces",
+        "author_questions"
+      ],
+      "properties": {
+        "author_questions": {
+          "type": "array",
+          "description": "Friendly author-facing questions generated only when NPC personality or character setup is too thin.",
+          "items": {
+            "type": "object",
+            "required": [
+              "question_id",
+              "target_type",
+              "target_id",
+              "topic",
+              "question",
+              "why",
+              "blocking"
+            ],
+            "properties": {
+              "question_id": {
+                "type": "string"
+              },
+              "target_type": {
+                "const": "npc_character"
+              },
+              "target_id": {
+                "type": "string"
+              },
+              "topic": {
+                "enum": [
+                  "public_identity",
+                  "private_pressure",
+                  "voice_and_attitude",
+                  "knowledge_boundary",
+                  "behavior_goal"
+                ]
+              },
+              "question": {
+                "type": "string"
+              },
+              "why": {
+                "type": "string"
+              },
+              "blocking": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "public_case": {
+      "type": "object"
+    },
+    "npc_characters": {
+      "type": "array"
+    },
+    "scenes": {
+      "type": "array"
+    },
+    "evidence": {
+      "type": "array"
+    },
+    "lies": {
+      "type": "array"
+    },
+    "truth_model": {
+      "type": "object"
+    },
+    "phases": {
+      "type": "array"
+    },
+    "mechanics": {
+      "type": "object"
+    },
+    "accusation_rules": {
+      "type": "object"
+    },
+    "ending_rules": {
+      "type": "object"
+    },
+    "recap": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
